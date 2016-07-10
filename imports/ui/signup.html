@@ -1,0 +1,22 @@
+<template name="signupPage">
+    <div class="container">
+        <header>
+            {{> navbar homeActive=false downloadActive=False}}
+        </header>
+        <div class="row">
+            <div class="col-md-6 col-centered">
+                <h2>Create an account.</h2>
+                {{> conditionalAlertErr text=alertErr}}
+                <form class="signup-form">
+                    <label for="registerUsername">Username</label>
+                    <input class="form-control" type="text" id="registerUsername" name="registerUsername">
+                    <label for="registerEmail">Email</label>
+                    <input class="form-control" type="email" id="registerEmail" name="registerEmail">
+                    <label for="registerPassword">Password</label>
+                    <input class="form-control" type="password" id="registerPassword" name="registerPassword">
+                    <button class="btn btn-primary pull-right signup-button">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,74 @@
+<template name="app">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    </head>
+
+    {{> Template.dynamic template=page}}
+</template>
+
+<template name="navbar">
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="/">apricity os</a>
+        <ul class="nav navbar-nav">
+            {{#if currentUser}}
+                {{> navitem active=dashActive link="/dash" text="dash"}}
+            {{else}}
+                {{> navitem active=homeActive link="/" text="home"}}
+            {{/if}}
+            {{> navitem active=downloadActive link="/download" text="download"}}
+        </ul>
+        {{#if currentUser}}
+            <form class="form-inline pull-right">
+                {{> account}}
+            </form>
+        {{else}}
+            <form class="form-inline pull-right">
+                {{> login}}
+                {{> signup}}
+            </form>
+        {{/if}}
+    </nav>
+</template>
+
+<template name="login">
+    <a href="/login" role="button" class="btn btn-primary-outline">Login</a>
+</template>
+
+<template name="signup">
+    <a href="/signup" role="button" class="btn btn-primary">Sign Up</a>
+</template>
+
+<template name="account">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{currentUser.username}}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/my-configs">My configs</a>
+            <a class="dropdown-item" href="/account">Account</a>
+            <a class="dropdown-item" href="/signout">Sign out</a>
+        </div>
+    </div>
+</template>
+
+<template name="navitem">
+    <li class="nav-item {{#if active}}active{{/if}}">
+        <a class="nav-link" href="{{link}}">{{text}}</a>
+    </li>
+</template>
+
+<template name="conditionalAlertErr">
+    {{#if text}}
+        <div class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> {{text}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="conditionalAlertSucc">
+    {{#if text}}
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> {{text}}
+        </div>
+    {{/if}}
+</template>

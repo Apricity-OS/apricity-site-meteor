@@ -1,0 +1,40 @@
+<template name="homePage">
+    <div class="home-background-1">
+        <div class="container home-page">
+            <header>
+                {{> navbar homeActive=true downloadActive=false}}
+            </header>
+            <div class="row">
+                <div class="col-lg-7 col-centered home-intro-head">
+                    <h1 class="intro-header">Apricity OS</h1>
+                    <h5 class="intro-tagline">{{tagline}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="/assets/img/apricity-laptop.png" class="img-responsive apricity-laptop">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-background-2">
+        <div class="container home-page">
+            <div class="row">
+                <div class="col-lg-7 col-centered text-center what-is-head">
+                    <h1 class="what-is-header">What is Apricity OS?</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-centered">
+                    <p class="intro-text">{{homeIntro}}</p>
+                    <div class="text-center">
+                        <a class="btn btn-primary btn-lg" href="download" role="button">
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</template>

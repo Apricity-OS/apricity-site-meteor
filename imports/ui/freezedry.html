@@ -1,0 +1,24 @@
+<template name="freezedry">
+    <div class="card freezedry">
+        <img class="card-img-top img-responsive" src="{{config.screenshot}}" alt="Config screenshot">
+        <div class="card-block">
+            <h4 class="card-title"><a class="config-heading" href="/config/{{config.name}}">{{config.fullName}}</a></h4>
+            <p class="card-text">{{config.description}}</p>
+            <a class="card-text" href="/user/{{config.username}}">
+                <p class="text-muted">{{config.username}}</p>
+            </a>
+            <pre>{{toml}}</pre>
+        </div>
+        <div class="card-footer">
+            {{#if config.public}}
+                <button type="button" class="btn btn-secondary">Upvote</button>
+            {{else}}
+                <button type="button" class="btn btn-primary">Make Public</button>
+            {{/if}}
+            <div class="btn-group pull-right" role="group">
+                <button type="button" class="btn btn-secondary">Download</button>
+                <button type="button" class="btn btn-secondary">Build</button>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,152 @@
+img.apricity-laptop {
+    margin-bottom: 30px;
+}
+
+.home-background-1 {
+    // background-color: #0088ff;
+}
+
+.home-intro-head {
+    text-align: center;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.navbar {
+    margin-bottom: 50px;
+}
+
+.home-intro-head {
+    margin-bottom: 50px;
+}
+
+h1.intro-header {
+    font-size: 50pt;
+}
+
+.footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    background-color: #273040;
+}
+
+.footer p {
+    color: #ffffff;
+    margin-top: 0px;
+}
+
+.footer .footer-category {
+    text-decoration: underline;
+}
+
+.footer a {
+    color: #ffffff;
+}
+
+.footer a:hover {
+    color: #0088ff;
+}
+
+.footer hr {
+    height: 2px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+
+.what-is-head {
+    margin-top: 20px;
+}
+
+.signup-form {
+    margin-top: 50px;
+}
+
+.signup-form input {
+    margin-bottom: 20px;
+}
+
+.account-form input {
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    margin-bottom: 20px;
+}
+
+.change-password {
+    margin-top: 10px;
+}
+
+$config-heading-color: #333333;
+
+.config-heading, .config-heading:visited, .config-heading:hover, .config-heading:active{
+    color: $config-heading-color;
+}
+
+.navbar {
+    padding-right: 0px;
+}
+
+.create-config-form p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.create-new-config {
+    margin-bottom: 10px;
+}
+
+fieldset.package-form button {
+    margin-top: 10px;
+}
+
+fieldset.systemd-form button {
+    margin-top: 10px;
+}
+
+.set-settings input, .set-settings textarea {
+    margin-bottom: 10px;
+}
+
+.remove-btn, .remove-btn:active, .remove-btn:hover, .remove-btn:visited {
+    margin-top: 0px;
+    padding-top: 2px;
+    color: #333333;
+    border: 0px solid transparent;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.zshrc {
+    height: 200px;
+}
+
+.file {
+    margin-bottom: 20px;
+}
+
+.code-label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.file-tabs {
+    margin-bottom: 10px;
+}
+
+.create-config-form h5 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.create-config-btn {
+    margin-top: 15px;
+}
+
+.freezedry {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

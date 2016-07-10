@@ -1,0 +1,28 @@
+<template name="accountPage">
+    <div class="container">
+        <header>
+            {{> navbar dashActive=false downloadActive=False}}
+        </header>
+        <div class="row">
+            <div class="col-md-6 col-centered account-form">
+                <h2>Account settings.</h2>
+                <fieldset disabled>
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" id="username" placeholder={{currentUser.username}}>
+                    <label for="email">Email</label>
+                    <input class="form-control" type="email" id="email" placeholder={{currentUser.emails.[0].address}}>
+                </fieldset>
+                <h4 class="change-password">Change your password.</h4>
+                {{> conditionalAlertSucc text=alertSucc}}
+                {{> conditionalAlertErr text=alertErr}}
+                <form class="change-password">
+                    <label for="currentPassword">Current password</label>
+                    <input class="form-control" type="password" id="currentPassword" name="currentPassword">
+                    <label for="newPassword">New password</label>
+                    <input class="form-control" type="password" id="newPassword" name="newPassword">
+                    <button class="btn btn-primary pull-right change-button">Change password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
