@@ -20,6 +20,10 @@ import './create.html';
 import './create.js';
 import './my-configs.html';
 import './my-configs.js';
+import './user-configs.html';
+import './user-configs.js';
+import './specificconfig.html';
+import './specificconfig.js';
 import './freezedry.html';
 import './freezedry.js';
 

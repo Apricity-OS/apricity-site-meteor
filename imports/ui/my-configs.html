@@ -14,10 +14,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                {{#each config in configs}}
-                    {{> freezedry config=config}}
-                {{/each}}
+            <div class="col-md-8 col-centered">
+                {{#unless configs.length}}
+                    {{#each config in configs}}
+                        {{> freezedry config=config}}
+                    {{/each}}
+                {{else}}
+                    <h5>There doesn't seem to be anything here.</h5>
+                    <p>That's all we know.</p>
+                {{/unless}}
             </div>
         </div>
     </div>

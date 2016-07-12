@@ -2,22 +2,50 @@
     <div class="card freezedry">
         <img class="card-img-top img-responsive" src="{{config.screenshot}}" alt="Config screenshot">
         <div class="card-block">
-            <h4 class="card-title"><a class="config-heading" href="/config/{{config.name}}">{{config.fullName}}</a></h4>
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="card-title"><a class="config-heading" href="/user/{{config.username}}/config/{{config.name}}">{{config.fullName}}</a></h4>
+                </div>
+                <div class="col-md-3 pull-right">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">More</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
+                            <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="card-text text-muted" href="/user/{{config.username}}">{{config.username}}</a>
+                <!-- <label class="text-muted">{{config.username}}</label> -->
+            <!-- </a> -->
             <p class="card-text">{{config.description}}</p>
-            <a class="card-text" href="/user/{{config.username}}">
-                <p class="text-muted">{{config.username}}</p>
-            </a>
             <pre>{{toml}}</pre>
         </div>
         <div class="card-footer">
-            {{#if config.public}}
-                <button type="button" class="btn btn-secondary">Upvote</button>
-            {{else}}
-                <button type="button" class="btn btn-primary">Make Public</button>
-            {{/if}}
-            <div class="btn-group pull-right" role="group">
-                <button type="button" class="btn btn-secondary">Download</button>
-                <button type="button" class="btn btn-secondary">Build</button>
+            <div class="row freezedry-footer">
+                <div class="col-md-5">
+                    <div class="btn-group" role="group">
+                        {{#if toUpvote}}
+                            <button type="button" class="btn btn-primary upvote">Upvote ({{numVotes}})</button>
+                        {{/if}}
+                        {{#if toUnVote}}
+                            <button type="button" class="btn btn-secondary un-vote">Un-Vote ({{numVotes}})</button>
+                        {{/if}}
+                        {{#if toMakePublic}}
+                            <button type="button" class="btn btn-primary make-public">Make Public</button>
+                        {{/if}}
+                        {{#if toMakePrivate}}
+                            <button type="button" class="btn btn-secondary make-private">Make Private</button>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="col-md-5 pull-right">
+                    <div class="btn-group pull-right" role="group">
+                        <button type="button" class="btn btn-secondary">Download</button>
+                        <button type="button" class="btn btn-secondary">Get ISO</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

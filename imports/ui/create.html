@@ -4,162 +4,208 @@
             {{> navbar dashActive=false downloadActive=false}}
         </header>
         <h2 id="create-form-head">Create a new freezedry configuration.</h2>
-        <div class="row">
-            <div class="col-md-8 create-config-form">
-                {{> conditionalAlertErr text=alertErr}}
-                <form class="package-form" id="package-form">
-                    <fieldset class="form-group package-form">
-                        {{> conditionalAlertErr text=pacmanErr}}
-                        <h5>Packages</h5>
-                        <input type="text" class="form-control" name="packageName" placeholder="package-name">
-                        <button type="submit" class="btn btn-primary package-add-btn">Add package</button>
-                        <button type="button" class="btn btn-danger package-reset-btn">Reset</button>
-                        <button type="button" class="btn btn-danger package-clear-btn">Clear all</button>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <ul class="list-group">
-                            {{#each package in pacman.packages}}
-                                {{> packageLI package=package config=config}}
-                            {{/each}}
-                        </ul>
-                    </fieldset>
-                </form>
-                <form class="systemd-form" id="systemd-form">
-                    <fieldset class="form-group package-form">
-                        {{> conditionalAlertErr text=systemdErr}}
-                        <h5>Systemd Services</h5>
-                        <input type="text" class="form-control" name="serviceName" placeholder="service-name.service">
-                        <button type="submit" class="btn btn-primary service-add-btn">Add service</button>
-                        <button type="button" class="btn btn-danger service-reset-btn">Reset</button>
-                        <button type="button" class="btn btn-danger service-clear-btn">Clear all</button>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <ul class="list-group">
-                            {{#each service in systemd.services}}
-                                {{> serviceLI service=service config=config}}
-                            {{/each}}
-                        </ul>
-                    </fieldset>
-                </form>
-                <form class="set-settings">
-                    <fieldset class="form-group">
-                        <h5>Desktop Environment</h5>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-secondary {{#if gnomeTab}}active{{/if}}">
-                                <input type="radio" name="gnome" class="gnome" autocomplete="off" {{checkedIf gnomeTab}}>Gnome
-                            </label>
-                            <label class="btn btn-secondary disabled">
-                                <input type="radio" name="cinnamon" class="cinnamon" autocomplete="off">Cinnamon (coming soon)
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        {{#if gnomeTab}}
-                            <label for="gtkTheme">GTK Theme</label>
-                            <input type="text" class="form-control" name="gtkTheme" id="gtkTheme" value="{{gnome.gtk_theme}}">
-                            <label for="shellTheme">Shell Theme</label>
-                            <input type="text" class="form-control" name="shellTheme" id="shellTheme" value="{{gnome.shell_theme}}">
-                            <label for="iconTheme">Icon Theme</label>
-                            <input type="text" class="form-control" name="iconTheme" id="iconTheme" value="{{gnome.icon_theme}}">
-                            <h5>Wallpaper</h5>
-                            <ul class="nav nav-tabs file-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link uploadWallpaper {{#if uploadWallpaperTab}}active{{/if}}" href="">Upload a file</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link pasteWallpaper {{#if pasteWallpaperTab}}active{{/if}}" href="">Paste a uri</a>
-                                </li>
+        {{#if baseConfig}}
+            <div class="row">
+                <div class="col-md-8 create-config-form">
+                    {{> conditionalAlertErr text=alertErr}}
+                    <form class="package-form" id="package-form">
+                        <fieldset class="form-group package-form">
+                            {{> conditionalAlertErr text=pacmanErr}}
+                            <h5>Packages</h5>
+                            <input type="text" class="form-control" name="packageName" placeholder="package-name">
+                            <button type="submit" class="btn btn-primary package-add-btn">Add package</button>
+                            <button type="button" class="btn btn-danger package-reset-btn">Reset</button>
+                            <button type="button" class="btn btn-danger package-clear-btn">Clear all</button>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <ul class="list-group">
+                                {{#each package in pacman.packages}}
+                                    {{> packageLI package=package config=config}}
+                                {{/each}}
                             </ul>
-                            {{#if uploadWallpaperTab}}
-                                <label for="uploadWallpaperInput">Upload a wallpaper</label>
-                                <br>
-                                <label class="btn btn-default btn-secondary">
-                                    {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;">
-                                </label>
-                            {{/if}}
-                            {{#if pasteWallpaperTab}}
-                                <label for="pasteWallpaperInput">Wallpaper uri</label>
-                                <input type="text" class="form-control" name="pasteWallpaperInput" id="pasteWallpaperInput" value="{{gnome.wallpaper}}">
-                            {{/if}}
-                            <h5>Lock screen background</h5>
-                            <ul class="nav nav-tabs file-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link uploadLock {{#if uploadLockTab}}active{{/if}}" href="">Upload a file</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link pasteLock {{#if pasteLockTab}}active{{/if}}" href="">Paste a uri</a>
-                                </li>
+                        </fieldset>
+                    </form>
+                    <form class="systemd-form" id="systemd-form">
+                        <fieldset class="form-group package-form">
+                            {{> conditionalAlertErr text=systemdErr}}
+                            <h5>Systemd Services</h5>
+                            <input type="text" class="form-control" name="serviceName" placeholder="service-name.service">
+                            <button type="submit" class="btn btn-primary service-add-btn">Add service</button>
+                            <button type="button" class="btn btn-danger service-reset-btn">Reset</button>
+                            <button type="button" class="btn btn-danger service-clear-btn">Clear all</button>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <ul class="list-group">
+                                {{#each service in systemd.services}}
+                                    {{> serviceLI service=service config=config}}
+                                {{/each}}
                             </ul>
-                            {{#if uploadLockTab}}
-                                <label for="uploadLockInput">Upload a lock screen background</label>
-                                <br>
-                                <label class="btn btn-default btn-secondary">
-                                    {{uploadLockText}} <input type="file" class="uploadLockInput" name="uploadLockInput" accept="image/*" style="display: none;">
-                                </label>
-                            {{/if}}
-                            {{#if pasteLockTab}}
-                                <label for="pasteLockInput">Lock background uri</label>
-                                <input type="text" class="form-control" name="pasteLockInput" id="pasteLockInput" value="{{gnome.lock_background}}">
-                            {{/if}}
-                            <label for="gtkButtonLayout">GTK Button Layout</label>
-                            <input type="text" class="form-control" name="gtkButtonLayout" id="gtkButtonLayout" value="{{gnome.gtk_button_layout}}">
+                        </fieldset>
+                    </form>
+                    <form class="set-settings">
+                        <fieldset class="form-group">
+                            <h5>Desktop Environment</h5>
                             <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-secondary">
-                                    <input type="checkbox" autocomplete="off" id="dynamicWorkspaces" name="dynamicWorkspaces" {{checkedIf gnome.dynamic_workspaces}}>Dynamic Workspaces
+                                <label class="btn btn-secondary {{#if gnomeTab}}active{{/if}}">
+                                    <input type="radio" name="gnome" class="gnome" autocomplete="off" {{checkedIf gnomeTab}}>Gnome
+                                </label>
+                                <label class="btn btn-secondary disabled">
+                                    <input type="radio" name="cinnamon" class="cinnamon" autocomplete="off">Cinnamon (coming soon)
                                 </label>
                             </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{#if gnomeTab}}
+                                <label for="gtkTheme">GTK Theme</label>
+                                <input type="text" class="form-control" name="gtkTheme" id="gtkTheme" value="{{gnome.gtk_theme}}">
+                                <label for="shellTheme">Shell Theme</label>
+                                <input type="text" class="form-control" name="shellTheme" id="shellTheme" value="{{gnome.shell_theme}}">
+                                <label for="iconTheme">Icon Theme</label>
+                                <input type="text" class="form-control" name="iconTheme" id="iconTheme" value="{{gnome.icon_theme}}">
+                                <h5>Wallpaper</h5>
+                                <ul class="nav nav-tabs file-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link uploadWallpaper {{#if uploadWallpaperTab}}active{{/if}}" href="">Upload a file</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link pasteWallpaper {{#if pasteWallpaperTab}}active{{/if}}" href="">Paste a uri</a>
+                                    </li>
+                                </ul>
+                                {{#if uploadWallpaperTab}}
+                                    <label for="uploadWallpaperInput">Upload a wallpaper</label>
+                                    {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
+                                    <!-- <label class="btn btn-default btn-secondary"> -->
+                                    <!--     {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                                    <!-- </label> -->
+                                {{/if}}
+                                {{#if pasteWallpaperTab}}
+                                    <label for="pasteWallpaperInput">Wallpaper uri</label>
+                                    <input type="text" class="form-control" name="pasteWallpaperInput" id="pasteWallpaperInput" value="{{gnome.wallpaper}}">
+                                {{/if}}
+                                <h5>Lock screen background</h5>
+                                <ul class="nav nav-tabs file-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link uploadLock {{#if uploadLockTab}}active{{/if}}" href="">Upload a file</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link pasteLock {{#if pasteLockTab}}active{{/if}}" href="">Paste a uri</a>
+                                    </li>
+                                </ul>
+                                {{#if uploadLockTab}}
+                                    <label for="uploadLockInput">Upload a lock screen background</label>
+                                    {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=lockCallbacks}}
+                                    <!-- <label class="btn btn-default btn-secondary"> -->
+                                    <!--     {{uploadLockText}} <input type="file" class="uploadLockInput" name="uploadLockInput" accept="image/*" style="display: none;"> -->
+                                    <!-- </label> -->
+                                {{/if}}
+                                {{#if pasteLockTab}}
+                                    <label for="pasteLockInput">Lock background uri</label>
+                                    <input type="text" class="form-control" name="pasteLockInput" id="pasteLockInput" value="{{gnome.lock_background}}">
+                                {{/if}}
+                                <label for="gtkButtonLayout">GTK Button Layout</label>
+                                <input type="text" class="form-control" name="gtkButtonLayout" id="gtkButtonLayout" value="{{gnome.gtk_button_layout}}">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" autocomplete="off" id="dynamicWorkspaces" name="dynamicWorkspaces" {{checkedIf gnome.dynamic_workspaces}}>Dynamic Workspaces
+                                    </label>
+                                </div>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-secondary active">
+                                        <input type="checkbox" autocomplete="off" id="desktopIcons" name="desktopIcons {{checkedIf gnome.desktop_icons}}">Desktop Icons
+                                    </label>
+                                </div>
+                            {{/if}}
+                        </fieldset>
+                    </form>
+                    {{#if gnomeTab}}
+                        <form class="favorite-apps-form" id="favorite-apps-form">
+                            <fieldset class="form-group app-form">
+                                {{> conditionalAlertErr text=appErr}}
+                                <h5>Favorite Apps</h5>
+                                <input type="text" class="form-control" name="appName" placeholder="appname.desktop">
+                                <button type="submit" class="btn btn-primary app-add-btn">Add app</button>
+                                <button type="button" class="btn btn-danger app-reset-btn">Reset</button>
+                                <button type="button" class="btn btn-danger app-clear-btn">Clear all</button>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <ul class="list-group">
+                                    {{#each app in gnome.favorite_apps}}
+                                        {{> appLI app=app config=config}}
+                                    {{/each}}
+                                </ul>
+                            </fieldset>
+                        </form>
+                        <form class="extensions-form" id="extensions-form">
+                            <fieldset class="form-group extensions-form">
+                                {{> conditionalAlertErr text=extensionErr}}
+                                <h5>Gnome Shell Extensions</h5>
+                                <input type="text" class="form-control" name="extensionName" placeholder="extension-name@developer.domain.tld">
+                                <button type="submit" class="btn btn-primary extension-add-btn">Add app</button>
+                                <button type="button" class="btn btn-danger extension-reset-btn">Reset</button>
+                                <button type="button" class="btn btn-danger extension-clear-btn">Clear all</button>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <ul class="list-group">
+                                    {{#each extension in gnome.extensions}}
+                                        {{> extensionLI extension=extension config=config}}
+                                    {{/each}}
+                                </ul>
+                            </fieldset>
+                        </form>
+                    {{/if}}
+                    <form class="set-settings">
+                        <fieldset class="form-group">
+                            <h5>Display Manager</h5>
                             <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                    <input type="checkbox" autocomplete="off" id="desktopIcons" name="desktopIcons {{checkedIf gnome.desktop_icons}}">Desktop Icons
+                                <label class="btn btn-secondary gdm {{#if gnomeTab}}active{{/if}}">
+                                    <input type="radio" class="gdm" autocomplete="off" {{checkedIf gdmTab}}>GDM
                                 </label>
                             </div>
-                        {{/if}}
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <h5>Display Manager</h5>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-secondary gdm {{#if gnomeTab}}active{{/if}}">
-                                <input type="radio" class="gdm" autocomplete="off" {{checkedIf gdmTab}}>GDM
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <h5>Shell</h5>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-secondary zsh {{#if gnomeTab}}active{{/if}}">
-                                <input type="radio" class="zsh" autocomplete="off" {{checkedIf zshTab}}>Zsh
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        {{#if zshTab}}
-                            <label for="zshrc" class="code-label">Extra .zshrc</label>
-                            {{> CodeMirror id="zshrc" name="zshrc" code=zshrc options=codeMirrorOptions}}
-                        {{/if}}
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <h5>Code</h5>
-                        <label for="rootCode" class="code-label">Miscellaneous root code</label>
-                        {{> CodeMirror id="rootCode" name="rootCode" code=code.root options=codeMirrorOptions}}
-                        <label for="userCode" class="code-label">Miscellaneous user code</label>
-                        {{> CodeMirror id="userCode" name="userCode" code=code.user options=codeMirrorOptions}}
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label for="configName">Configuration name</label>
-                        <input type="text" class="form-control" name="configName" id="configName" placeholder="My Awesome Name!">
-                        <label for="configDesc">Configuration description</label>
-                        <textarea class="form-control" name="configDesc" id="configDesc" placeholder="The best freezedry config ever."></textarea>
-                        <label for="screenshotInput">Upload a screenshot</label>
-                        <br>
-                        <label class="btn btn-default btn-secondary">
-                            {{uploadScreenshotText}} <input type="file" name="screenshotInput" class="screenshotInput" accept="image/*" style="display: none;">
-                        </label>
-                        <br>
-                        <button type="submit" class="btn btn-primary create-config-btn">Create Configuration!</button>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <h5>Shell</h5>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-secondary zsh {{#if gnomeTab}}active{{/if}}">
+                                    <input type="radio" class="zsh" autocomplete="off" {{checkedIf zshTab}}>Zsh
+                                </label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <!-- {{#if zshTab}} -->
+                                <label for="zshrc" class="code-label">Extra .zshrc</label>
+                                <!-- {{constant}} -->
+                                <!-- <div id="zshrc" name="zshrc">{{zshrc}}</div> -->
+                                <!-- {{> mandrill_ace}} -->
+                                <!-- {{/constant}} -->
+                                {{> CodeMirror id="zshrc" name="zshrc" code=zshrc options=codeMirrorOptions}}
+                            <!-- {{/if}} -->
+                            <h5>Code</h5>
+                            <label for="rootCode" class="code-label">Miscellaneous root code</label>
+                            <!-- <div id="rootCode" name="rootCode">{{rootCode}}</div> -->
+                            {{> CodeMirror id="rootCode" name="rootCode" code=rootCode options=codeMirrorOptions}}
+                            <label for="userCode" class="code-label">Miscellaneous user code</label>
+                            <!-- <div id="userCode" name="userCode">{{userCode}}</div> -->
+                            {{> CodeMirror id="userCode" name="userCode" code=userCode options=codeMirrorOptions}}
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="configName">Configuration name</label>
+                            <input type="text" class="form-control" name="configName" id="configName" placeholder="My Awesome Name!">
+                            <label for="configDesc">Configuration description</label>
+                            <textarea class="form-control" name="configDesc" id="configDesc" placeholder="The best freezedry config ever."></textarea>
+                            <label for="screenshotInput">Upload a screenshot</label>
+                            {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=screenshotCallbacks}}
+                            <!-- <label class="btn btn-default btn-secondary"> -->
+                            <!--     {{uploadScreenshotText}} <input type="file" name="screenshotInput" class="screenshotInput" accept="image/*" style="display: none;"> -->
+                            <!-- </label> -->
+                            <button type="submit" class="btn btn-primary create-config-btn">Create Configuration!</button>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
-        </div>
+        {{else}}
+            <h5>The specified base configuration by {{username}} called {{configName}} doesn't seem to exist.</h5>
+            <p>That's all we know.</p>
+        {{/if}}
     </div>
 </template>
 
@@ -173,6 +219,20 @@
 <template name="serviceLI">
     <li class="list-group-item btn-group" role="group">
         {{service}}
+        <button type="button" class="remove-btn pull-right">&times;</button>
+    </li>
+</template>
+
+<template name="appLI">
+    <li class="list-group-item btn-group" role="group">
+        {{app}}
+        <button type="button" class="remove-btn pull-right">&times;</button>
+    </li>
+</template>
+
+<template name="extensionLI">
+    <li class="list-group-item btn-group" role="group">
+        {{extension}}
         <button type="button" class="remove-btn pull-right">&times;</button>
     </li>
 </template>

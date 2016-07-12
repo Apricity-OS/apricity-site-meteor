@@ -4,6 +4,9 @@
         "fullName": "Apricity Gnome",
         "screenshot": "http://apricityos.com/assets/img/Apricity-Screenshots/apricity-laptop-nautilus.jpg",
         "description": "A base config close to what Apricity uses to build monthly Gnome edition snapshots",
+        "username": "apricity",
+        "public": true,
+        "hide": true,
         "config": {
             "pacman": {
                 "packages": [
