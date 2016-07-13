@@ -55,6 +55,41 @@ Meteor.methods({
         });
     },
 
+    'configs.edit'(configId, config, cleanName, fullName, screenshotUrl, description) {
+        check(configId, String);
+        check(fullName, String);
+        check(screenshotUrl, String);
+        check(description, String);
+        check(cleanName, String);
+
+        if (!this.userId) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        Configs.update({_id: configId}, {$set: {
+            config: config,
+            name: cleanName,
+            fullName: fullName,
+            description: description,
+            screenshot: screenshotUrl,
+            public: false,
+            owner: this.userId,
+            username: Meteor.user().username,
+            upvotes: {},
+            numVotes: 0,
+        }});
+    },
+
+    'configs.delete'(configId) {
+        check(configId, String);
+
+        if (!this.userId || this.userId !== Configs.findOne({_id: configId}).owner) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        Configs.remove(configId);
+    },
+
     'configs.upvote'(configId) {
         check(configId, String);
 

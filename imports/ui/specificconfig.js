@@ -11,10 +11,11 @@ Template.specificConfigPage.helpers({
         console.log(Configs.find().fetch());
         console.log(FlowRouter.getParam('username'));
         console.log(FlowRouter.getParam('configName'));
+        console.log(Configs.find().fetch());
         return Configs.findOne({
             username: FlowRouter.getParam('username'),
             name: FlowRouter.getParam('configName'),
-            public: true,
+            $or: [{public: true}, {owner: Meteor.userId()}],
         });
     },
 });

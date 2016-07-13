@@ -15,14 +15,19 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-centered">
-                {{#unless configs.length}}
+                {{#if configs.count}}
                     {{#each config in configs}}
                         {{> freezedry config=config}}
                     {{/each}}
                 {{else}}
-                    <h5>There doesn't seem to be anything here.</h5>
-                    <p>That's all we know.</p>
-                {{/unless}}
+                    {{#if isMe}}
+                        <h5>You don't seem to have any public configurations.</h5>
+                        <p>Add some <a href="/my-configs">here</a>.</p>
+                    {{else}}
+                        <h5>There doesn't seem to be anything here.</h5>
+                        <p>That's all we know.</p>
+                    {{/if}}
+                {{/if}}
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
             {{> navbar dashActive=false downloadActive=false}}
         </header>
         <h2 id="create-form-head">Create a new freezedry configuration.</h2>
-        {{#if baseConfig}}
+        {{#if hasBaseConfig}}
             <div class="row">
                 <div class="col-md-8 create-config-form">
                     {{> conditionalAlertErr text=alertErr}}
@@ -189,15 +189,37 @@
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="configName">Configuration name</label>
-                            <input type="text" class="form-control" name="configName" id="configName" placeholder="My Awesome Name!">
+                            <input type="text" class="form-control" name="configName" id="configName" placeholder="My Awesome Name!" value="{{fullName}}">
                             <label for="configDesc">Configuration description</label>
-                            <textarea class="form-control" name="configDesc" id="configDesc" placeholder="The best freezedry config ever."></textarea>
-                            <label for="screenshotInput">Upload a screenshot</label>
-                            {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=screenshotCallbacks}}
+                            <textarea class="form-control" name="configDesc" id="configDesc" placeholder="The best freezedry config ever." value="{{description}}"></textarea>
+                            <h5>Screenshot</h5>
+                            <ul class="nav nav-tabs file-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link uploadScreenshot {{#if uploadScreenshotTab}}active{{/if}}" href="">Upload a file</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link pasteScreenshot {{#if pasteScreenshotTab}}active{{/if}}" href="">Paste a uri</a>
+                                </li>
+                            </ul>
+                            {{#if uploadScreenshotTab}}
+                                <label for="uploadScreenshotInput">Upload a screenshot</label>
+                                {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=screenshotCallbacks}}
+                                <!-- <label class="btn btn-default btn-secondary"> -->
+                                <!--     {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                                <!-- </label> -->
+                            {{/if}}
+                            {{#if pasteScreenshotTab}}
+                                <label for="pasteScreenshotInput">Screenshot uri</label>
+                                <input type="text" class="form-control" name="pasteScreenshotInput" id="pasteScreenshotInput" value="{{screenshotUrl}}">
+                            {{/if}}
                             <!-- <label class="btn btn-default btn-secondary"> -->
                             <!--     {{uploadScreenshotText}} <input type="file" name="screenshotInput" class="screenshotInput" accept="image/*" style="display: none;"> -->
                             <!-- </label> -->
-                            <button type="submit" class="btn btn-primary create-config-btn">Create Configuration!</button>
+                            {{#if creating}}
+                                <button type="submit" class="btn btn-primary create-config-btn">Create Configuration!</button>
+                            {{else}}
+                                <button type="submit" class="btn btn-primary create-config-btn">Save changes</button>
+                            {{/if}}
                         </fieldset>
                     </form>
                 </div>

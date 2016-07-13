@@ -17,5 +17,8 @@ Template.userConfigsPage.helpers({
     username() {
         return FlowRouter.getParam('username');
     },
+    isMe() {
+        return Meteor.user().username === FlowRouter.getParam('username');
+    },
 });
 

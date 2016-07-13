@@ -2,8 +2,6 @@ import {Template} from 'meteor/templating';
 
 import {Configs} from '../api/configs.js';
 
-import sanitizeFnm from 'sanitize-filename';
-
 Template.createPage.onCreated(function() {
     this.state = new ReactiveDict();
 
@@ -14,50 +12,76 @@ Template.createPage.onCreated(function() {
     this.state.set('uploadLockTab', false);
 
     this.state.set('uploadScreenshotText', 'Choose image');
+    this.state.set('uploadScreenshotTab', false);
 
     this.config = new ReactiveVar({});
 
+    this.hasBaseConfig = new ReactiveVar(false);
     let self = this;
     Meteor.subscribe('configs', {
         onReady() {
             if (FlowRouter.getParam('username') && FlowRouter.getParam('configName')) {
                 if (FlowRouter.current().route.name === 'specificConfigClone') {
-                    self.create = true;
-                    self.baseConfig = () => Configs.findOne({
+                    self.creating = true;
+                    let baseConfig = Configs.findOne({
                         name: FlowRouter.getParam('configName'),
                         username: FlowRouter.getParam('username'),
                     });
+                    self.state.set('screenshotUrl', baseConfig.screenshot);
+                    self.state.set('fullName', baseConfig.fullName);
+                    self.state.set('description', baseConfig.description);
+                    self.baseConfig = () => baseConfig.config;
                     console.log('Cloning')
                     console.log(self.baseConfig());
-                } else if (FlowRouter.current().route.name === 'speceficConfigEdit') {
+                    self.hasBaseConfig.set(true);
+                } else if (FlowRouter.current().route.name === 'specificConfigEdit') {
                     self.edit = true;
-                    self.baseConfig = () => Configs.findOne({
+                    let baseConfig = Configs.findOne({
                         name: FlowRouter.getParam('configName'),
                         username: FlowRouter.getParam('username'),
                     });
+                    self.baseConfigId = baseConfig._id;
+                    self.state.set('screenshotUrl', baseConfig.screenshot);
+                    self.state.set('fullName', baseConfig.fullName);
+                    self.state.set('description', baseConfig.description);
+                    self.baseConfig = () => baseConfig.config;
                     console.log('Editing');
-                    console.log(self.baseConfig());
+                    self.hasBaseConfig.set(true);
+                    self.hasBaseConfig = new ReactiveVar(true);
                 } else {
                     console.log('Not sure');
                 }
             } else {
-                self.create = true;
+                self.creating = true;
                 self.baseConfig = () => Configs.findOne({name: 'apricity-gnome'}).config;
+                console.log(self.baseConfig());
+                self.hasBaseConfig.set(true);
+                console.log('Creating blank');
+                self.state.set('uploadScreenshotTab', true);
             }
 
             self.state.set('gnomeTab', self.baseConfig().gnome ? true : false);
             self.state.set('gdmTab', self.baseConfig().gdm ? true : false);
             self.state.set('zshTab', self.baseConfig().zsh ? true : false);
+
+            self.config.set(self.baseConfig());
         },
     });
 });
 
 Template.createPage.helpers({
+    creating() {
+        return Template.instance().creating;
+    },
+
     uploadWallpaperTab() {
         return Template.instance().state.get('uploadWallpaperTab');
     },
     uploadLockTab() {
         return Template.instance().state.get('uploadLockTab');
+    },
+    uploadScreenshotTab() {
+        return Template.instance().state.get('uploadScreenshotTab');
     },
 
     pasteWallpaperTab() {
@@ -65,6 +89,9 @@ Template.createPage.helpers({
     },
     pasteLockTab() {
         return !Template.instance().state.get('uploadLockTab');
+    },
+    pasteScreenshotTab() {
+        return !Template.instance().state.get('uploadScreenshotTab');
     },
 
     wallpaperCallbacks() {
@@ -102,6 +129,16 @@ Template.createPage.helpers({
         };
     },
 
+    screenshotUrl() {
+        return Template.instance().state.get('screenshotUrl');
+    },
+    fullName() {
+        return Template.instance().state.get('fullName');
+    },
+    description() {
+        return Template.instance().state.get('description');
+    },
+
     alertErr() {
         return Template.instance().state.get('alertErr');
     },
@@ -129,8 +166,8 @@ Template.createPage.helpers({
     config() {
         return Template.instance().config;
     },
-    baseConfig() {
-        return Template.instance().baseConfig();
+    hasBaseConfig() {
+        return Template.instance().hasBaseConfig.get();
     },
     username() {
         return FlowRouter.getParam('username');
@@ -356,6 +393,15 @@ Template.createPage.events({
         }
     },
 
+    'change .configName'(event, instance) {
+        event.preventDefault();
+        instance.state.set('fullName', event.target.value);
+    },
+    'change .description'(event, instance) {
+        event.preventDefault();
+        instance.state.set('description', event.target.value);
+    },
+
     'click .app-clear-btn'(event, instance) {
         event.preventDefault();
         let config = instance.config.get();
@@ -421,6 +467,14 @@ Template.createPage.events({
     'click .pasteLock'(event, instance) {
         event.preventDefault();
         Template.instance().state.set('uploadLockTab', false);
+    },
+    'click .uploadScreenshot'(event, instance) {
+        event.preventDefault();
+        Template.instance().state.set('uploadScreenshotTab', true);
+    },
+    'click .pasteScreenshot'(event, instance) {
+        event.preventDefault();
+        Template.instance().state.set('uploadScreenshotTab', false);
     },
 
     // 'change .uploadWallpaperInput'(event, instance) {
@@ -523,7 +577,13 @@ Template.createPage.events({
             }
         }
 
-        let screenshotUrl = instance.state.get('screenshotUrl');
+        let screenshotUrl = '';
+        if (instance.state.get('uploadScreenshotTab')) {
+            screenshotUrl = instance.state.get('screenshotUrl');
+        } else {
+            screenshotUrl = document.getElementById('pasteScreenshotInput').value;
+        }
+        // let screenshotUrl = instance.state.get('screenshotUrl');
         console.log(screenshotUrl);
         if (!screenshotUrl) {
             screenshotUrl = '/assets/img/no-screenshot.png';
@@ -540,16 +600,18 @@ Template.createPage.events({
 
         if (!target.configName.value) {
             Template.instance().state.set('alertErr', 'Please enter a name for this configuration');
-            FlowRouter.go('/create/' + Template.instance().baseName + '#create-form-head');
+            FlowRouter.go(FlowRouter.current().path + '#create-form-head');
             return;
         }
 
         let fullName = target.configName.value;
         let cleanName = fullName.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-        if (Configs.findOne({owner: Meteor.userId(), name: cleanName})) {
-            Template.instance().state.set('alertErr', 'You already have a config with this name. Please select another one.');
-            FlowRouter.go('/create/' + Template.instance().baseName + '#create-form-head');
-            return;
+        if (instance.creating) {
+            if (Configs.findOne({owner: Meteor.userId(), name: cleanName})) {
+                Template.instance().state.set('alertErr', 'You already have a config with this name. Please select another one.');
+                FlowRouter.go(FlowRouter.current().path + '#create-form-head');
+                return;
+            }
         }
         let description = target.configDesc.value;
 
@@ -557,7 +619,11 @@ Template.createPage.events({
 
         console.log(instance.config.get());
         console.log(cleanName);
-        Meteor.call('configs.create', instance.config.get(), cleanName, fullName, screenshotUrl, description);
+        if (instance.creating) {
+            Meteor.call('configs.create', instance.config.get(), cleanName, fullName, screenshotUrl, description);
+        } else {
+            Meteor.call('configs.edit', instance.baseConfigId, instance.config.get(), cleanName, fullName, screenshotUrl, description);
+        }
         FlowRouter.go('myConfigs');
     },
 });

@@ -15,14 +15,14 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-centered">
-                {{#unless configs.length}}
+                {{#if configs.count}}
                     {{#each config in configs}}
                         {{> freezedry config=config}}
                     {{/each}}
                 {{else}}
-                    <h5>There doesn't seem to be anything here.</h5>
-                    <p>That's all we know.</p>
-                {{/unless}}
+                    <h5>You don't have any configs yet.</h5>
+                    <p>Make one from scratch <a href="/create">here</a>, or clone one <a href="/dash">from here</a>.</p>
+                {{/if}}
             </div>
         </div>
     </div>

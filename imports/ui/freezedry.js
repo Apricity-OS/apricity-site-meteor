@@ -52,4 +52,9 @@ Template.freezedry.events({
         // currentUpvotes[Meteor.userId()] = false;
         // Configs.update({_id: this.config._id}, {$set: {upvotes: currentUpvotes}});
     },
+
+    'click .delete'(event, instance) {
+        event.preventDefault();
+        Meteor.call('configs.delete', this.config._id);
+    },
 });
