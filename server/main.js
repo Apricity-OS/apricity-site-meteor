@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 
 import '../imports/api/content.js';
 import '../imports/api/configs.js';
+import '../imports/api/builds.js';
 
 Meteor.startup(() => {
     UploadServer.init({

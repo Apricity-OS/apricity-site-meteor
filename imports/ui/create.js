@@ -269,7 +269,7 @@ function setGnomeConfig(instance, alert) {
 
 function setGdmConfig(instance, alert) {
     let config = instance.config.get();
-    config.gdm = {};
+    config.gdm = {'empty': true};
     instance.config.set(config);
 }
 
@@ -477,39 +477,6 @@ Template.createPage.events({
         Template.instance().state.set('uploadScreenshotTab', false);
     },
 
-    // 'change .uploadWallpaperInput'(event, instance) {
-    //     if (event.target.files.length > 0) {
-    //         file = event.target.files[0];
-    //         instance.state.set('wallpaperText', file.name);
-    //         // let uploader = new Slingshot.Upload('wallpapers');
-    //         // uploader.send(file, function(err, url) {
-    //         //     if (err) {
-    //         //         console.log(err);
-    //         //     } else {
-    //         //         instance.state.set('wallpaperUrl', url);
-    //         //         instance.state.set('wallpaperUploaded', true);
-    //         //         console.log(url);
-    //         //     }
-    //         // });
-    //     }
-    // },
-    // 'change .uploadLockInput'(event, instance) {
-    //     if (event.target.files.length > 0) {
-    //         file = event.target.files[0];
-    //         instance.state.set('lockBackgroundText', file.name);
-    //         // let uploader = new Slingshot.Upload('wallpapers');
-    //         // uploader.send(file, function(err, url) {
-    //         //     if (err) {
-    //         //         console.log(err);
-    //         //     } else {
-    //         //         instance.state.set('lockUrl', url);
-    //         //         instance.state.set('lockUploaded', true);
-    //         //         console.log(url);
-    //         //     }
-    //         // });
-    //     }
-    // },
-
     'click .gnome'(event, instance) {
         instance.state.set('gnomeTab', true);
         setGnomeConfig(instance);
@@ -522,23 +489,6 @@ Template.createPage.events({
         instance.state.set('zshTab', true);
         // setZshConfig(instance);
     },
-
-    // 'change .screenshotInput'(event, instance) {
-    //     if (event.target.files.length > 0) {
-    //         file = event.target.files[0];
-    //         instance.state.set('uploadScreenshotText', file.name);
-    //         // let uploader = new Slingshot.Upload('screenshots');
-    //         // uploader.send(file, function(err, url) {
-    //         //     if (err) {
-    //         //         console.log(err);
-    //         //     } else {
-    //         //         instance.state.set('screenshotUrl', url);
-    //         //         instance.state.set('screenshotUploaded', true);
-    //         //         console.log(url);
-    //         //     }
-    //         // });
-    //     }
-    // },
 
     'submit .set-settings'(event, instance) {
         event.preventDefault();
@@ -583,20 +533,11 @@ Template.createPage.events({
         } else {
             screenshotUrl = document.getElementById('pasteScreenshotInput').value;
         }
-        // let screenshotUrl = instance.state.get('screenshotUrl');
+
         console.log(screenshotUrl);
         if (!screenshotUrl) {
             screenshotUrl = '/assets/img/no-screenshot.png';
         }
-        // if (target.screenshotInput.files.length > 0) {
-        //     if (instance.state.get('screenshotUploaded')) {
-        //         screenshotUrl = ;
-        //     } else {
-        //         Template.instance().state.set('alertErr', 'Please wait for the screenshot to upload');
-        //         FlowRouter.go('/create/' + Template.instance().baseName + '#create-form-head');
-        //         return;
-        //     }
-        // }
 
         if (!target.configName.value) {
             Template.instance().state.set('alertErr', 'Please enter a name for this configuration');

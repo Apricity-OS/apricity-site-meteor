@@ -9,7 +9,7 @@ Template.dashPage.onCreated(function() {
 Template.dashPage.helpers({
     configs() {
         console.log(Configs.find({public: true}).fetch());
-        return Configs.find({public: true});
+        return Configs.find({public: true}, {sort: {createdAt: -1}});
     },
 });
 

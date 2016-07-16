@@ -4,7 +4,7 @@
             {{> navbar dashActive=true downloadActive=false}}
         </header>
         <div class="row">
-            <div class="col-md-6 col-centered">
+            <div class="col-md-6 col-md-offset-2">
                 <h2>Community configs.</h2>
             </div>
         </div>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-centered">
+            <div class="col-md-8 col-md-offset-2">
                 {{#unless configs.length}}
                     {{#each config in configs}}
                         {{#unless config.hide}}

@@ -26,6 +26,8 @@ import './specificconfig.html';
 import './specificconfig.js';
 import './freezedry.html';
 import './freezedry.js';
+import './iso.html';
+import './iso.js';
 
 Template.registerHelper("checkedIf", function(value){
   return value ? "checked" : "";

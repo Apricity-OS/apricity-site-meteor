@@ -95,10 +95,6 @@ $config-heading-color: #333333;
     margin-bottom: 10px;
 }
 
-.create-new-config {
-    margin-bottom: 10px;
-}
-
 fieldset.package-form button {
     margin-top: 10px;
 }
@@ -185,4 +181,27 @@ a.text-muted:active, a.text-muted:hover, a.text-muted:visited,{
 .freezedry-footer button {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+button.create-new-build {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+button.create-new-config {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.iso-row {
+    margin-top: 60px;
+}
+
+.freezedry-title {
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+}
+
+.freezedry-heading {
+    margin-bottom: 20px;
 }

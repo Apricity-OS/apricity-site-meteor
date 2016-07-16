@@ -4,8 +4,8 @@
             {{> navbar homeActive=false downloadActive=False}}
         </header>
         <div class="row">
-            <div class="col-md-6 col-centered">
-                <h2>{{username}}'s configs.</h2>
+            <div class="col-md-6 col-md-offset-2">
+                <h2>Public configs by {{username}}.</h2>
             </div>
         </div>
         <div class="row">
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-centered">
+            <div class="col-md-8 col-md-offset-2">
                 {{#if configs.count}}
                     {{#each config in configs}}
                         {{> freezedry config=config}}

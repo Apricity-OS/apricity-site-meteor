@@ -12,7 +12,7 @@ Template.userConfigsPage.helpers({
         return Configs.find({
             username: FlowRouter.getParam('username'),
             public: true,
-        });
+        }, {sort: {createdAt: -1}});
     },
     username() {
         return FlowRouter.getParam('username');

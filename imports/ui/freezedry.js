@@ -2,11 +2,11 @@ import {Template} from 'meteor/templating';
 
 import {Configs} from '../api/configs.js';
 
-import tomlify from 'tomlify';
+import {configToToml} from '../api/builds.js';
 
 Template.freezedry.helpers({
     toml() {
-        return tomlify(this.config.config);
+        return configToToml(this.config.config);
     },
     toUpvote() {
         upvoted = Configs.findOne({_id: this.config._id}).upvotes[Meteor.userId()];

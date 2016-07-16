@@ -47,6 +47,7 @@ Meteor.methods({
             fullName: fullName,
             description: description,
             screenshot: screenshotUrl,
+            createdAt: new Date(),
             public: false,
             owner: this.userId,
             username: Meteor.user().username,
@@ -72,11 +73,6 @@ Meteor.methods({
             fullName: fullName,
             description: description,
             screenshot: screenshotUrl,
-            public: false,
-            owner: this.userId,
-            username: Meteor.user().username,
-            upvotes: {},
-            numVotes: 0,
         }});
     },
 
