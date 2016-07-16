@@ -23,4 +23,16 @@ Template.homePage.helpers({
     homeIntro() {
         return getContent('homeIntro');
     },
+    homeFreezedry() {
+        return getContent('homeFreezedry');
+    },
+    homeBattery() {
+        return getContent('homeBattery');
+    },
+    homeUpdates() {
+        return getContent('homeUpdates');
+    },
+    homeSecurity() {
+        return getContent('homeSecurity');
+    },
 });

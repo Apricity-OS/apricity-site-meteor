@@ -53,8 +53,17 @@ Template.freezedry.events({
         // Configs.update({_id: this.config._id}, {$set: {upvotes: currentUpvotes}});
     },
 
-    'click .delete'(event, instance) {
+    'click .delete-dropdown'(event, instance) {
         event.preventDefault();
-        Meteor.call('configs.delete', this.config._id);
+        $('#delete-modal-' + this.config.name).modal('show');
+    },
+
+    'click .delete-config'(event, instance) {
+        event.preventDefault();
+        let self = this;
+        $('#delete-modal-' + this.config.name).modal('hide');
+        $('#delete-modal-' + this.config.name).on('hidden.bs.modal', function() {
+            Meteor.call('configs.delete', self.config._id);
+        });
     },
 });

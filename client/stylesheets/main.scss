@@ -28,7 +28,7 @@ h1.intro-header {
 }
 
 .footer {
-    margin-top: 50px;
+    // margin-top: 50px;
     padding-top: 20px;
     background-color: #273040;
 }
@@ -204,4 +204,51 @@ button.create-new-config {
 
 .freezedry-heading {
     margin-bottom: 20px;
+}
+
+.material-icons.home-icon {
+    font-size: 200px;
+    text-align: center;
+}
+
+.home-page-feature {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.feature-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.freezedry-feature {
+    margin-top: 50px;
+    background-color: #4F518C;
+    color: #ffffff;
+}
+
+.feature-icon-col {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.trifold {
+    background-color: #ffffff;
+    color: #444444;
+}
+
+div.text-centered {
+    text-align: center;
+}
+
+.material-icons.trifold-icon {
+    font-size: 48px;
+}
+
+.col-trifold {
+    margin-top: 50px;
 }

@@ -10,6 +10,26 @@
     {
         "name": "downloadIntro",
         "text": "Theiter terfac mained preeddis? Na titionsotionfi etersomeeed lyconi com peresgetmo menttedtyinty piycom esditionadri magti inrei. Setpro antion ertro esanble excuaped ytle anes per edna. Estoget terdirecun proal tionsment. De ri iset esthe or. Disexcata tionri ingly temis acdercon didiscolcator. Lycomsome edly fuled ucyi eseners ety ypro eri mentget ier bering. Atci uner ature conbeny tioni exre pletion get diertion. Sioningthefor proenotion minyti uelter reedo soexanli nessal. Dertyay mentcaterny nationidesion erslaproet tieswarddera tisurtefi escon ble ac reperly macom."
+    },
+    {
+        "name": "freezedryWelcome",
+        "text": "This is your community dashboard, where you can find Freezedry configurations that others in the Apricity OS community have made. If you find one you like, either load it onto an existing Apricity OS installation from the freezedry command-line tool, or build an iso to install it onto a new computer."
+    },
+    {
+        "name": "homeFreezedry",
+        "text": "A never before seen feature, Apricity Freezedry allows you to easily build your own custom version of Apricity OS online with an easy to use form. When complete, download and share your custom creation with the community. Feel free to check out other builds and make suggestions."
+    },
+    {
+        "name": "homeBattery",
+        "text": "Apricity OS comes installed with TLP, an advanced but easy to use power management tool. TLP comes out of the box with a default setup optimized to maximize your computer’s battery life. However, TLP is highly customizable for your personal needs."
+    },
+    {
+        "name": "homeUpdates",
+        "text": "Because of its roots in ArchLinux, Apricity OS follows a rolling release schedule. This means that your entire system will receive updates on a regular basis, avoiding any frustration with out-of-date software while maintaining its security and stability."
+    },
+    {
+        "name": "homeSecurity",
+        "text": "Avoiding the often frustrating and complicated iptables that make up a traditional Linux firewall, Apricity OS opts instead for Uncomplicated Firewall (UFW). UFW comes out of the box with a default configuration that protects a basic user. Despite this, UFW also allows for a high level of customizability, and can be used with wide variety of systems."
     }
 ]
 

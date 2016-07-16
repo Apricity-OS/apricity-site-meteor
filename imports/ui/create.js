@@ -233,7 +233,7 @@ function setGnomeLockConfig(instance, alert) {
             instance.state.set('alertErr', 'Please upload a lock screen background');
         }
     } else {
-        config.gnome.lock_background = document.getElementById('pasteLockInput').value;
+        config.gnome.lock_background = $('#pasteLockInput').value;
     }
     instance.config.set(config);
 }
@@ -247,7 +247,7 @@ function setGnomeWallpaperConfig(instance, alert) {
             instance.state.set('alertErr', 'Please upload a wallpaper');
         }
     } else {
-        config.gnome.wallpaper = document.getElementById('pasteWallpaperInput').value;
+        config.gnome.wallpaper = $('#pasteWallpaperInput').value;
     }
     instance.config.set(config);
 }
@@ -255,12 +255,12 @@ function setGnomeWallpaperConfig(instance, alert) {
 function setGnomeConfig(instance, alert) {
     let config = instance.config.get();
 
-    config.gnome.gtk_theme = document.getElementById('gtkTheme').value;
-    config.gnome.shell_theme = document.getElementById('shellTheme').value;
-    config.gnome.icon_theme = document.getElementById('iconTheme').value;
-    config.gnome.gtk_button_layout = document.getElementById('gtkButtonLayout').value;
-    config.gnome.dynamic_workspaces = document.getElementById('dynamicWorkspaces').value;
-    config.gnome.desktop_icons = document.getElementById('desktopIcons').value;
+    config.gnome.gtk_theme = $('#gtkTheme').value;
+    config.gnome.shell_theme = $('#shellTheme').value;
+    config.gnome.icon_theme = $('#iconTheme').value;
+    config.gnome.gtk_button_layout = $('#gtkButtonLayout').value;
+    config.gnome.dynamic_workspaces = $('#dynamicWorkspaces').value;
+    config.gnome.desktop_icons = $('#desktopIcons').value;
 
     instance.config.set(config);
     setGnomeWallpaperConfig(instance, alert);
@@ -284,7 +284,7 @@ function processCode(code) {
 function setZshConfig(instance, alert) {
     let config = instance.config.get();
     config.zsh = {
-        'zshrc': processCode(document.getElementById('zshrc').value),
+        'zshrc': processCode($('#zshrc').value),
     };
     instance.config.set(config);
 }
@@ -292,8 +292,8 @@ function setZshConfig(instance, alert) {
 function setCodeConfig(instance, alert) {
     let config = instance.config.get();
     config.code = {
-        'root': processCode(document.getElementById('rootCode').value),
-        'user': processCode(document.getElementById('userCode').value),
+        'root': processCode($('#rootCode').value),
+        'user': processCode($('#userCode').value),
     };
     instance.config.set(config);
 }
@@ -531,7 +531,7 @@ Template.createPage.events({
         if (instance.state.get('uploadScreenshotTab')) {
             screenshotUrl = instance.state.get('screenshotUrl');
         } else {
-            screenshotUrl = document.getElementById('pasteScreenshotInput').value;
+            screenshotUrl = $('#pasteScreenshotInput').value;
         }
 
         console.log(screenshotUrl);

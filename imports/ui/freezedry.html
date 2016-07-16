@@ -13,7 +13,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
                             <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
-                            <button class="dropdown-item delete">Delete</button>
+                            <button class="dropdown-item delete-dropdown" type="button">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="card-footer">
             <div class="row freezedry-footer">
-                <div class="col-md-6">
+                <div class="col-sm-7">
                     <div class="btn-group" role="group">
                         {{#if toUpvote}}
                             <button type="button" class="btn btn-primary upvote">Upvote ({{numVotes}})</button>
@@ -42,10 +42,26 @@
                         {{/if}}
                     </div>
                 </div>
-                <div class="col-md-6 pull-right">
+                <div class="col-sm-2 pull-right">
                     <div class="btn-group pull-right" role="group">
                         <a href="/user/{{config.username}}/config/{{config.name}}/iso" type="button" class="btn btn-secondary">Get ISO</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete-modal-{{config.name}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteModalLabel">Delete Config?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger delete-config">Delete</button>
                 </div>
             </div>
         </div>

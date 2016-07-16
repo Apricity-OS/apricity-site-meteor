@@ -1,36 +1,84 @@
 <template name="homePage">
-    <div class="home-background-1">
-        <div class="container home-page">
-            <header>
-                {{> navbar homeActive=true downloadActive=false}}
-            </header>
-            <div class="row">
-                <div class="col-lg-7 col-centered home-intro-head">
-                    <h1 class="intro-header">Apricity OS</h1>
-                    <h5 class="intro-tagline">{{tagline}}</h5>
-                </div>
+    <div class="container home-page">
+        <header>
+            {{> navbar homeActive=true downloadActive=false}}
+        </header>
+        <div class="row">
+            <div class="col-lg-7 col-centered home-intro-head">
+                <h1 class="intro-header">Apricity OS</h1>
+                <h5 class="intro-tagline">{{tagline}}</h5>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <img src="/assets/img/apricity-laptop.png" class="img-responsive apricity-laptop">
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <img src="/assets/img/apricity-laptop.png" class="img-responsive apricity-laptop">
+            </div>
+        </div>
+    </div>
+    <div class="container home-page">
+        <div class="row">
+            <div class="col-lg-7 col-centered text-center what-is-head">
+                <h1 class="what-is-header">What is Apricity OS?</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-centered">
+                <p class="intro-text">{{homeIntro}}</p>
+                <div class="text-center">
+                    <a class="btn btn-primary btn-lg" href="download" role="button">
+                        Download
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="home-background-2">
-        <div class="container home-page">
+    <div class="full-width home-page-feature freezedry-feature">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-centered text-center what-is-head">
-                    <h1 class="what-is-header">What is Apricity OS?</h1>
+                <div class="col-md-3 feature-icon-col">
+                    <i class="material-icons home-icon">settings_power</i>
+                </div>
+                <div class="col-md-7 col-md-offset-1">
+                    <h1 class="feature-heading">Freezedry</h1>
+                    <p>{{homeFreezedry}}</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="full-width home-page-feature trifold">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-centered">
-                    <p class="intro-text">{{homeIntro}}</p>
-                    <div class="text-center">
-                        <a class="btn btn-primary btn-lg" href="download" role="button">
-                            Download
-                        </a>
+                <div class="col-md-9 col-centered">
+                    <div class="text-centered">
+                        <h1>Selected Features</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-trifold">
+                            <div class="text-centered">
+                                <i class="material-icons trifold-icon">battery_charging_full</i>
+                            <h3>Battery Life</h3>
+                            </div>
+                            <p>{{homeBattery}}</p>
+                        </div>
+                        <div class="col-md-4 col-trifold">
+                            <div class="text-centered">
+                                <i class="material-icons trifold-icon">update</i>
+                            <h3>Rolling Updates</h3>
+                            </div>
+                            <p>{{homeUpdates}}</p>
+                        </div>
+                        <div class="col-md-4 col-trifold">
+                            <div class="text-centered">
+                                <i class="material-icons trifold-icon">security</i>
+                            <h3>Security</h3>
+                            </div>
+                            <p>{{homeSecurity}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-centered">
+                            <a type="button" href="/features" class="btn btn-lg btn-default btn-primary">More Features</a>
+                        </div>
                     </div>
                 </div>
             </div>
