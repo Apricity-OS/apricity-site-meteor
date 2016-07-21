@@ -1,34 +1,34 @@
 <template name="userConfigsPage">
-    <div class="container">
-        <header>
-            {{> navbar homeActive=false downloadActive=False}}
-        </header>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-2">
-                <h2>Public configs by {{username}}.</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-8">
-                <a type="button" href="/create" class="btn btn-primary pull-right create-new-config">Create new</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                {{#if configs.count}}
-                    {{#each config in configs}}
-                        {{> freezedry config=config}}
-                    {{/each}}
-                {{else}}
-                    {{#if isMe}}
-                        <h5>You don't seem to have any public configurations.</h5>
-                        <p>Add some <a href="/my-configs">here</a>.</p>
-                    {{else}}
-                        <h5>There doesn't seem to be anything here.</h5>
-                        <p>That's all we know.</p>
-                    {{/if}}
-                {{/if}}
-            </div>
-        </div>
+  <div class="container">
+    <header>
+      {{> navbar homeActive=false downloadActive=False}}
+    </header>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-2">
+        <h2>Public configs by {{username}}.</h2>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-8">
+        <a type="button" href="/create" class="btn btn-primary pull-right create-new-config">Create new</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        {{#if configs.count}}
+          {{#each config in configs}}
+            {{> freezedry config=config}}
+          {{/each}}
+        {{else}}
+          {{#if isMe}}
+            <h5>You don't seem to have any public configurations.</h5>
+            <p>Add some <a href="/my-configs">here</a>.</p>
+          {{else}}
+            <h5>There doesn't seem to be anything here.</h5>
+            <p>That's all we know.</p>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </template>

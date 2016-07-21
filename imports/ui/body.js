@@ -8,14 +8,9 @@ import './home.js';
 import './download.html';
 import './download.js';
 import './footer.html';
-import './signup.html';
-import './signup.js';
-import './login.html';
-import './login.js';
 import './dash.html';
 import './dash.js';
 import './account.html';
-import './account.js';
 import './create.html';
 import './create.js';
 import './my-configs.html';
@@ -28,6 +23,8 @@ import './freezedry.html';
 import './freezedry.js';
 import './iso.html';
 import './iso.js';
+import './admin.html';
+import './admin.js';
 
 Template.registerHelper("checkedIf", function(value){
   return value ? "checked" : "";
@@ -35,4 +32,17 @@ Template.registerHelper("checkedIf", function(value){
 
 Template.registerHelper("selectedIf", function(value){
   return value ? "selected" : "";
+});
+
+Template.registerHelper("disabledIf", function(value){
+  return value ? "disabled" : "";
+});
+
+FlowRouter.wait();
+
+Tracker.autorun(() => {
+  // wait on roles to intialise so we can check is use is in proper role
+  if (Roles.subscription.ready() && !FlowRouter._initialized) {
+    FlowRouter.initialize()
+  }
 });

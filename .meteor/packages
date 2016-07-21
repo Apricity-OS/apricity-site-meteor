@@ -33,3 +33,8 @@ williamledoux:codemirror
 tomi:upload-server
 tomi:upload-jquery
 http
+underscore
+useraccounts:bootstrap
+useraccounts:flow-routing
+alanning:roles
+email

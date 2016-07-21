@@ -1,0 +1,5 @@
+* Tasks
+** freezedry
+*** TODO wallpaper url
+*** TODO themes url
+*** TODO icons url

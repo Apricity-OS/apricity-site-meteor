@@ -10,10 +10,6 @@
         "config": {
             "pacman": {
                 "packages": [
-                    "gnome-shell",
-                    "gnome-session",
-                    "mutter",
-                    "gnome-settings-daemon",
                     "network-manager-applet",
                     "polkit-gnome",
                     "pacaur",

@@ -1,0 +1,83 @@
+<template name="adminUserPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-9 col-md-offset-2">
+        {{> adminNav usersActive=true}}
+        {{!-- <h2>All users.</h2> --}}
+        <table class="table user-table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email Address</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each user in users}}
+              {{> userRow user=user}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="adminContentPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-9 col-md-offset-2">
+        {{> adminNav contentActive=true}}
+        {{#each content in allContent}}
+          {{> contentChanger content=content}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="adminNav">
+  <ul class="nav nav-tabs admin-nav">
+    <li class="nav-item">
+      <a class="nav-link {{#if usersActive}}active{{/if}}" href="/admin/users">Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{#if contentActive}}active{{/if}}" href="/admin/content">Content</a>
+    </li>
+  </ul>
+</template>
+
+<template name="userRow">
+  <tr>
+    <td>{{user.username}}</td>
+    <td>{{user.emails.[0].address}}</td>
+    <td>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {{disabledIf noChangeRole}}>
+          {{user.roles.[0]}}
+        </button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item makeUser">user</button>
+          <button class="dropdown-item makeMod">moderator</button>
+          <button class="dropdown-item makeAdmin">admin</button>
+        </div>
+      </div>
+    </td>
+  </tr>
+</template>
+
+<template name="contentChanger">
+  <form class="form content-change-form">
+    <fieldset class="form-group">
+      <h4 for="content-change-{{content.name}}" class="content-changer-head">{{content.name}}</h4>
+      <textarea class="form-control content-changer" name="contentText" id="content-change-{{content.name}}">{{content.text}}</textarea>
+      <button class="btn btn-default btn-primary" type="submit">Save changes</button>
+    </fieldset>
+  </form>
+</template>

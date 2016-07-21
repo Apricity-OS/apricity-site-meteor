@@ -1,87 +1,99 @@
 <template name="isoPage">
-    <div class="container">
-        <header>
-            {{> navbar homeActive=false downloadActive=False}}
-        </header>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h2>Get <a href="/user/{{username}}">{{username}}</a>'s <a href="/user/{{username}}/config/{{configName}}">{{fullName}}</a> config as an iso.</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2">
-                <button type="button" class="btn btn-primary create-new-build">Create new build!</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 iso-row">
-                {{#if config}}
-                    {{#if builds.count}}
-                        <h2>Builds</h2>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Download</th>
-                                        <th>Log</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each build in builds}}
-                                        {{> buildRow build=build}}
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                    {{else}}
-                        <h5>There aren't any builds for this configuration.</h5>
-                        <p>You should make one!</p>
-                    {{/if}}
-                {{else}}
-                    <h5>The configuration you're looking for doesn't seem to exist.</h5>
-                    <p>That's all we know.</p>
-                {{/if}}
-            </div>
-        </div>
+  <div class="container">
+    <header>
+      {{> navbar homeActive=false downloadActive=False}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h2>Get <a href="/user/{{username}}">{{username}}</a>'s <a href="/user/{{username}}/config/{{configName}}">{{fullName}}</a> config as an iso.</h2>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        {{#if buildAllowed}}
+          <button type="button" class="btn btn-primary create-new-build">Create new build!</button>
+        {{/if}}
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 iso-row">
+        {{#unless buildAllowed}}
+          <div class="alert alert-info build-running-alert" role="alert">
+            <strong>Heads up!</strong> Your build is running. Check back here in a bit to see if it's finished. You won't be able to queue any new builds for this config until then.
+          </div>
+        {{/unless}}
+        {{#if config}}
+          {{#if builds.count}}
+            <h2>Builds</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Download</th>
+                    <th>Log</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each build in builds}}
+                    {{> buildRow build=build}}
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          {{else}}
+            <h5>There aren't any builds for this configuration.</h5>
+            <p>You should make one!</p>
+          {{/if}}
+        {{else}}
+          <h5>The configuration you're looking for doesn't seem to exist.</h5>
+          <p>That's all we know.</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="buildRow">
-    <tr class="{{#if build.completed}}table-success{{/if}}{{#if build.failed}}table-danger{{/if}}">
-        <th scope="row">{{num}}</th>
-        <td scope="row">{{date}}</td>
-        {{#if build.queued}}
-            <td scope="row">Queued at #{{queueNum}}</td>
-            <td scope="row">Nothing yet</td>
-            <td scope="row">Nothing yet</td>
-        {{/if}}
-        {{#if build.running}}
-            <td scope="row">Building ...</td>
-            <td scope="row">Nothing yet</td>
-            <td scope="row">Nothing yet</td>
-        {{/if}}
-        {{#if build.completed}}
-            <td scope="row">Completed!</td>
-            <td scope="row">
-                <a href={{build.download}}>Download iso</a>
-            </td>
-            <td scope="row">
-                <a href={{build.log}}>Build log</a>
-            </td>
-        {{/if}}
-        {{#if build.failed}}
-            <td scope="row">Build failed!</td>
-            <td scope="row">No iso</td>
-            {{#if build.log}}
-                <td scope="row">
-                    <a href={{build.log}}>Error log</a>
-                </td>
-            {{else}}
-                <td scope="row">No log</td>
-            {{/if}}
-        {{/if}}
-    </tr>
+  <tr class="{{#if build.completed}}table-success{{/if}}{{#if build.failed}}table-danger{{/if}}">
+    <th scope="row">{{build.buildNum}}</th>
+    <td scope="row">{{date}}</td>
+    {{#if build.queued}}
+      <td scope="row">Queued at #{{queueNum}}</td>
+      <td scope="row">Nothing yet</td>
+      <td scope="row">Nothing yet</td>
+    {{/if}}
+    {{#if build.running}}
+      <td scope="row">Building ...</td>
+      <td scope="row">Nothing yet</td>
+      <td scope="row">Nothing yet</td>
+    {{/if}}
+    {{#if build.completed}}
+      <td scope="row">Completed!</td>
+      {{#if build.download}}
+        <td scope="row">
+            <a href={{build.download}}>Download iso</a>
+        </td>
+      {{/if}}
+      {{#if latestComplete}}
+        <td scope="row">Old iso deleted</td>
+      {{/if}}
+      <td scope="row">
+        <a href={{build.log}}>Build log</a>
+      </td>
+    {{/if}}
+    {{#if build.failed}}
+      <td scope="row">Build failed!</td>
+      <td scope="row">No iso</td>
+      {{#if build.log}}
+        <td scope="row">
+          <a href={{build.log}}>Error log</a>
+        </td>
+      {{else}}
+        <td scope="row">No log</td>
+      {{/if}}
+    {{/if}}
+  </tr>
 </template>

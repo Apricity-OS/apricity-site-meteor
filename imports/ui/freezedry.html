@@ -1,69 +1,81 @@
 <template name="freezedry">
-    <div class="card freezedry">
-        <img class="card-img-top img-responsive" src="{{config.screenshot}}" alt="Config screenshot">
-        <div class="card-block">
-            <div class="row">
-                <div class="col-md-5 freezedry-heading">
-                    <h3 class="card-title freezedry-title"><a class="config-heading" href="/user/{{config.username}}/config/{{config.name}}">{{config.fullName}}</a></h3>
-                <a class="card-text freezedry-username text-muted" href="/user/{{config.username}}">{{config.username}}</a>
-                </div>
-                <div class="col-sm-3 pull-right">
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">More</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
-                            <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
-                            <button class="dropdown-item delete-dropdown" type="button">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <!-- <label class="text-muted">{{config.username}}</label> -->
-            <!-- </a> -->
-            <p class="card-text">{{config.description}}</p>
-            <h5>Configuration:</h5>
-            <pre>{{toml}}</pre>
+  <div class="card freezedry">
+    <img class="card-img-top img-responsive" src="{{config.screenshot}}" alt="Config screenshot">
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-5 freezedry-heading">
+          <h3 class="card-title freezedry-title"><a class="config-heading" href="/user/{{config.username}}/config/{{config.name}}">{{config.fullName}}</a></h3>
+        <a class="card-text freezedry-username text-muted" href="/user/{{config.username}}">{{config.username}}</a>
         </div>
-        <div class="card-footer">
-            <div class="row freezedry-footer">
-                <div class="col-sm-7">
-                    <div class="btn-group" role="group">
-                        {{#if toUpvote}}
-                            <button type="button" class="btn btn-primary upvote">Upvote ({{numVotes}})</button>
-                        {{/if}}
-                        {{#if toUnVote}}
-                            <button type="button" class="btn btn-secondary un-vote">Un-Vote ({{numVotes}})</button>
-                        {{/if}}
-                        {{#if toMakePublic}}
-                            <button type="button" class="btn btn-primary make-public">Make Public</button>
-                        {{/if}}
-                        {{#if toMakePrivate}}
-                            <button type="button" class="btn btn-secondary make-private">Make Private</button>
-                        {{/if}}
-                    </div>
-                </div>
-                <div class="col-sm-2 pull-right">
-                    <div class="btn-group pull-right" role="group">
-                        <a href="/user/{{config.username}}/config/{{config.name}}/iso" type="button" class="btn btn-secondary">Get ISO</a>
-                    </div>
-                </div>
+        <div class="col-sm-3 pull-right">
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">More</button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
+              <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
+              <button class="dropdown-item delete-dropdown" type="button">Delete</button>
             </div>
+          </div>
         </div>
+      </div>
+        <!-- <label class="text-muted">{{config.username}}</label> -->
+      <!-- </a> -->
+      <ul class="nav nav-tabs freezedry-tabs">
+        <li class="nav-item description-tab ">
+          <a class="nav-link {{#if descriptionTab}}active{{/if}}" href="#">Description</a>
+        </li>
+        <li class="nav-item config-tab">
+          <a class="nav-link {{#if configTab}}active{{/if}}" href="#">Configuration</a>
+        </li>
+      </ul>
+      {{#if descriptionTab}}
+        <p class="card-text">{{config.description}}</p>
+      {{/if}}
+      {{#if configTab}}
+        <h5>Configuration:</h5>
+        <pre>{{toml}}</pre>
+      {{/if}}
     </div>
-    <div class="modal fade" id="delete-modal-{{config.name}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="deleteModalLabel">Delete Config?</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger delete-config">Delete</button>
-                </div>
-            </div>
+    <div class="card-footer">
+      <div class="row freezedry-footer">
+        <div class="col-sm-7">
+          <div class="btn-group" role="group">
+            {{#if toUpvote}}
+              <button type="button" class="btn btn-primary upvote">Upvote ({{numVotes}})</button>
+            {{/if}}
+            {{#if toUnVote}}
+              <button type="button" class="btn btn-secondary un-vote">Un-Vote ({{numVotes}})</button>
+            {{/if}}
+            {{#if toMakePublic}}
+              <button type="button" class="btn btn-primary make-public">Make Public</button>
+            {{/if}}
+            {{#if toMakePrivate}}
+              <button type="button" class="btn btn-secondary make-private">Make Private</button>
+            {{/if}}
+          </div>
         </div>
+        <div class="col-sm-2 pull-right">
+          <div class="btn-group pull-right" role="group">
+            <a href="/user/{{config.username}}/config/{{config.name}}/iso" type="button" class="btn btn-secondary">Get ISO</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="modal fade" id="delete-modal-{{config.name}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="deleteModalLabel">Delete Config?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger delete-config">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

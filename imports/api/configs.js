@@ -5,126 +5,126 @@ import {Meteor} from 'meteor/meteor';
 export const Configs = new Mongo.Collection('configs');
 
 if (Meteor.isServer) {
-    Meteor.publish('configs', function() {
-        return Configs.find({$or: [{owner: this.userId}, {public: true}]});
-    });
+  Meteor.publish('configs', function() {
+    return Configs.find({$or: [{owner: this.userId}, {public: true}]});
+  });
 }
 
 Meteor.methods({
-    'configs.makePublic'(configId) {
-        check(configId, String);
+  'configs.makePublic'(configId) {
+    check(configId, String);
 
-        if (!this.userId || Configs.findOne({_id: configId}).owner !== this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId || Configs.findOne({_id: configId}).owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        Configs.update({_id: configId}, {$set: {public: true}});
-    },
+    Configs.update({_id: configId}, {$set: {public: true}});
+  },
 
-    'configs.makePrivate'(configId) {
-        check(configId, String);
+  'configs.makePrivate'(configId) {
+    check(configId, String);
 
-        if (!this.userId || Configs.findOne({_id: configId}).owner !== this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId || Configs.findOne({_id: configId}).owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        Configs.update({_id: configId}, {$set: {public: false}});
-    },
+    Configs.update({_id: configId}, {$set: {public: false}});
+  },
 
-    'configs.create'(config, cleanName, fullName, screenshotUrl, description) {
-        check(fullName, String);
-        check(screenshotUrl, String);
-        check(description, String);
-        check(cleanName, String);
+  'configs.create'(config, cleanName, fullName, screenshotUrl, description) {
+    check(fullName, String);
+    check(screenshotUrl, String);
+    check(description, String);
+    check(cleanName, String);
 
-        if (!this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        Configs.insert({
-            config: config,
-            name: cleanName,
-            fullName: fullName,
-            description: description,
-            screenshot: screenshotUrl,
-            createdAt: new Date(),
-            public: false,
-            owner: this.userId,
-            username: Meteor.user().username,
-            upvotes: {},
-            numVotes: 0,
-        });
-    },
+    Configs.insert({
+      config: config,
+      name: cleanName,
+      fullName: fullName,
+      description: description,
+      screenshot: screenshotUrl,
+      createdAt: new Date(),
+      public: false,
+      owner: this.userId,
+      username: Meteor.user().username,
+      upvotes: {},
+      numVotes: 0,
+    });
+  },
 
-    'configs.edit'(configId, config, cleanName, fullName, screenshotUrl, description) {
-        check(configId, String);
-        check(fullName, String);
-        check(screenshotUrl, String);
-        check(description, String);
-        check(cleanName, String);
+  'configs.edit'(configId, config, cleanName, fullName, screenshotUrl, description) {
+    check(configId, String);
+    check(fullName, String);
+    check(screenshotUrl, String);
+    check(description, String);
+    check(cleanName, String);
 
-        if (!this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        Configs.update({_id: configId}, {$set: {
-            config: config,
-            name: cleanName,
-            fullName: fullName,
-            description: description,
-            screenshot: screenshotUrl,
-        }});
-    },
+    Configs.update({_id: configId}, {$set: {
+      config: config,
+      name: cleanName,
+      fullName: fullName,
+      description: description,
+      screenshot: screenshotUrl,
+    }});
+  },
 
-    'configs.delete'(configId) {
-        check(configId, String);
+  'configs.delete'(configId) {
+    check(configId, String);
 
-        if (!this.userId || this.userId !== Configs.findOne({_id: configId}).owner) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId || this.userId !== Configs.findOne({_id: configId}).owner) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        Configs.remove(configId);
-    },
+    Configs.remove(configId);
+  },
 
-    'configs.upvote'(configId) {
-        check(configId, String);
+  'configs.upvote'(configId) {
+    check(configId, String);
 
-        if (!this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        let currentUpvotes = Configs.findOne({_id: configId}).upvotes;
-        currentUpvotes[this.userId] = true;
-        Configs.update({_id: configId}, {$set: {upvotes: currentUpvotes}});
+    let currentUpvotes = Configs.findOne({_id: configId}).upvotes;
+    currentUpvotes[this.userId] = true;
+    Configs.update({_id: configId}, {$set: {upvotes: currentUpvotes}});
 
-        let numVotes = 0;
-        for (let username in currentUpvotes) {
-            if (currentUpvotes[username]) {
-                numVotes += 1;
-            }
-        }
+    let numVotes = 0;
+    for (let username in currentUpvotes) {
+      if (currentUpvotes[username]) {
+        numVotes += 1;
+      }
+    }
 
-        Configs.update({_id: configId}, {$set: {numVotes: numVotes}});
-    },
+    Configs.update({_id: configId}, {$set: {numVotes: numVotes}});
+  },
 
-    'configs.unVote'(configId) {
-        check(configId, String);
+  'configs.unVote'(configId) {
+    check(configId, String);
 
-        if (!this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
-        let currentUpvotes = Configs.findOne({_id: configId}).upvotes;
-        currentUpvotes[this.userId] = false;
-        Configs.update({_id: configId}, {$set: {upvotes: currentUpvotes}});
+    let currentUpvotes = Configs.findOne({_id: configId}).upvotes;
+    currentUpvotes[this.userId] = false;
+    Configs.update({_id: configId}, {$set: {upvotes: currentUpvotes}});
 
-        let numVotes = 0;
-        for (let username in currentUpvotes) {
-            if (currentUpvotes[username]) {
-                numVotes += 1;
-            }
-        }
+    let numVotes = 0;
+    for (let username in currentUpvotes) {
+      if (currentUpvotes[username]) {
+        numVotes += 1;
+      }
+    }
 
-        Configs.update({_id: configId}, {$set: {numVotes: numVotes}});
-    },
+    Configs.update({_id: configId}, {$set: {numVotes: numVotes}});
+  },
 });
