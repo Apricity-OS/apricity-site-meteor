@@ -1,13 +1,45 @@
 <template name="downloadPage">
-  <div class="container">
+  <div class="container download-page">
     <header>
-      {{> navbar homeActive=false downloadActive=true}}
+      {{> navbar downloadActive=true}}
     </header>
-    <div class="jumbotron">
-      <h1 class="display-3">Download</h1>
-      <p class="lead">{{tagline}}</p>
-      <hr class="m-y-2">
-      <p>{{downloadIntro}}</p>
+    <div class="row">
+      <div class="col-lg-8 offset-md-2">
+        <div class="text-centered">
+          <h1 class="intro-header features-intro">Downloads</h1>
+          <h2>Stable Downloads</h2>
+          <h5 class="text-muted">(Recommended for most users)</h5>
+        </div>
+        <div class="card-deck-wrapper download-deck">
+          <div class="card-deck">
+            {{> downloadCard name="gnome-stable" edition="Gnome" description=gnomeStableDesc version="Aspen"}}
+            {{> downloadCard name="cinnamon-stable" edition="Cinnamon" description=cinnamonStableDesc version="Aspen"}}
+          </div>
+        </div>
+        <div class="text-centered">
+          <h2>Development Downloads</h2>
+          <h5 class="text-muted">(For users wishing to contribute)</h5>
+        </div>
+          <div class="card-deck-wrapper download-deck">
+            <div class="card-deck">
+              {{> downloadCard name="gnome-dev" edition="Gnome" description=gnomeDevDesc version="Dev"}}
+              {{> downloadCard name="cinnamon-dev" edition="Cinnamon" description=cinnamonDevDesc version="Dev"}}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</template>
+
+<template name="downloadCard">
+  <div class="card">
+    <img class="card-img-top img-fluid" src="/assets/img/screenshots/{{name}}.jpg" alt="Screenshot">
+    <div class="card-block">
+      <h4 class="card-title">Apricity OS 07.2016 {{version}} - {{edition}}</h4>
+      <p class="card-text">{{description}}</p>
+      <a class="btn btn-primary" href="https://static.apricityos.com/iso/apricity_os-07.2016-{{version}}-{{edition}}.iso">Download</a>
+      <a class="btn btn-primary" href="https://static.apricityos.com/iso/apricity_os-07.2016-{{version}}-{{edition}}.torrent">Torrent</a>
     </div>
   </div>
 </template>

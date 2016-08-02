@@ -17,14 +17,18 @@ Template.dashPage.onRendered(function() {
 
 Template.dashPage.helpers({
   configs() {
-    console.log(Configs.find({public: true}).fetch());
-    return Configs.find({public: true}, {sort: {createdAt: -1}});
+    let configs = Configs.find({public: true, hide: {$ne: true}}, {sort: {createdAt: -1}});
+    if (configs.fetch().length > 0) {
+      return configs;
+    }
+    return undefined;
   },
   freezedryWelcome() {
     let freezedryWelcome = Content.findOne({name: 'freezedryWelcome'});
     if (freezedryWelcome) {
       return freezedryWelcome.text;
     }
-  },
+    return undefined;
+  }
 });
 

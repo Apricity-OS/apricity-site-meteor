@@ -1,12 +1,18 @@
 import {Template} from 'meteor/templating';
-import {getContent} from './home.js'
+import {getContent} from './home.js';
 
 Template.downloadPage.helpers({
-  tagline() {
-    return getContent('tagline');
+  gnomeStableDesc() {
+    return getContent('gnomeStableDesc');
   },
-  downloadIntro() {
-    return getContent('downloadIntro');
+  gnomeBetaDesc() {
+    return getContent('gnomeBetaDesc');
   },
+  cinnamonStableDesc() {
+    return getContent('cinnamonStableDesc');
+  },
+  cinnamonBetaDesc() {
+    return getContent('cinnamonBetaDesc');
+  }
 });
 

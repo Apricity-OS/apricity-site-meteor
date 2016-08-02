@@ -12,7 +12,7 @@ Template.homePage.onCreated(function() {
   Meteor.subscribe('content', {
     onReady() {
       console.log(Content.find({}).length);
-    },
+    }
   });
 });
 
@@ -34,5 +34,5 @@ Template.homePage.helpers({
   },
   homeSecurity() {
     return getContent('homeSecurity');
-  },
+  }
 });

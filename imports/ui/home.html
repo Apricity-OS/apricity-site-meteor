@@ -1,7 +1,7 @@
 <template name="homePage">
   <div class="container home-page">
     <header>
-      {{> navbar homeActive=true downloadActive=false}}
+      {{> navbar homeActive=true}}
     </header>
     <div class="row">
       <div class="col-lg-7 col-centered home-intro-head">
@@ -11,13 +11,13 @@
     </div>
     <div class="row">
       <div class="col-lg-12">
-        <img src="/assets/img/apricity-laptop.png" class="img-responsive apricity-laptop">
+        <img src="/assets/img/apricity-laptop.png" class="img-fluid apricity-laptop">
       </div>
     </div>
   </div>
   <div class="container home-page">
     <div class="row">
-      <div class="col-lg-7 col-centered text-center what-is-head">
+      <div class="col-lg-7 col-centered text-centered what-is-head">
         <h1 class="what-is-header">What is Apricity OS?</h1>
       </div>
     </div>
@@ -25,7 +25,7 @@
       <div class="col-lg-7 col-centered">
         <p class="intro-text">{{homeIntro}}</p>
         <div class="text-center">
-          <a class="btn btn-primary btn-lg" href="download" role="button">
+          <a class="btn btn-primary btn-lg pull-md-right" href="download" role="button">
             Download
           </a>
         </div>
@@ -36,9 +36,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 feature-icon-col">
-          <i class="material-icons home-icon">settings_power</i>
+          <img class="img-fluid" src="/assets/img/icons/box.png">
         </div>
-        <div class="col-md-7 col-md-offset-1">
+        <div class="col-md-7 offset-md-1">
           <h1 class="feature-heading">Freezedry</h1>
           <p>{{homeFreezedry}}</p>
         </div>
@@ -50,34 +50,31 @@
       <div class="row">
         <div class="col-md-9 col-centered">
           <div class="text-centered">
-            <h1>Selected Features</h1>
+            <h1 class="all-features-heading">Selected Features</h1>
           </div>
           <div class="row">
             <div class="col-md-4 col-trifold">
               <div class="text-centered">
-                <i class="material-icons trifold-icon">battery_charging_full</i>
-              <h3>Battery Life</h3>
+                <h3 class="trifold-head">Battery Life</h3>
               </div>
               <p>{{homeBattery}}</p>
             </div>
             <div class="col-md-4 col-trifold">
               <div class="text-centered">
-                <i class="material-icons trifold-icon">update</i>
-              <h3>Rolling Updates</h3>
+                <h3 class="trifold-head">Rolling Updates</h3>
               </div>
               <p>{{homeUpdates}}</p>
             </div>
             <div class="col-md-4 col-trifold">
               <div class="text-centered">
-                <i class="material-icons trifold-icon">security</i>
-              <h3>Security</h3>
+                <h3 class="trifold-head">Security</h3>
               </div>
               <p>{{homeSecurity}}</p>
             </div>
           </div>
           <div class="row">
             <div class="text-centered">
-              <a type="button" href="/features" class="btn btn-lg btn-default btn-primary">More Features</a>
+              <a role="button" href="/features" class="btn btn-lg btn-default btn-primary">More Features</a>
             </div>
           </div>
         </div>

@@ -14,19 +14,19 @@ Template.isoPage.helpers({
     return Builds.find({
       username: FlowRouter.getParam('username'),
       name: FlowRouter.getParam('configName'),
-      queued: true,
+      $or: [{queued: true}, {running: true}]
     }).fetch().length === 0;
   },
   config() {
     return Configs.findOne({
       username: FlowRouter.getParam('username'),
-      name: FlowRouter.getParam('configName'),
+      name: FlowRouter.getParam('configName')
     });
   },
   builds() {
     return Builds.find({
       username: FlowRouter.getParam('username'),
-      name: FlowRouter.getParam('configName'),
+      name: FlowRouter.getParam('configName')
     }, {sort: {queuedTime: -1}});
   },
   username() {
@@ -35,26 +35,27 @@ Template.isoPage.helpers({
   fullName() {
     let config = Configs.findOne({
       username: FlowRouter.getParam('username'),
-      name: FlowRouter.getParam('configName'),
+      name: FlowRouter.getParam('configName')
     });
     if (config) {
       return config.fullName;
     }
+    return undefined;
   },
   configName() {
     return FlowRouter.getParam('configName');
-  },
+  }
 });
 
 Template.isoPage.events({
   'click .create-new-build'(event, instance){
     let config = Configs.findOne({
       username: FlowRouter.getParam('username'),
-      name: FlowRouter.getParam('configName'),
+      name: FlowRouter.getParam('configName')
     });
 
     Meteor.call('builds.add', config._id, FlowRouter.getParam('username'));
-  },
+  }
 });
 
 Template.buildRow.helpers({
@@ -66,9 +67,10 @@ Template.buildRow.helpers({
       ).map(b => b._id).indexOf(this.build._id) + 1;
       return queueNum;
     }
+    return undefined;
   },
 
   date() {
     return this.build.queuedTime.toDateString();
-  },
+  }
 });

@@ -1,0 +1,42 @@
+<template name="blogPage">
+  <div class="container">
+    <header>
+      {{> navbar blogActive=true}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="text-centered">
+          <h1 class="blog-head">Blog</h1>
+        </div>
+        {{#each post in posts}}
+          {{> postCard post=post}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="postCard">
+  <div class="blog-post-card">
+    <div class="text-centered blog-post-title-div">
+      <h2 class="card-title"><a class="blog-post-title" href="/blog/post/{{post.cleanName}}">{{post.name}}</a></h2>
+    </div>
+    <p class="card-text render-whitespace">{{#markdown}}{{post.body}}{{/markdown}}</p>
+  </div>
+</template>
+
+<template name="blogPostPage">
+  <div class="container">
+    <header>
+      {{> navbar blogActive=false}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="text-centered">
+          <h1 class="blog-head">Blog Post</h1>
+        </div>
+        {{> postCard post=post}}
+      </div>
+    </div>
+  </div>
+</template>

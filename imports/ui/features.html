@@ -1,0 +1,126 @@
+<template name="featuresPage">
+  <div class="container features-page">
+    <header>
+      {{> navbar featuresActive=true}}
+    </header>
+    <div class="row">
+      <div class="col-lg-7 col-centered features-intro-head">
+        <h1 class="features-intro">Features</h1>
+        <p class="features-intro-text">{{featuresIntro}}</p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container"><hr></div> -->
+  <div class="full-width features-page-feature freezedry-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-3 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/box.png"></span>
+        </div>
+        <div class="col-md-7 offset-md-1">
+          <h1 class="feature-heading">Freezedry</h1>
+          <p>{{featuresFreezedry}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container"><hr></div> -->
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-7">
+          <h1 class="feature-heading">Updates</h1>
+          <p>{{featuresUpdates}}</p>
+        </div>
+        <div class="col-md-3 offset-md-1 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" id="updates-img" src="/assets/img/icons/updates.png"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-3 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/lock.png"></span>
+        </div>
+        <div class="col-md-7 offset-md-1">
+          <h1 class="feature-heading">Security</h1>
+          <p>{{featuresSecurity}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-7">
+          <h1 class="feature-heading">Productivity</h1>
+          <p>{{featuresOffice}}</p>
+        </div>
+        <div class="col-md-3 offset-md-1 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/pencil.png"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-3 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" id="windows-logo" src="/assets/img/icons/windows.png"></span>
+        </div>
+        <div class="col-md-7 offset-md-1">
+          <h1 class="feature-heading">Windows Integration</h1>
+          <p>{{featuresWindows}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-7">
+          <h1 class="feature-heading">Backups</h1>
+          <p>{{featuresBackup}}</p>
+        </div>
+        <div class="col-md-3 offset-md-1 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/harddrive.png"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-3 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/cloud.png"></span>
+        </div>
+        <div class="col-md-7 offset-md-1">
+          <h1 class="feature-heading">Cloud Integration</h1>
+          <p>{{featuresIce}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container"><hr></div>
+  <div class="full-width features-page-feature light-feature">
+    <div class="container">
+      <div class="row feature-icon-row">
+        <div class="col-md-7">
+          <h1 class="feature-heading">Multimedia</h1>
+          <p>{{featuresMultimedia}}</p>
+        </div>
+        <div class="col-md-3 offset-md-1 feature-icon-col">
+          <span class="feature-icon-inner"><img class="feature-icon img-fluid img-centered" src="/assets/img/icons/media.png"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</template>

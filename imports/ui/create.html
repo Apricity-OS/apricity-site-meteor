@@ -3,10 +3,10 @@
     <header>
       {{> navbar dashActive=false downloadActive=false}}
     </header>
-    <h2 id="create-form-head">Create a new freezedry configuration.</h2>
     {{#if hasBaseConfig}}
       <div class="row">
-        <div class="col-md-8 create-config-form">
+        <div class="col-md-8 offset-md-2 create-config-form">
+          <h2 id="create-form-head">Create a new freezedry configuration.</h2>
           {{> conditionalAlertErr text=alertErr}}
           <form class="package-form" id="package-form">
             <fieldset class="form-group package-form">
@@ -73,7 +73,7 @@
                 </ul>
                 {{#if uploadWallpaperTab}}
                   <label for="uploadWallpaperInput">Upload a wallpaper</label>
-                  {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
+                  {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
                   <!-- <label class="btn btn-default btn-secondary"> -->
                   <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
                   <!-- </label> -->
@@ -93,7 +93,7 @@
                 </ul>
                 {{#if uploadLockTab}}
                   <label for="uploadLockInput">Upload a lock screen background</label>
-                  {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=lockCallbacks}}
+                  {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=lockCallbacks}}
                   <!-- <label class="btn btn-default btn-secondary"> -->
                   <!--   {{uploadLockText}} <input type="file" class="uploadLockInput" name="uploadLockInput" accept="image/*" style="display: none;"> -->
                   <!-- </label> -->
@@ -105,12 +105,12 @@
                 <label for="gtkButtonLayout">GTK Button Layout</label>
                 <input type="text" class="form-control" name="gtkButtonLayout" id="gtkButtonLayout" value="{{gnome.gtk_button_layout}}">
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-secondary">
+                  <label class="btn btn-secondary {{#if gnome.dynamic_workspaces}}active{{/if}}">
                     <input type="checkbox" autocomplete="off" id="dynamicWorkspaces" name="dynamicWorkspaces" {{checkedIf gnome.dynamic_workspaces}}>Dynamic Workspaces
                   </label>
                 </div>
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-secondary active">
+                  <label class="btn btn-secondary {{#if gnome.desktop_icons}}active{{/if}}">
                     <input type="checkbox" autocomplete="off" id="desktopIcons" name="desktopIcons {{checkedIf gnome.desktop_icons}}">Desktop Icons
                   </label>
                 </div>
@@ -203,7 +203,8 @@
               </ul>
               {{#if uploadScreenshotTab}}
                 <label for="uploadScreenshotInput">Upload a screenshot</label>
-                {{> upload_bootstrap fileTypes='images/*' multiple=false formData=currentUser callbacks=screenshotCallbacks}}
+                <!-- {{> customUpload}} -->
+                {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
                 <!-- <label class="btn btn-default btn-secondary"> -->
                 <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
                 <!-- </label> -->
@@ -234,27 +235,39 @@
 <template name="packageLI">
   <li class="list-group-item btn-group" role="group">
     {{package}}
-    <button type="button" class="remove-btn pull-right">&times;</button>
+    <button type="button" class="remove-btn pull-xs-right">&times;</button>
   </li>
 </template>
 
 <template name="serviceLI">
   <li class="list-group-item btn-group" role="group">
     {{service}}
-    <button type="button" class="remove-btn pull-right">&times;</button>
+    <button type="button" class="remove-btn pull-xs-right">&times;</button>
   </li>
 </template>
 
 <template name="appLI">
   <li class="list-group-item btn-group" role="group">
     {{app}}
-    <button type="button" class="remove-btn pull-right">&times;</button>
+    <button type="button" class="remove-btn pull-xs-right">&times;</button>
   </li>
 </template>
 
 <template name="extensionLI">
   <li class="list-group-item btn-group" role="group">
     {{extension}}
-    <button type="button" class="remove-btn pull-right">&times;</button>
+    <button type="button" class="remove-btn pull-xs-right">&times;</button>
   </li>
+</template>
+
+<template name="customUpload">
+    <form method="POST" enctype="multipart/form-data">
+      <div class="btn-group">
+        <label class="btn btn-secondary">
+          <input type="file" class="jqUploadclass" style="display: none;" data-form-data='{{submitData}}'>
+          {{infoLabel}}
+        </label>
+        <button class="btn btn-primary start">Upload</button>
+      </div>
+    </form>
 </template>

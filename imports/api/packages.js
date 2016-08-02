@@ -7,12 +7,12 @@ export const Packages = new Mongo.Collection('packages');
 function startQueuedPackage() {
   let pkg = Packages.findOne({queued: true}, {sort: {queuedTime: 1}});
 
-  HTTP.del('http://45.55.247.46/repo');
-  HTTP.put('http://45.55.247.46/repo', {
+  HTTP.del('http://45.55.247.46:8000/repo');
+  HTTP.put('http://45.55.247.46:8000/repo', {
     params: {
       'package_name': pkg.packageName,
       'repo_name': pkg.repoName,
-      'repo_endpoint': pkg.repoEndpoint,
+      'repo_endpoint': pkg.repoEndpoint
     },
   }, function(error, response) {
     if (error) {
@@ -35,7 +35,7 @@ if (Meteor.isServer) {
         startQueuedPackage();
       }
     } else {
-      HTTP.get('http://45.55.247.46/repo', {}, function(error, response) {
+      HTTP.get('http://45.55.247.46:8000/repo', {}, function(error, response) {
         if (error) {
           console.log(error);
         } else {
@@ -48,9 +48,9 @@ if (Meteor.isServer) {
               queued: false,
               completed: true,
               failed: false,
-              log: 'http://45.55.247.46/repo/' +
+              log: 'http://192.241.147.116/' +
                 runningPackage.repoEndpoint + '/' +
-                running_package.packageName + '.log',
+                runningPackage.packageName + '.log'
             }});
           } else if (data.status === 'failure') {
             Packages.update({running: true}, {$set: {
@@ -58,9 +58,9 @@ if (Meteor.isServer) {
               queued: false,
               completed: false,
               failed: true,
-              log: 'http://45.55.247.46/repo/' +
+              log: 'http://192.241.147.116/' +
                 runningPackage.repoEndpoint + '/' +
-                running_package.packageName + '.log',
+                runningPackage.packageName + '.log'
             }});
           } else if (data.status === 'not completed') {
             console.log('Current package not completed');
@@ -84,7 +84,7 @@ Meteor.methods({
     }
 
     let packageNum = Packages.find({
-      packageName: packageName,
+      packageName: packageName
     }).fetch().length + 1;
 
     Packages.insert({
@@ -93,7 +93,7 @@ Meteor.methods({
       running: false,
       queued: true,
       queuedTime: new Date(),
-      buildNum: packageNum,
-    })
+      buildNum: packageNum
+    });
   }
-})
+});

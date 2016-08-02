@@ -1,3 +1,39 @@
+@import './bootstrap/bootstrap.scss';
+
+h1, h2, h3, h4, h5, h6, .at-title h3 {
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 300;
+}
+
+pre.config {
+    /* @extend .bg-faded; */
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 300;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    /* padding-top: 15px; */
+    /* padding-bottom: 15px; */
+}
+
+.at-title h3 {
+    font-size: 20pt;
+}
+
+p {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 140%;
+    font-size: 14pt;
+}
+
+.font-14 {
+    font-size: 14pt;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
 img.apricity-laptop {
     margin-bottom: 30px;
 }
@@ -7,6 +43,10 @@ img.apricity-laptop {
 }
 
 .home-intro-head {
+    text-align: center;
+}
+
+.features-intro-head {
     text-align: center;
 }
 
@@ -25,12 +65,14 @@ img.apricity-laptop {
 
 h1.intro-header {
     font-size: 50pt;
+    margin-bottom: 20px;
 }
 
 .footer {
     // margin-top: 50px;
     padding-top: 20px;
     background-color: #273040;
+    padding-bottom: 20px;
 }
 
 .footer p {
@@ -39,15 +81,25 @@ h1.intro-header {
 }
 
 .footer .footer-category {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
-.footer a {
+.footer a{
     color: #ffffff;
 }
 
 .footer a:hover {
-    color: #0088ff;
+    color: #ffffff;
+}
+
+.footer a:active {
+    color: #ffffff;
+}
+
+.footer a:visited {
+    color: #ffffff;
 }
 
 .footer hr {
@@ -58,6 +110,7 @@ h1.intro-header {
 
 .what-is-head {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .signup-form {
@@ -217,19 +270,27 @@ button.create-new-config {
 }
 
 .feature-heading {
+    font-size: 40pt;
     text-align: center;
     margin-bottom: 50px;
 }
 
 .freezedry-feature {
-    margin-top: 50px;
-    background-color: #4F518C;
+    margin-top: 100px;
+    background-color: #1485e0;
     color: #ffffff;
+}
+
+.feature-icon-row {
+    display: inline-block;
 }
 
 .feature-icon-col {
     text-align: center;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+    /* height: 100%; */
+    /* margin-top: 10%; */
+    vertical-align: middle;
 }
 
 .full-width {
@@ -243,6 +304,9 @@ button.create-new-config {
 
 div.text-centered {
     text-align: center;
+}
+
+div.img-centered {
 }
 
 .material-icons.trifold-icon {
@@ -276,5 +340,237 @@ div.text-centered {
 }
 
 .freezedry-tabs {
+    margin-bottom: 20px;
+}
+
+.forum-category-head {
+    margin-bottom: 100px;
+}
+
+.forum-category-card {
+    margin-bottom: 50px;
+}
+
+.category-description {
+    margin-bottom: 0px;
+}
+
+.forum-comment-body {
+    margin-bottom: 0px;
+}
+
+.forum-comment-card {
+    margin-bottom: 50px;
+}
+
+.add-comment {
+    margin-bottom: 20px;
+}
+
+.discussion-info {
+    margin-bottom: 0px;
+}
+
+button.add-comment {
+    margin-bottom: 0px;
+}
+
+textarea.edit-discussion {
+    margin-bottom: 20px;
+}
+
+textarea.edit-comment {
+    margin-bottom: 20px;
+}
+
+button.edit-comment {
+    margin-bottom: 0px;
+}
+
+.add-comment-form, .add-comment-form fieldset {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.edit-comment-form, .edit-comment-form fieldset {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.render-whitespace {
+    white-space: pre-wrap;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.discussion-title {
+    margin-bottom: 20px;
+}
+
+.discussion-body {
+    margin-bottom: 20px;
+}
+
+.add-discussion-header {
+    margin-bottom: 50px;
+}
+
+.discussion-category {
+    margin-bottom: 20px;
+}
+
+.blog-head {
+    margin-bottom: 100px;
+}
+
+.blog-post-title, .blog-post-title:active, .blog-post-title:hover, .blog-post-title:visited {
+    color: #333333;
+}
+
+.blog-post-title-div {
+    margin-bottom: 30px;
+}
+
+.blog-post-card {
+    margin-bottom: 200px;
+}
+
+.docs-entry-title {
+    margin-bottom: 20px;
+}
+
+.docs-entry-body {
+    margin-bottom: 20px;
+}
+
+.add-docs-entry-header {
+    margin-bottom: 50px;
+}
+
+.btn-lg {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.docs-head {
+    margin-bottom: 100px;
+}
+
+.docs-entry-title, .docs-entry-title:active, .docs-entry-title:hover, .docs-entry-title:visited {
+    color: #333333;
+}
+
+.features-page-feature {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.features-intro-text {
+    font-size: 14pt;
+}
+
+.features-page-feature p {
+    font-size: 14pt;
+}
+
+.features-intro {
+    font-size: 50pt;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.security-feature {
+    color: #ffffff;
+    background-color: #309BDD;
+}
+
+.windows-feature {
+    color: #ffffff;
+    background-color: #0CC34C;
+}
+
+.cloud-feature {
+    color: #ffffff;
+    background-color: #D54749;
+}
+
+.donate-row {
+    margin-bottom: 20px;
+}
+
+.donate-input {
+    margin-top: 20px;
+}
+
+.donate-wrapper {
+    margin-left: 50px;
+}
+
+.navbar-buttons {
+    margin-left: 20px;
+}
+
+.col-md-offset-3 {
+    @extend .offset-md-3;
+}
+
+.download-deck {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.trifold-head {
+    margin-bottom: 20px;
+}
+
+.all-features-heading {
+    font-size: 40pt;
+}
+
+.logo {
+    width: 80px;
+    margin-right: 20px;
+}
+
+/* #windows-logo { */
+/*     margin-top: 50px; */
+/* } */
+
+/* #pencil-img { */
+/*     margin-top: -300px; */
+/*     margin-bottom: -100px; */
+/*     height: 700px; */
+/* } */
+
+.trifold-img {
+    height: 100px;;
+    display: block;
+    margin: auto;
+}
+
+/* #updates-img { */
+/*     margin-top: 50px; */
+/* } */
+
+.img-centered {
+    display: block;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.feature-icon-inner {
+    display: inline-block;
+    height: 100%
+}
+
+@media (max-width: 766px) {
+    .feature-icon {
+        padding-left: 100px;
+        padding-right: 100px;
+        margin-top: 40px;
+    }
+}
+
+.more-button {
     margin-bottom: 20px;
 }

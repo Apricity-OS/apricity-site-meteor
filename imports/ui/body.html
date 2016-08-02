@@ -3,6 +3,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
   </head>
 
   {{> Template.dynamic template=page}}
@@ -13,35 +17,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
   </head>
 
   <div class="container">
-    {{> navbar homeActive=false downloadActive=false}}
+    {{> navbar}}
     {{> Template.dynamic template=page}}
   </div>
 </template>
 
 <template name="navbar">
   <nav class="navbar navbar-light">
-    <a class="navbar-brand" href="/">apricity os</a>
-    <ul class="nav navbar-nav">
+    <a class="navbar-brand" href="/"><img class="logo" src="/assets/img/mark.png"></a>
+    <button class="navbar-toggler hidden-sm-up pull-sm-right" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      &#9776;
+    </button>
+    <div class="collapse navbar-toggleable-xs" id="mainNavbar">
+      <ul class="nav navbar-nav">
+        {{#if currentUser}}
+          {{> navitem active=dashActive link="/dash" text="dash"}}
+        {{else}}
+          {{> navitem active=homeActive link="/" text="home"}}
+          {{> navitem active=featuresActive link="/features" text="features"}}
+        {{/if}}
+        {{> navitem active=downloadActive link="/download" text="download"}}
+        {{> navitem active=forumActive link="/forum" text="forum"}}
+        {{> navitem active=blogActive link="/blog" text="blog"}}
+        {{> navitem active=docsActive link="/docs" text="docs"}}
+      </ul>
       {{#if currentUser}}
-        {{> navitem active=dashActive link="/dash" text="dash"}}
+        <div class="navbar-buttons pull-md-right">
+          {{> account}}
+          {{> donate}}
+        </div>
       {{else}}
-        {{> navitem active=homeActive link="/" text="home"}}
+        <div class="navbar-buttons pull-md-right">
+          {{> login}}
+          {{> signup}}
+          {{> donate}}
+        </div>
       {{/if}}
-      {{> navitem active=downloadActive link="/download" text="download"}}
-    </ul>
-    {{#if currentUser}}
-      <form class="form-inline pull-right">
-        {{> account}}
-      </form>
-    {{else}}
-      <form class="form-inline pull-right">
-        {{> login}}
-        {{> signup}}
-      </form>
-    {{/if}}
+    </div>
   </nav>
 </template>
 
@@ -51,6 +72,51 @@
 
 <template name="signup">
   <a href="/signup" role="button" class="btn btn-primary">Sign Up</a>
+</template>
+
+<template name="donate">
+  <button role="button" class="btn btn-secondary donate-button" data-toggle="modal" data-target="#donateModal">Donate</button>
+
+  <div class="modal fade" id="donateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="donateModalLabel">Donate</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row donate-row">
+            <div class="col-sm-6">
+              <div class="btn-group donate-input" role="group">
+                <button type="button" id="donate-1" class="btn btn-secondary">$1</button>
+                <button type="button" id="donate-5" class="btn btn-secondary">$5</button>
+                <button type="button" id="donate-10" class="btn btn-secondary">$10</button>
+                <button type="button" id="donate-20" class="btn btn-secondary">$20</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <form id="donate-other-form">
+                <div class="form-group {{#if customDonateBad}}has-danger{{/if}}">
+                  <div class="input-group donate-input ">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control {{#if customDonateBad}}form-control-danger{{/if}}" id="donate-other" placeholder="3.00">
+                    <div class="input-group-btn">
+                      <button class="btn btn-secondary" {{disabledIf customDonateBad}}>Custom</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="account">

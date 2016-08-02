@@ -1,35 +1,79 @@
 [
-    {
-        "name": "tagline",
-        "text": "Simple, Beautiful, Linux"
-    },
-    {
-        "name": "homeIntro",
-        "text": "Rethere enor senry sidepoiderde ilightunlow. Ining tionsmentscol oestened toresobedmu iture siit lithe. Tyreconnaed lightson yex ede icon ersre reane! Ening lowly sublyble feryan thelightotady terac arly ingu beer cony lowper. Conman eeex tyryreor mues petheicpres y ebeas. Mentingsub sondethe reyfacor soto larytiveof someal bleple esretoage eri conread. Ryabuten terebut dayfor enersal tinap. Mainperad retu eses torin. Ribesi is beesiper apdi arpres recationlyde espaanra. Tynadelysur ersnyreence concov eder sonfuler."
-    },
-    {
-        "name": "downloadIntro",
-        "text": "Theiter terfac mained preeddis? Na titionsotionfi etersomeeed lyconi com peresgetmo menttedtyinty piycom esditionadri magti inrei. Setpro antion ertro esanble excuaped ytle anes per edna. Estoget terdirecun proal tionsment. De ri iset esthe or. Disexcata tionri ingly temis acdercon didiscolcator. Lycomsome edly fuled ucyi eseners ety ypro eri mentget ier bering. Atci uner ature conbeny tioni exre pletion get diertion. Sioningthefor proenotion minyti uelter reedo soexanli nessal. Dertyay mentcaterny nationidesion erslaproet tieswarddera tisurtefi escon ble ac reperly macom."
-    },
-    {
-        "name": "freezedryWelcome",
-        "text": "This is your community dashboard, where you can find Freezedry configurations that others in the Apricity OS community have made. If you find one you like, either load it onto an existing Apricity OS installation from the freezedry command-line tool, or build an iso to install it onto a new computer."
-    },
-    {
-        "name": "homeFreezedry",
-        "text": "A never before seen feature, Apricity Freezedry allows you to easily build your own custom version of Apricity OS online with an easy to use form. When complete, download and share your custom creation with the community. Feel free to check out other builds and make suggestions."
-    },
-    {
-        "name": "homeBattery",
-        "text": "Apricity OS comes installed with TLP, an advanced but easy to use power management tool. TLP comes out of the box with a default setup optimized to maximize your computer’s battery life. However, TLP is highly customizable for your personal needs."
-    },
-    {
-        "name": "homeUpdates",
-        "text": "Because of its roots in ArchLinux, Apricity OS follows a rolling release schedule. This means that your entire system will receive updates on a regular basis, avoiding any frustration with out-of-date software while maintaining its security and stability."
-    },
-    {
-        "name": "homeSecurity",
-        "text": "Avoiding the often frustrating and complicated iptables that make up a traditional Linux firewall, Apricity OS opts instead for Uncomplicated Firewall (UFW). UFW comes out of the box with a default configuration that protects a basic user. Despite this, UFW also allows for a high level of customizability, and can be used with wide variety of systems."
-    }
+  {
+    "name": "tagline",
+    "text": "Simple, Beautiful, Linux"
+  },
+  {
+    "name": "homeIntro",
+    "text": "Rethere enor senry sidepoiderde ilightunlow. Ining tionsmentscol oestened toresobedmu iture siit lithe. Tyreconnaed lightson yex ede icon ersre reane! Ening lowly sublyble feryan thelightotady terac arly ingu beer cony lowper. Conman eeex tyryreor mues petheicpres y ebeas. Mentingsub sondethe reyfacor soto larytiveof someal bleple esretoage eri conread. Ryabuten terebut dayfor enersal tinap. Mainperad retu eses torin. Ribesi is beesiper apdi arpres recationlyde espaanra. Tynadelysur ersnyreence concov eder sonfuler."
+  },
+  {
+    "name": "downloadIntro",
+    "text": "Theiter terfac mained preeddis? Na titionsotionfi etersomeeed lyconi com peresgetmo menttedtyinty piycom esditionadri magti inrei. Setpro antion ertro esanble excuaped ytle anes per edna. Estoget terdirecun proal tionsment. De ri iset esthe or. Disexcata tionri ingly temis acdercon didiscolcator. Lycomsome edly fuled ucyi eseners ety ypro eri mentget ier bering. Atci uner ature conbeny tioni exre pletion get diertion. Sioningthefor proenotion minyti uelter reedo soexanli nessal. Dertyay mentcaterny nationidesion erslaproet tieswarddera tisurtefi escon ble ac reperly macom."
+  },
+  {
+    "name": "freezedryWelcome",
+    "text": "This is your community dashboard, where you can find Freezedry configurations that others in the Apricity OS community have made. If you find one you like, either load it onto an existing Apricity OS installation from the freezedry command-line tool, or build an iso to install it onto a new computer."
+  },
+  {
+    "name": "homeFreezedry",
+    "text": "A never before seen feature, Apricity Freezedry allows you to easily build your own custom version of Apricity OS online with an easy to use form. When complete, download and share your custom creation with the community. Feel free to check out other builds and make suggestions."
+  },
+  {
+    "name": "homeBattery",
+    "text": "Apricity OS comes installed with TLP, an advanced but easy to use power management tool. TLP comes out of the box with a default setup optimized to maximize your computer’s battery life. However, TLP is highly customizable for your personal needs."
+  },
+  {
+    "name": "homeUpdates",
+    "text": "Because of its roots in ArchLinux, Apricity OS follows a rolling release schedule. This means that your entire system will receive updates on a regular basis, avoiding any frustration with out-of-date software while maintaining its security and stability."
+  },
+  {
+    "name": "homeSecurity",
+    "text": "Avoiding the often frustrating and complicated iptables that make up a traditional Linux firewall, Apricity OS opts instead for Uncomplicated Firewall (UFW). UFW comes out of the box with a default configuration that protects a basic user. Despite this, UFW also allows for a high level of customizability, and can be used with wide variety of systems."
+  },
+  {
+    "name": "featuresFreezedry",
+    "text": "What does Linux look like to you? Our goal is to create a productive environment that fosters creativity, and there is no better way to do so, than with your own personal touch. Now, with a never before seen feature, Apricity Freezedry enables you to easily build your own custom version of Apricity OS online with an easy to use form. When complete, you will be able download and share your custom creation with the community! Feel free to check out other builds and make suggestions."
+  },
+  {
+    "name": "featuresUpdates",
+    "text": "Apricity OS easily stays up-to-date because of its rolling release schedule and use of the Pamac package manager. On account of its roots in ArchLinux, Apricity OS follows a rolling release schedule. This means that your entire system will receive updates on a regular basis, avoiding any frustration with out-of-date software while maintaining its security and stability. The Pamac package manager makes it easy to install these frequent updates and find available packages for download. "
+  },
+  {
+    "name": "featuresSecurity",
+    "text": "The Uncomplicated Firewall (UFW) allows for a simple, no frills approach to securing your computer. UFW provides a friendly framework for managing netfilter without the hassle of using iptables, and provides a set of command-line tools for working with your firewall. It comes downloaded with a configuration optimized for most computers, but allows for a high level of customization to suit the user’s needs."
+  },
+  {
+    "name": "featuresOffice",
+    "text": "Functionality is brought to the forefront of Apricity OS with the inclusion of the LibreOffice application suite. LibreOffice is a high-quality, modern office suite that includes necessary applications, including Writer, their word processor, and Calc, their spreadsheet program. "
+  },
+  {
+    "name": "featuresWindows",
+    "text": "Wine and PlayOnLinux provide a seamless integration of many Windows programs into Apricity OS. Instead of running these applications in a virtual machine, Wine fundamentally changes the operation of these applications, resulting in a more streamlined use of Windows applications than traditional solutions. PlayonLinux lets you continue to play your favorite Windows games on Apricity OS. These solutions enable you to maintain your current workflow (and gaming schedule) while transitioning operating systems and provides for a larger library of applications."
+  },
+  {
+    "name": "featuresBackup",
+    "text": "SBackup, is one of the easiest ways to back up your computer. While remaining simple and easy to use, it has many notable features which makes it stand apart from the competition. SBackup is able to create both compressed and uncompressed backups, able to split uncompressed backups into multiple parts, supports scheduled backups and manual backups, can back up files to both local and remote destinations, and has a variety of advanced options such as logging, and email notification."
+  },
+  {
+    "name": "featuresIce",
+    "text": "Apricity OS lets you put your favorite web apps on the desktop with ICE, a simple SSB (Site Specific Browser) manager. These specialized browsers allow you to immediately access your most used websites, minimizing hassle and maximizing your time."
+  },
+  {
+    "name": "featuresMultimedia",
+    "text": "GNOME Videos is able to play most popular media formats and numerous playlist formats. In addition, Apricity OS comes with a full set of multimedia codecs, so you can start quickly and easily maximize your media experience. Furthermore, GNOME music provides tools to effectively manage your music library while offering an elegant browsing experience. "
+  },
+  {
+    "name": "featuresRemote",
+    "text": "Apricity OS features two applications that promote collaboration. FileZilla, the included FTP solution, allows for the fast access of remote servers, meanwhile Syncthing facilitates the sharing of data across multiple platforms–which can be even faster than cloud-based alternatives."
+  },
+  {
+    "name": "featuresPhotos",
+    "text": "Access and organize your photo library with GNOME Photos, and edit them with the intuitive GIMP image editor and Inkscape, the open source vector graphics software."
+  },
+  {
+    "name": "featuresIntro",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+  }
 ]
 

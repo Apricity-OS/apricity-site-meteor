@@ -25,20 +25,20 @@ Template.createPage.onCreated(function() {
           self.creating = true;
           let baseConfig = Configs.findOne({
             name: FlowRouter.getParam('configName'),
-            username: FlowRouter.getParam('username'),
+            username: FlowRouter.getParam('username')
           });
           self.state.set('screenshotUrl', baseConfig.screenshot);
           self.state.set('fullName', baseConfig.fullName);
           self.state.set('description', baseConfig.description);
           self.baseConfig = () => baseConfig.config;
-          console.log('Cloning')
+          console.log('Cloning');
           console.log(self.baseConfig());
           self.hasBaseConfig.set(true);
         } else if (FlowRouter.current().route.name === 'specificConfigEdit') {
           self.edit = true;
           let baseConfig = Configs.findOne({
             name: FlowRouter.getParam('configName'),
-            username: FlowRouter.getParam('username'),
+            username: FlowRouter.getParam('username')
           });
           self.baseConfigId = baseConfig._id;
           self.state.set('screenshotUrl', baseConfig.screenshot);
@@ -65,7 +65,7 @@ Template.createPage.onCreated(function() {
       self.state.set('zshTab', self.baseConfig().zsh ? true : false);
 
       self.config.set(self.baseConfig());
-    },
+    }
   });
 });
 
@@ -158,7 +158,7 @@ Template.createPage.helpers({
   codeMirrorOptions() {
     return {
       lineNumbers: true,
-      mode: 'shell',
+      mode: 'shell'
       // theme: 'paraiso-dark'
     };
   },
@@ -202,6 +202,7 @@ Template.createPage.helpers({
     if (Template.instance().config.get().zsh) {
       return Template.instance().config.get().zsh.zshrc.join('\n');
     }
+    return undifined;
   },
   zshTab() {
     return Template.instance().state.get('zshTab');
@@ -214,6 +215,7 @@ Template.createPage.helpers({
       return Template.instance().config.get().code.user.join('\n');
     } else {
       console.log('User code is false');
+      return undefined;
     }
   },
   rootCode() {
@@ -221,8 +223,9 @@ Template.createPage.helpers({
       console.log(Template.instance().config.get().code);
       return Template.instance().config.get().code.root.join('\n');
     }
-  },
-})
+    return undefined;
+  }
+});
 
 function setGnomeLockConfig(instance, alert) {
   let config = instance.config.get();
@@ -233,7 +236,7 @@ function setGnomeLockConfig(instance, alert) {
       instance.state.set('alertErr', 'Please upload a lock screen background');
     }
   } else {
-    config.gnome.lock_background = $('#pasteLockInput').value;
+    config.gnome.lock_background = document.getElementById('pasteLockInput').value;
   }
   instance.config.set(config);
 }
@@ -247,7 +250,7 @@ function setGnomeWallpaperConfig(instance, alert) {
       instance.state.set('alertErr', 'Please upload a wallpaper');
     }
   } else {
-    config.gnome.wallpaper = $('#pasteWallpaperInput').value;
+    config.gnome.wallpaper = document.getElementById('pasteWallpaperInput').value;
   }
   instance.config.set(config);
 }
@@ -255,14 +258,16 @@ function setGnomeWallpaperConfig(instance, alert) {
 function setGnomeConfig(instance, alert) {
   let config = instance.config.get();
 
-  config.gnome.gtk_theme = $('#gtkTheme').value;
-  config.gnome.shell_theme = $('#shellTheme').value;
-  config.gnome.icon_theme = $('#iconTheme').value;
-  config.gnome.gtk_button_layout = $('#gtkButtonLayout').value;
-  config.gnome.dynamic_workspaces = $('#dynamicWorkspaces').value;
-  config.gnome.desktop_icons = $('#desktopIcons').value;
+  console.log(document.getElementById('gtkTheme'));
+  config.gnome.gtk_theme = document.getElementById('gtkTheme').value;
+  config.gnome.shell_theme = document.getElementById('shellTheme').value;
+  config.gnome.icon_theme = document.getElementById('iconTheme').value;
+  config.gnome.gtk_button_layout = document.getElementById('gtkButtonLayout').value;
+  config.gnome.dynamic_workspaces = document.getElementById('dynamicWorkspaces').checked;
+  config.gnome.desktop_icons = document.getElementById('desktopIcons').checked;
 
   instance.config.set(config);
+  console.log(instance.config.get());
   setGnomeWallpaperConfig(instance, alert);
   setGnomeLockConfig(instance, alert);
 }
@@ -284,7 +289,7 @@ function processCode(code) {
 function setZshConfig(instance, alert) {
   let config = instance.config.get();
   config.zsh = {
-    'zshrc': processCode($('#zshrc').value),
+    zshrc: processCode(document.getElementById('zshrc').value)
   };
   instance.config.set(config);
 }
@@ -292,8 +297,8 @@ function setZshConfig(instance, alert) {
 function setCodeConfig(instance, alert) {
   let config = instance.config.get();
   config.code = {
-    'root': processCode($('#rootCode').value),
-    'user': processCode($('#userCode').value),
+    root: processCode(document.getElementById('rootCode').value),
+    user: processCode(document.getElementById('userCode').value)
   };
   instance.config.set(config);
 }
@@ -531,7 +536,7 @@ Template.createPage.events({
     if (instance.state.get('uploadScreenshotTab')) {
       screenshotUrl = instance.state.get('screenshotUrl');
     } else {
-      screenshotUrl = $('#pasteScreenshotInput').value;
+      screenshotUrl = document.getElementById('pasteScreenshotInput').value;
     }
 
     console.log(screenshotUrl);
@@ -566,7 +571,7 @@ Template.createPage.events({
       Meteor.call('configs.edit', instance.baseConfigId, instance.config.get(), cleanName, fullName, screenshotUrl, description);
     }
     FlowRouter.go('myConfigs');
-  },
+  }
 });
 
 Template.packageLI.events({
@@ -575,10 +580,10 @@ Template.packageLI.events({
     console.log(this.package);
     let config = this.config.get();
     let packages = config.pacman.packages;
-    packages.splice(packages.indexOf(this.package), 1)
+    packages.splice(packages.indexOf(this.package), 1);
     config.pacman.packages = packages;
     this.config.set(config);
-  },
+  }
 });
 
 Template.serviceLI.events({
@@ -586,10 +591,10 @@ Template.serviceLI.events({
     event.preventDefault();
     let config = this.config.get();
     let services = config.systemd.services;
-    services.splice(services.indexOf(this.service), 1)
+    services.splice(services.indexOf(this.service), 1);
     config.systemd.services = services;
     this.config.set(config);
-  },
+  }
 });
 
 Template.appLI.events({
@@ -597,10 +602,10 @@ Template.appLI.events({
     event.preventDefault();
     let config = this.config.get();
     let apps = config.gnome.favorite_apps;
-    apps.splice(apps.indexOf(this.app), 1)
+    apps.splice(apps.indexOf(this.app), 1);
     config.gnome.favorite_apps = apps;
     this.config.set(config);
-  },
+  }
 });
 
 Template.extensionLI.events({
@@ -608,8 +613,58 @@ Template.extensionLI.events({
     event.preventDefault();
     let config = this.config.get();
     let extensions = config.gnome.extensions;
-    extensions.splice(extensions.indexOf(this.extension), 1)
+    extensions.splice(extensions.indexOf(this.extension), 1);
     config.gnome.extensions = extensions;
     this.config.set(config);
+  }
+});
+
+Template.customUpload.created = function() {
+  Uploader.init(this);
+};
+
+Template.customUpload.rendered = function () {
+  Uploader.render.call(this);
+};
+
+Template.customUpload.events({
+  'click .start': function (e) {
+    Uploader.startUpload.call(Template.instance(), e);
+    console.log('Started upload');
+  }
+});
+
+function roundDecimals(num, decimals) {
+  return Math.round(num * decimals * 10) / (decimals * 10);
+}
+
+Template.customUpload.helpers({
+  'infoLabel': function() {
+    var instance = Template.instance();
+
+    // we may have not yet selected a file
+    var info = instance.info.get();
+    if (!info) {
+      return 'Select a file';
+    }
+
+    var progress = instance.globalInfo.get();
+
+    // we display different result when running or not
+    if (progress.running) {
+      return info.name + ' - ' + progress.progress + '% - [' + progress.bitrate + ']';
+    }
+    return info.name + ' - ' + roundDecimals(info.size / 1000000, 2) + 'M';
   },
+  'progress': function() {
+    return Template.instance().globalInfo.get().progress + '%';
+  },
+  'submitData': function() {
+    if (this.formData) {
+      this.formData.contentType = this.contentType;
+    } else {
+      this.formData = {contentType: this.contentType};
+    }
+    return typeof this.formData == 'string' ? this.formData : JSON.stringify(this.formData);
+  }
 });

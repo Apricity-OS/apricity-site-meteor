@@ -1,0 +1,236 @@
+<template name="forumPage">
+  <div class="container">
+    <header>
+      {{> navbar forumActive=true}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="text-centered">
+          <h2 class="forum-category-head">Categories</h2>
+        </div>
+        {{#each parentCategory in parentCategories}}
+          <div class="card forum-category-card">
+            <div class="card-header">
+              {{parentCategory.name}}
+            </div>
+            <ul class="list-group list-group-flush">
+              {{#each category in parentCategory.categories}}
+                {{> categoryRow category=category}}
+              {{/each}}
+            </ul>
+          </div>
+        {{/each}}
+      </div>
+      <div class="col-md-2">
+        {{#if currentUser}}
+          <a href="/forum/add-discussion" role="button" class="btn btn-default btn-primary btn-lg pull-md-right">Add Discussion</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="categoryRow">
+  <li class="list-group-item">
+    <div class="font-14"><a href="{{url}}">{{category.name}}</a></div>
+    <p class="category-description">{{category.description}}</p>
+  </li>
+</template>
+
+<template name="forumCategoryPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-centered">
+        <h2 class="forum-category-head">{{categoryName}}</h2>
+      </div>
+      <div class="col-md-2 offset-md-1">
+        <a href="/forum/add-discussion" class="pull-md-right btn btn-default btn-primary btn-lg">Add Discussion</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card forum-discussion-card">
+          <div class="card-header">
+            Discussions
+          </div>
+          <ul class="list-group list-group-flush">
+            {{#each discussion in discussions}}
+              {{> discussionRow discussion=discussion}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="discussionRow">
+  <li class="list-group-item">
+    <div class="font-14"><a href="{{url}}">{{discussion.name}}</a></div>
+    <p class="text-muted discussion-info">
+      {{numComments}} comments
+      <span class="pull-md-right">post by <a href="{{userUrl}}">{{discussion.username}}</a></span>
+    </p>
+  </li>
+</template>
+
+<template name="forumDiscussionPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1">
+        {{#if discussionExists}}
+          <h2 class="forum-category-head">{{discussionName}}</h2>
+          <div class="card forum-comment-card">
+            <div class="card-header">
+              <a href="{{userUrl}}">{{discussionUsername}}</a>
+              {{#if ownerIsMe}}
+                <div class="btn-group btn-group-sm pull-md-right" role="group">
+                  <button class="btn btn-secondary edit-discussion">Edit</button>
+                  <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteDiscussion">Delete</button>
+                </div>
+              {{/if}}
+            </div>
+            <div class="card-block">
+              {{#if editDiscussion}}
+                <form class="edit-discussion-form">
+                  <fieldset class="form-group">
+                    <textarea class="form-control edit-discussion" name="discussionText" rows="5">{{discussionBody}}</textarea>
+                    <button class="btn btn-default btn-primary" type="submit">Confirm Edit</button>
+                  </fieldset>
+                </form>
+              {{else}}
+                <p class="forum-discussion-body render-whitespace">{{#markdown}}{{discussionBody}}{{/markdown}}</p>
+              {{/if}}
+            </div>
+          </div>
+          {{#each comment in comments}}
+            {{> commentCard comment=comment}}
+          {{/each}}
+          {{#if currentUser}}
+            {{> conditionalAlertErr text=alertErr}}
+            <div class="card forum-comment-card">
+              <div class="card-header">
+                Add Comment
+              </div>
+              <div class="card-block">
+                <form class="add-comment-form">
+                  <fieldset class="form-group">
+                    <textarea class="form-control add-comment" name="commentText" id="add-comment" rows="5"></textarea>
+                    <button class="btn btn-default btn-primary add-comment" type="submit">Post Comment</button>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          {{/if}}
+        {{else}}
+          <h2>There doesn't seem to be anything here.</h2>
+          <p>That's all we know.</p>
+        {{/if}}
+      </div>
+      <div class="col-md-3">
+        <a href="/forum/add-discussion" class="btn btn-default btn-primary btn-lg">Add Discussion</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteDiscussion" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want do delete this entire discussion?</p>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger delete-discussion">Delete</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="commentCard">
+  <div class="card forum-comment-card">
+    <div class="card-header">
+      <a href="{{userUrl}}">{{comment.username}}</a>
+      {{#if ownerIsMe}}
+        <div class="btn-group btn-group-sm pull-md-right" role="group">
+          <button class="btn btn-secondary edit-comment">Edit</button>
+          <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteComment{{comment._id}}">Delete</button>
+        </div>
+      {{/if}}
+    </div>
+    <div class="card-block">
+      {{#if editComment}}
+        <form class="edit-comment-form">
+          <fieldset class="form-group">
+            <textarea class="form-control edit-comment" name="commentText" id="edit-comment" rows="5">{{comment.body}}</textarea>
+            <button class="btn btn-default btn-primary" type="submit">Confirm Edit</button>
+          </fieldset>
+        </form>
+      {{else}}
+        <p class="forum-comment-body render-whitespace">{{#markdown}}{{comment.body}}{{/markdown}}</p>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteComment{{comment._id}}" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want do delete this comment?</p>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger delete-comment">Delete</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="addDiscussionPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1">
+        <h2 class="add-discussion-header">Add Discussion</h2>
+        {{> conditionalAlertErr text=alertErr}}
+        <form class="add-discussion">
+          <fieldset class="form-group">
+            <label for="discussionCategory">Category</label>
+            <select class="form-control discussion-category" id="discussionCategory" name="discussionCategory">
+              {{#each category in categories}}
+                <option>{{category.name}}</option>
+              {{/each}}
+            </select>
+            <label for="discussionTitle">Title</label>
+            <input type="text" class="form-control discussion-title" id="discussionTitle" placeholder="My Amazing Title">
+            <label for="discussionBody">Body</label>
+            <textarea class="form-control discussion-body" id="discussionBody" name="discussionBody" placeholder="Help please" rows="6"></textarea>
+            <button type="submit" class="btn btn-default btn-primary">Add Discussion</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

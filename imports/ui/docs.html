@@ -1,10 +1,132 @@
 <template name="docsPage">
   <div class="container">
     <header>
+      {{> navbar docsActive=true}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="text-centered">
+          <h1 class="blog-head">Docs</h1>
+        </div>
+        {{#each docsEntry in docs}}
+          {{> docsTitleCard docsEntry=docsEntry}}
+        {{/each}}
+      </div>
+      <div class="col-md-2">
+        {{#if currentUser}}
+          <a href="/docs/add-entry" class="btn btn-default pull-md-right btn-primary btn-lg">Add Docs Entry</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="docsTitleCard">
+  <div class="docs-title-card">
+    <div class="docs-head docs-card-title-div">
+      <div class="text-centered">
+        <h2 class="card-title"><a class="docs-entry-title" href="/docs/entry/{{docsEntry.cleanName}}">{{docsEntry.name}}</a></h2>
+      </div>
+      <div class="card-block">
+        <p class="render-whitespace">
+          {{#markdown}}
+            {{docsEntryPreview}}
+          {{/markdown}}
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="docsEntryPage">
+  <div class="container">
+    <header>
       {{> navbar}}
     </header>
     <div class="row">
-      <h4>Docs</h4>
+      <div class="col-md-8 offset-md-2">
+        {{#if docsEntry}}
+          <div class="text-centered">
+            <h1 class="docs-head docs-entry-title">{{docsEntry.name}}</h1>
+          </div>
+          <div class="btn-group pull-sm-right">
+            <button role="button" class="btn btn-secondary dropdown-toggle more-button" data-toggle="dropdown">More</button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item edit-docs-entry">Edit</button>
+              {{#if canDelete}}
+                <button class="dropdown-item" data-toggle="modal" data-target="#deleteDocsEntry">Delete</button>
+              {{/if}}
+            </div>
+          </div>
+          {{#if editDocsEntry}}
+            <form class="edit-docs-entry-form">
+              <fieldset class="form-group">
+                <textarea class="form-control edit-comment" name="docsEntryText" id="edit-docs-entry" rows="15">{{docsEntry.body}}</textarea>
+                <button class="btn btn-default btn-primary" type="submit">Confirm Edit</button>
+              </fieldset>
+            </form>
+          {{else}}
+            <p class="render-whitespace">
+              {{#markdown}}
+                {{docsEntry.body}}
+              {{/markdown}}
+            </p>
+          {{/if}}
+        {{else}}
+          <h3>There doesn't seem to be anything here.</h3>
+          <p>That's all we know.</p>
+        {{/if}}
+      </div>
+      <div class="col-md-2">
+        {{#if currentUser}}
+          <a href="/docs/add-entry" class="btn btn-default btn-primary btn-lg pull-md-right">Add Docs Entry</a>
+        {{/if}}
+      </div>
+
+      <div class="modal fade" id="deleteDocsEntry" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want do delete this docs entry?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger delete-docs-entry">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="addDocsEntryPage">
+  <div class="container">
+    <header>
+      {{> navbar}}
+    </header>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="text-centered">
+          <h2 class="add-discussion-header">Add Docs Entry</h2>
+        </div>
+        {{> conditionalAlertErr text=alertErr}}
+        <form class="add-docs-entry">
+          <fieldset class="form-group">
+            <label for="docsEntryTitle">Title</label>
+            <input type="text" class="form-control docs-entry-title" id="docsEntryTitle" placeholder="My Amazing Title">
+            <label for="docsEntryBody">Body</label>
+            <textarea class="form-control docs-entry-body" id="docsEntryBody" name="docsEntryBody" placeholder="Three easy steps to..." rows="6"></textarea>
+            <button type="submit" class="btn btn-default btn-primary">Add Docs Entry</button>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </div>
 </template>

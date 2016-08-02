@@ -1,15 +1,15 @@
 <template name="freezedry">
   <div class="card freezedry">
-    <img class="card-img-top img-responsive" src="{{config.screenshot}}" alt="Config screenshot">
+    <img class="card-img-top img-fluid" src="{{config.screenshot}}" alt="Config screenshot">
     <div class="card-block">
       <div class="row">
         <div class="col-md-5 freezedry-heading">
           <h3 class="card-title freezedry-title"><a class="config-heading" href="/user/{{config.username}}/config/{{config.name}}">{{config.fullName}}</a></h3>
         <a class="card-text freezedry-username text-muted" href="/user/{{config.username}}">{{config.username}}</a>
         </div>
-        <div class="col-sm-3 pull-right">
-          <div class="btn-group pull-right">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">More</button>
+        <div class="col-sm-3 pull-sm-right">
+          <div class="btn-group pull-sm-right">
+            <button type="button" class="btn btn-secondary dropdown-toggle more-button" data-toggle="dropdown">More</button>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
               <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
@@ -29,11 +29,17 @@
         </li>
       </ul>
       {{#if descriptionTab}}
-        <p class="card-text">{{config.description}}</p>
+        <p class="card-text">
+          {{#if config.description}}
+            {{config.description}}
+          {{else}}
+            <span class="text-muted">This config doesn't have a description</span>
+          {{/if}}
+        </p>
       {{/if}}
       {{#if configTab}}
         <h5>Configuration:</h5>
-        <pre>{{toml}}</pre>
+        <pre class="config">{{toml}}</pre>
       {{/if}}
     </div>
     <div class="card-footer">
@@ -54,8 +60,8 @@
             {{/if}}
           </div>
         </div>
-        <div class="col-sm-2 pull-right">
-          <div class="btn-group pull-right" role="group">
+        <div class="col-sm-2 pull-md-right">
+          <div class="btn-group pull-md-right" role="group">
             <a href="/user/{{config.username}}/config/{{config.name}}/iso" type="button" class="btn btn-secondary">Get ISO</a>
           </div>
         </div>
