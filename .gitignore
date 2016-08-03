@@ -2,3 +2,4 @@ node_modules/
 settings.json
 settings-dev.json
 *.swp
+.uploads
