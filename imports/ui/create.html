@@ -49,59 +49,88 @@
                 <label class="btn btn-secondary {{#if gnomeTab}}active{{/if}}">
                   <input type="radio" name="gnome" class="gnome" autocomplete="off" {{checkedIf gnomeTab}}>Gnome
                 </label>
-                <label class="btn btn-secondary disabled">
-                  <input type="radio" name="cinnamon" class="cinnamon" autocomplete="off">Cinnamon (coming soon)
+                <label class="btn btn-secondary {{#if cinnamonTab}}active{{/if}}">
+                  <input type="radio" name="cinnamon" class="cinnamon" autocomplete="off">Cinnamon
+                </label>
+                <label class="btn btn-secondary {{#if noDeTab}}active{{/if}}">
+                  <input type="radio" name="noDe" class="noDe" autocomplete="off">No Desktop
                 </label>
               </div>
             </fieldset>
             <fieldset class="form-group">
               {{#if gnomeTab}}
-                <label for="gtkTheme">GTK Theme</label>
-                <input type="text" class="form-control" name="gtkTheme" id="gtkTheme" value="{{gnome.gtk_theme}}">
-                <label for="shellTheme">Shell Theme</label>
-                <input type="text" class="form-control" name="shellTheme" id="shellTheme" value="{{gnome.shell_theme}}">
-                <label for="iconTheme">Icon Theme</label>
-                <input type="text" class="form-control" name="iconTheme" id="iconTheme" value="{{gnome.icon_theme}}">
-                <h5>Wallpaper</h5>
-                <ul class="nav nav-tabs file-tabs">
-                  <li class="nav-item">
-                    <a class="nav-link uploadWallpaper {{#if uploadWallpaperTab}}active{{/if}}" href="">Upload a file</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link pasteWallpaper {{#if pasteWallpaperTab}}active{{/if}}" href="">Paste a uri</a>
-                  </li>
-                </ul>
-                {{#if uploadWallpaperTab}}
-                  <label for="uploadWallpaperInput">Upload a wallpaper</label>
-                  {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
-                  <!-- <label class="btn btn-default btn-secondary"> -->
-                  <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
-                  <!-- </label> -->
-                {{/if}}
-                {{#if pasteWallpaperTab}}
-                  <label for="pasteWallpaperInput">Wallpaper uri</label>
-                  <input type="text" class="form-control" name="pasteWallpaperInput" id="pasteWallpaperInput" value="{{gnome.wallpaper}}">
-                {{/if}}
-                <h5>Lock screen background</h5>
-                <ul class="nav nav-tabs file-tabs">
-                  <li class="nav-item">
-                    <a class="nav-link uploadLock {{#if uploadLockTab}}active{{/if}}" href="">Upload a file</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link pasteLock {{#if pasteLockTab}}active{{/if}}" href="">Paste a uri</a>
-                  </li>
-                </ul>
-                {{#if uploadLockTab}}
-                  <label for="uploadLockInput">Upload a lock screen background</label>
-                  {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=lockCallbacks}}
-                  <!-- <label class="btn btn-default btn-secondary"> -->
-                  <!--   {{uploadLockText}} <input type="file" class="uploadLockInput" name="uploadLockInput" accept="image/*" style="display: none;"> -->
-                  <!-- </label> -->
-                {{/if}}
-                {{#if pasteLockTab}}
-                  <label for="pasteLockInput">Lock background uri</label>
-                  <input type="text" class="form-control" name="pasteLockInput" id="pasteLockInput" value="{{gnome.lock_background}}">
-                {{/if}}
+              <!-- <label for="gtkTheme">GTK Theme</label> -->
+              <!-- <input type="text" class="form-control" name="gtkTheme" id="gtkTheme" value="{{gnome.gtk_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>GTK Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link uploadGtkTheme {{#if uploadGtkThemeTab}}active{{/if}}" href="">Upload a GTK theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pasteGtkTheme {{#if pasteGtkThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if uploadGtkThemeTab}}
+                  <label for="uploadGtkThemeInput">Upload a <strong>zipped</strong> GTK Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=gtkThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if pasteGtkThemeTab}}
+                    <label for="pasteGtkThemeInput">Paste a GTK Theme name or link</label>
+                    <input type="text" class="form-control" id="pasteGtkThemeInput" value="{{gnome.gtk_theme}}">
+                  {{/if}}
+                </div>
+                  <!-- <label for="shellTheme">Shell Theme</label> -->
+                  <!-- <input type="text" class="form-control" name="shellTheme" id="shellTheme" value="{{gnome.shell_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>Shell Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link uploadShellTheme {{#if uploadShellThemeTab}}active{{/if}}" href="">Upload a Shell theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pasteShellTheme {{#if pasteShellThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if uploadShellThemeTab}}
+                  <label for="uploadShellThemeInput">Upload a <strong>zipped</strong> Shell Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=shellThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if pasteShellThemeTab}}
+                    <label for="pasteShellThemeInput">Paste a Shell Theme name or link</label>
+                    <input type="text" class="form-control" id="pasteShellThemeInput" value="{{gnome.shell_theme}}">
+                  {{/if}}
+                </div>
+                  <!-- <label for="iconTheme">Icon Theme</label> -->
+                  <!-- <input type="text" class="form-control" name="iconTheme" id="iconTheme" value="{{gnome.icon_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>Icon Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link uploadIconTheme {{#if uploadIconThemeTab}}active{{/if}}" href="">Upload a Icon theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pasteIconTheme {{#if pasteIconThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if uploadIconThemeTab}}
+                  <label for="uploadIconThemeInput">Upload a <strong>zipped</strong> Icon Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=iconThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if pasteIconThemeTab}}
+                    <label for="pasteIconThemeInput">Paste a Icon Theme name or link</label>
+                    <input type="text" class="form-control" id="pasteIconThemeInput" value="{{gnome.icon_theme}}">
+                  {{/if}}
+                </div>
                 <label for="gtkButtonLayout">GTK Button Layout</label>
                 <input type="text" class="form-control" name="gtkButtonLayout" id="gtkButtonLayout" value="{{gnome.gtk_button_layout}}">
                 <div class="btn-group" data-toggle="buttons">
@@ -113,6 +142,148 @@
                   <label class="btn btn-secondary {{#if gnome.desktop_icons}}active{{/if}}">
                     <input type="checkbox" autocomplete="off" id="desktopIcons" name="desktopIcons {{checkedIf gnome.desktop_icons}}">Desktop Icons
                   </label>
+                </div>
+                <div class="custom-upload-wrapper">
+                  <h5>Wallpaper</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link uploadWallpaper {{#if uploadWallpaperTab}}active{{/if}}" href="">Upload a file</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pasteWallpaper {{#if pasteWallpaperTab}}active{{/if}}" href="">Paste a wallpaper</a>
+                    </li>
+                  </ul>
+                  {{#if uploadWallpaperTab}}
+                    <label for="uploadWallpaperInput">Upload a wallpaper</label>
+                    {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=wallpaperCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if pasteWallpaperTab}}
+                    <label for="pasteWallpaperInput">Wallpaper filename or link</label>
+                    <input type="text" class="form-control" name="pasteWallpaperInput" id="pasteWallpaperInput" value="{{gnome.wallpaper}}">
+                  {{/if}}
+                </div>
+                <div class="custom-upload-wrapper">
+                  <h5>Lock screen background</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link uploadLock {{#if uploadLockTab}}active{{/if}}" href="">Upload a file</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pasteLock {{#if pasteLockTab}}active{{/if}}" href="">Paste a lock background</a>
+                    </li>
+                  </ul>
+                  {{#if uploadLockTab}}
+                    <label for="uploadLockInput">Upload a lock screen background</label>
+                    {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=lockCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadLockText}} <input type="file" class="uploadLockInput" name="uploadLockInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if pasteLockTab}}
+                    <label for="pasteLockInput">Lock background filename or url</label>
+                    <input type="text" class="form-control" name="pasteLockInput" id="pasteLockInput" value="{{gnome.lock_background}}">
+                  {{/if}}
+                </div>
+              {{/if}}
+              {{#if cinnamonTab}}
+                  <!-- <label for="gtkTheme">GTK Theme</label> -->
+                  <!-- <input type="text" class="form-control" id="cinGtkTheme" value="{{cinnamon.gtk_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>GTK Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link cinUploadGtkTheme {{#if cinUploadGtkThemeTab}}active{{/if}}" href="">Upload a GTK theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link cinPasteGtkTheme {{#if cinPasteGtkThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if cinUploadGtkThemeTab}}
+                  <label for="uploadGtkThemeInput">Upload a <strong>zipped</strong> GTK Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=cinGtkThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if cinPasteGtkThemeTab}}
+                    <label for="cinPasteGtkThemeInput">Paste a GTK Theme name or link</label>
+                    <input type="text" class="form-control" id="cinPasteGtkThemeInput" value="{{cinnamon.gtk_theme}}">
+                  {{/if}}
+                </div>
+                  <!-- <label for="shellTheme">Shell Theme</label> -->
+                  <!-- <input type="text" class="form-control" id="cinShellTheme" value="{{cinnamon.shell_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>Shell Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link cinUploadShellTheme {{#if cinUploadShellThemeTab}}active{{/if}}" href="">Upload a Shell theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link cinPasteShellTheme {{#if cinPasteShellThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if cinUploadShellThemeTab}}
+                  <label for="uploadShellThemeInput">Upload a <strong>zipped</strong> Shell Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=cinShellThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if cinPasteShellThemeTab}}
+                    <label for="cinPasteShellThemeInput">Paste a Shell Theme name or link</label>
+                    <input type="text" class="form-control" id="cinPasteShellThemeInput" value="{{cinnamon.gtk_theme}}">
+                  {{/if}}
+                </div>
+                  <!-- <label for="iconTheme">Icon Theme</label> -->
+                  <!-- <input type="text" class="form-control" id="cinIconTheme" value="{{cinnamon.icon_theme}}"> -->
+                <div class="custom-upload-wrapper">
+                  <h5>Icon Theme</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link cinUploadIconTheme {{#if cinUploadIconThemeTab}}active{{/if}}" href="">Upload a Icon theme</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link cinPasteIconTheme {{#if cinPasteIconThemeTab}}active{{/if}}" href="">Paste a name or link</a>
+                    </li>
+                  </ul>
+                  {{#if cinUploadIconThemeTab}}
+                  <label for="uploadIconThemeInput">Upload a <strong>zipped</strong> Icon Theme</label>
+                    {{> customUpload fileTypes='application/zip' multiple=false formData=currentUser callbacks=cinIconThemeCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                {{#if cinPasteIconThemeTab}}
+                  <label for="cinPasteIconThemeInput">Paste a Icon Theme name or link</label>
+                  <input type="text" class="form-control" id="cinPasteIconThemeInput" value="{{cinnamon.gtk_theme}}">
+                {{/if}}
+                </div>
+                <label for="cinGtkButtonLayout">GTK Button Layout</label>
+                <input type="text" class="form-control" id="cinGtkButtonLayout" value="{{cinnamon.gtk_button_layout}}">
+                <div class="custom-upload-wrapper">
+                  <h5>Wallpaper</h5>
+                  <ul class="nav nav-tabs file-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link cinUploadWallpaper {{#if cinUploadWallpaperTab}}active{{/if}}" href="">Upload a file</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link cinPasteWallpaper {{#if cinPasteWallpaperTab}}active{{/if}}" href="">Paste a wallpaper</a>
+                    </li>
+                  </ul>
+                  {{#if cinUploadWallpaperTab}}
+                    <label for="cinUploadWallpaperInput">Upload a wallpaper</label>
+                    {{> customUpload fileTypes='images/*' multiple=false formData=currentUser callbacks=cinWallpaperCallbacks}}
+                    <!-- <label class="btn btn-default btn-secondary"> -->
+                    <!--   {{uploadWallpaperText}} <input type="file" class="uploadWallpaperInput" name="uploadWallpaperInput" accept="image/*" style="display: none;"> -->
+                    <!-- </label> -->
+                  {{/if}}
+                  {{#if cinPasteWallpaperTab}}
+                    <label for="pasteWallpaperInput">Wallpaper filename or url</label>
+                    <input type="text" class="form-control" id="cinPasteWallpaperInput" value="{{cinnamon.wallpaper}}">
+                  {{/if}}
                 </div>
               {{/if}}
             </fieldset>
@@ -153,11 +324,30 @@
               </fieldset>
             </form>
           {{/if}}
+          {{#if cinnamonTab}}
+            <form class="cin-favorite-apps-form" id="cin-favorite-apps-form">
+              <fieldset class="form-group app-form">
+                {{> conditionalAlertErr text=appErr}}
+                <h5>Favorite Apps</h5>
+                <input type="text" class="form-control" name="appName" placeholder="appname.desktop">
+                <button type="submit" class="btn btn-primary cin-app-add-btn">Add app</button>
+                <button type="button" class="btn btn-danger cin-app-reset-btn">Reset</button>
+                <button type="button" class="btn btn-danger cin-app-clear-btn">Clear all</button>
+              </fieldset>
+              <fieldset class="form-group">
+                <ul class="list-group">
+                  {{#each app in cinnamon.favorite_apps}}
+                    {{> cinAppLI app=app config=config}}
+                  {{/each}}
+                </ul>
+              </fieldset>
+            </form>
+          {{/if}}
           <form class="set-settings">
             <fieldset class="form-group">
               <h5>Display Manager</h5>
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-secondary gdm {{#if gnomeTab}}active{{/if}}">
+                <label class="btn btn-secondary gdm {{#if gdmTab}}active{{/if}}">
                   <input type="radio" class="gdm" autocomplete="off" {{checkedIf gdmTab}}>GDM
                 </label>
               </div>
@@ -165,7 +355,7 @@
             <fieldset class="form-group">
               <h5>Shell</h5>
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-secondary zsh {{#if gnomeTab}}active{{/if}}">
+                <label class="btn btn-secondary zsh {{#if zshTab}}active{{/if}}">
                   <input type="radio" class="zsh" autocomplete="off" {{checkedIf zshTab}}>Zsh
                 </label>
               </div>
@@ -198,7 +388,7 @@
                   <a class="nav-link uploadScreenshot {{#if uploadScreenshotTab}}active{{/if}}" href="">Upload a file</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pasteScreenshot {{#if pasteScreenshotTab}}active{{/if}}" href="">Paste a uri</a>
+                  <a class="nav-link pasteScreenshot {{#if pasteScreenshotTab}}active{{/if}}" href="">Paste a url</a>
                 </li>
               </ul>
               {{#if uploadScreenshotTab}}
@@ -210,7 +400,7 @@
                 <!-- </label> -->
               {{/if}}
               {{#if pasteScreenshotTab}}
-                <label for="pasteScreenshotInput">Screenshot uri</label>
+                <label for="pasteScreenshotInput">Screenshot url</label>
                 <input type="text" class="form-control" name="pasteScreenshotInput" id="pasteScreenshotInput" value="{{screenshotUrl}}">
               {{/if}}
               <!-- <label class="btn btn-default btn-secondary"> -->
@@ -229,6 +419,24 @@
       <h5>The specified base configuration by {{username}} called {{configName}} doesn't seem to exist.</h5>
       <p>That's all we know.</p>
     {{/if}}
+  </div>
+  <div class="modal fade" id="welcome-modal" tabindex="-1" role="dialog" aria-labelledby="welcome-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="welcome-modal-label">Welcome to Freezedry Build Service!</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{freezedryCreateWelcome}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -253,6 +461,13 @@
   </li>
 </template>
 
+<template name="cinAppLI">
+  <li class="list-group-item btn-group" role="group">
+    {{app}}
+    <button type="button" class="remove-btn pull-xs-right">&times;</button>
+  </li>
+</template>
+
 <template name="extensionLI">
   <li class="list-group-item btn-group" role="group">
     {{extension}}
@@ -261,10 +476,10 @@
 </template>
 
 <template name="customUpload">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" class="custom-upload-form">
       <div class="btn-group">
         <label class="btn btn-secondary">
-          <input type="file" class="jqUploadclass" style="display: none;" data-form-data='{{submitData}}'>
+          <input type="file" accept="{{fileTypes}}" class="jqUploadclass" style="display: none;" data-form-data='{{submitData}}'>
           {{infoLabel}}
         </label>
         <button class="btn btn-primary start">Upload</button>

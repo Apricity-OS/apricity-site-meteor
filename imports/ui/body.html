@@ -4,9 +4,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'> -->
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
   </head>
 
   {{> Template.dynamic template=page}}
@@ -17,12 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
-    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300' rel='stylesheet' type='text/css'> -->
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'> -->
-    <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'> -->
-    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
   </head>
 
   <div class="container">
@@ -40,15 +34,15 @@
     <div class="collapse navbar-toggleable-xs" id="mainNavbar">
       <ul class="nav navbar-nav">
         {{#if currentUser}}
-          {{> navitem active=dashActive link="/dash" text="dash"}}
+          {{> navitem active=dashActive link="/dash" text="Freezedry"}}
         {{else}}
-          {{> navitem active=homeActive link="/" text="home"}}
-          {{> navitem active=featuresActive link="/features" text="features"}}
+          {{> navitem active=homeActive link="/" text="Home"}}
+          {{> navitem active=featuresActive link="/features" text="Features"}}
         {{/if}}
-        {{> navitem active=downloadActive link="/download" text="download"}}
-        {{> navitem active=forumActive link="/forum" text="forum"}}
-        {{> navitem active=blogActive link="/blog" text="blog"}}
-        {{> navitem active=docsActive link="/docs" text="docs"}}
+        {{> navitem active=downloadActive link="/download" text="Download"}}
+        {{> navitem active=forumActive link="/forum" text="Forum"}}
+        {{> navitem active=blogActive link="/blog" text="Blog"}}
+        {{> navitem active=docsActive link="/docs" text="Docs"}}
       </ul>
       {{#if currentUser}}
         <div class="navbar-buttons pull-md-right">
@@ -155,4 +149,16 @@
       <strong>Success!</strong> {{text}}
     </div>
   {{/if}}
+</template>
+
+<template name="pageNotFound">
+  <div class="container">
+    {{>navbar}}
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h4>404: There doesn't seem to be anything here.</h4>
+        <p>That's all we know.</p>
+      </div>
+    </div>
+  </div>
 </template>

@@ -34,7 +34,7 @@ Template.isoPage.helpers({
   },
   fullName() {
     let config = Configs.findOne({
-      configUsername: FlowRouter.getParam('username'),
+      username: FlowRouter.getParam('username'),
       name: FlowRouter.getParam('configName')
     });
     if (config) {
@@ -75,9 +75,10 @@ Template.buildRow.helpers({
   },
 
   canCancel() {
-    return this.build.username === Meteor.user().username ||
-      this.build.configOwner === Meteor.userId() ||
-      Roles.userIsInRole(Meteor.userId(), 'admin');
+    return (this.build.username === Meteor.user().username ||
+            this.build.configOwner === Meteor.userId() ||
+            Roles.userIsInRole(Meteor.userId(), 'admin')) &&
+      !Builds.findOne({_id: this.build._id}).running;
   }
 });
 
@@ -86,4 +87,4 @@ Template.buildRow.events({
     event.preventDefault();
     Meteor.call('builds.remove', this.build._id);
   }
-})
+});

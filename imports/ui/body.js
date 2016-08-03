@@ -51,6 +51,12 @@ Template.registerHelper("disabledIf", function(value){
   return value ? "disabled" : "";
 });
 
+Template.registerHelper('last',
+                        function(list, elem) {
+                          return _.last(list) === elem;
+                        }
+                       );
+
 FlowRouter.wait();
 
 Tracker.autorun(() => {

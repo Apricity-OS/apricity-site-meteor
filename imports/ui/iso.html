@@ -8,13 +8,15 @@
         <h2>Get <a href="/user/{{username}}">{{username}}</a>'s <a href="/user/{{username}}/config/{{configName}}">{{fullName}}</a> config as an iso.</h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 offset-md-2">
-        {{#if buildAllowed}}
-          <button type="button" class="btn btn-primary create-new-build">Create new build!</button>
-        {{/if}}
+    {{#if config}}
+      <div class="row">
+        <div class="col-md-4 offset-md-2">
+          {{#if buildAllowed}}
+            <button type="button" class="btn btn-primary create-new-build">Create new build!</button>
+          {{/if}}
         </div>
       </div>
+    {{/if}}
     <div class="row">
       <div class="col-md-8 offset-md-2 iso-row">
         {{#unless buildAllowed}}
@@ -61,7 +63,7 @@
     <th scope="row">{{build.buildNum}}</th>
     <td scope="row">{{date}}</td>
     {{#if build.queued}}
-      <td scope="row">Queued at #{{queueNum}}{{#if canCancel}} - <span class="btn btn-link cancel-build">cancel</span>{{/if}}</td>
+      <td scope="row">Queued at #{{queueNum}}{{#if canCancel}} <span class="btn btn-link cancel-build">cancel</span>{{/if}}</td>
       <td scope="row">Nothing yet</td>
       <td scope="row">Nothing yet</td>
     {{/if}}

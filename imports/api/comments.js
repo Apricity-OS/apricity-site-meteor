@@ -11,7 +11,7 @@ if (Meteor.isServer) {
 }
 
 if (Meteor.isServer) {
-  function notifyDiscussionContributors(discussionId, editorUsername) {
+  let notifyDiscussionContributors = function(discussionId, editorUsername) {
     _.each(_.uniq(_.union(_.map(Comments.find({discussion: discussionId}).fetch(),
                                 c => c.username),
                           [Discussions.findOne({_id: discussionId}).username])),
@@ -25,7 +25,8 @@ if (Meteor.isServer) {
                  "\n\nHave a great day!"
              });
            });
-  }
+  };
+
   Meteor.methods({
     'comments.add'(discussionId, commentText) {
       check(discussionId, String);

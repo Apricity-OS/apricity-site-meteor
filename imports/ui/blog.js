@@ -13,11 +13,11 @@ Template.blogPage.helpers({
   }
 });
 
-// Template.postCard.helpers({
-//   postCleanName() {
-//     return this.post.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-//   }
-// });
+Template.postCard.helpers({
+  showLine() {
+    return this.index !== Posts.find({}).fetch().length - 1 && this.inList;
+  }
+});
 
 Template.blogPostPage.onCreated(function() {
   Meteor.subscribe('posts');

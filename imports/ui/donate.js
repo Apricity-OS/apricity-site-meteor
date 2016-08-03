@@ -3,7 +3,7 @@ Template.donate.onCreated(function() {
   let self = this;
   this.donate = StripeCheckout.configure({
     key: Meteor.settings.public.stripe,
-    image: '/assets/img/logo.png',
+    image: '/assets/img/mark.png',
     locale: 'auto',
     token(token) {
       charge = {
@@ -44,11 +44,16 @@ Template.donate.helpers({
 function openDonate(amount, instance) {
   instance.state.set('donateAmount', amount * 100);
   $('#donateModal').modal('hide');
+  let email;
+  if (Meteor.user()) {
+    email = Meteor.user().emails[0].address;
+  }
   instance.donate.open({
     name: 'Donate to Apricity OS',
     description: 'Help keep these services free',
     amount: amount * 100,
-    bitcoin: false
+    bitcoin: false,
+    email: email
   });
 }
 

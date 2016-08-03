@@ -6,10 +6,10 @@
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div class="text-centered">
-          <h1 class="blog-head">Docs</h1>
+          <h1 class="blog-head">Documentation</h1>
         </div>
         {{#each docsEntry in docs}}
-          {{> docsTitleCard docsEntry=docsEntry}}
+          {{> docsTitleCard docsEntry=docsEntry index=@index}}
         {{/each}}
       </div>
       <div class="col-md-2">
@@ -36,6 +36,9 @@
       </div>
     </div>
   </div>
+  {{#if showLine}}
+    <hr>
+  {{/if}}
 </template>
 
 <template name="docsEntryPage">
@@ -43,12 +46,19 @@
     <header>
       {{> navbar}}
     </header>
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        {{#if docsEntry}}
-          <div class="text-centered">
-            <h1 class="docs-head docs-entry-title">{{docsEntry.name}}</h1>
-          </div>
+    {{#if docsEntry}}
+      <div class="row">
+        <div class="col-md-8 offset-md-2 text-centered">
+          <h1 class="docs-page-head docs-entry-title">{{docsEntry.name}}</h1>
+        </div>
+        <div class="col-md-2 pull-md-right">
+          {{#if currentUser}}
+            <a href="/docs/add-entry" class="btn btn-default btn-primary btn-lg pull-md-right">Add Docs Entry</a>
+          {{/if}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
           <div class="btn-group pull-sm-right">
             <button role="button" class="btn btn-secondary dropdown-toggle more-button" data-toggle="dropdown">More</button>
             <div class="dropdown-menu">
@@ -72,34 +82,37 @@
               {{/markdown}}
             </p>
           {{/if}}
-        {{else}}
+        </div>
+      </div>
+    {{else}}
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
           <h3>There doesn't seem to be anything here.</h3>
           <p>That's all we know.</p>
-        {{/if}}
+        </div>
+        <div class="col-md-2">
+          {{#if currentUser}}
+            <a href="/docs/add-entry" class="btn btn-default btn-primary btn-lg pull-md-right">Add Docs Entry</a>
+          {{/if}}
+        </div>
       </div>
-      <div class="col-md-2">
-        {{#if currentUser}}
-          <a href="/docs/add-entry" class="btn btn-default btn-primary btn-lg pull-md-right">Add Docs Entry</a>
-        {{/if}}
-      </div>
-
-      <div class="modal fade" id="deleteDocsEntry" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title">Delete</h4>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you want do delete this docs entry?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger delete-docs-entry">Delete</button>
-            </div>
-          </div>
+    {{/if}}
+  </div>
+  <div class="modal fade" id="deleteDocsEntry" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want do delete this docs entry?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger delete-docs-entry">Delete</button>
         </div>
       </div>
     </div>

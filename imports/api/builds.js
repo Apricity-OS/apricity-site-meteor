@@ -11,15 +11,20 @@ export const Builds = new Mongo.Collection('builds');
 export function configToToml(config) {
   // Turn arrays into dicts
   let outConfig = _.deepClone(config, 3);
-  outConfig.pacman.packages = {'gen': outConfig.pacman.packages};
-  outConfig.systemd.services = {'gen': outConfig.systemd.services};
-  outConfig.gnome.extensions = {'gen': outConfig.gnome.extensions};
-  outConfig.gnome.favorite_apps = {'gen': outConfig.gnome.favorite_apps};
-  outConfig.vim.plugins = {'gen': outConfig.vim.plugins};
-  outConfig.vim.vimrc = {'gen': outConfig.vim.vimrc};
-  outConfig.zsh.zshrc = {'gen': outConfig.zsh.zshrc};
-  outConfig.code.root = {'gen': outConfig.code.root};
-  outConfig.code.user = {'gen': outConfig.code.user};
+  outConfig.pacman.packages = {gen: outConfig.pacman.packages};
+  outConfig.systemd.services = {gen: outConfig.systemd.services};
+  if (outConfig.gnome) {
+    outConfig.gnome.extensions = {gen: outConfig.gnome.extensions};
+    outConfig.gnome.favorite_apps = {gen: outConfig.gnome.favorite_apps};
+  }
+  if (outConfig.cinnamon) {
+    outConfig.cinnamon.favorite_apps = {gen: outConfig.cinnamon.favorite_apps};
+  }
+  outConfig.vim.plugins = {gen: outConfig.vim.plugins};
+  outConfig.vim.vimrc = {gen: outConfig.vim.vimrc};
+  outConfig.zsh.zshrc = {gen: outConfig.zsh.zshrc};
+  outConfig.code.root = {gen: outConfig.code.root};
+  outConfig.code.user = {gen: outConfig.code.user};
 
   let toml = 'inherits = "base.toml"\n' + tomlify(outConfig);
   return toml;
@@ -28,7 +33,7 @@ export function configToToml(config) {
 // UPDATE THIS
 // let buildServerUrl = 'http://10.136.15.8:8000';
 let buildServerUrl = 'http://159.203.176.252:8000';
-let staticServerUrl = 'http://192.241.147.116';
+let staticServerUrl = 'https://static.apricityos.com';
 
 const MAX_BUILDS = 2;
 
@@ -68,7 +73,7 @@ if (Meteor.isServer) {
     if (!Builds.findOne({running: true})) {
       if (Builds.find({queued: true}).fetch().length) {
         // ENABLE
-        // startQueuedBuild();
+        startQueuedBuild();
       }
     } else {  // a build is running
       HTTP.get(buildServerUrl + '/build', {}, function(error, response) {
@@ -170,6 +175,7 @@ Meteor.methods({
     Builds.insert({
       config: config.config,
       name: config.name,
+      configId: configId,
       configUsername: configUsername,
       username: Meteor.user().username,
       initiator: this.userId,
@@ -182,6 +188,7 @@ Meteor.methods({
       protected: protected
     });
   },
+
   'builds.remove'(buildId) {
     check(buildId, String);
 
@@ -191,6 +198,10 @@ Meteor.methods({
 
     if (!Builds.findOne({_id: buildId})) {
       throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Builds.findOne({_id: buildId}).queued) {
+      throw new Meteor.Error('not-allowed');
     }
 
     let build = Builds.findOne({_id: buildId});

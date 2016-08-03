@@ -12,11 +12,18 @@ Template.specificConfigPage.helpers({
     console.log(FlowRouter.getParam('username'));
     console.log(FlowRouter.getParam('configName'));
     console.log(Configs.find().fetch());
-    return Configs.findOne({
-      username: FlowRouter.getParam('username'),
-      name: FlowRouter.getParam('configName'),
-      $or: [{public: true}, {owner: Meteor.userId()}],
-    });
-  },
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return Configs.findOne({
+        username: FlowRouter.getParam('username'),
+        name: FlowRouter.getParam('configName')
+      });
+    } else {
+      return Configs.findOne({
+        username: FlowRouter.getParam('username'),
+        name: FlowRouter.getParam('configName'),
+        $or: [{public: true}, {owner: Meteor.userId()}]
+      });
+    }
+  }
 });
 

@@ -15,7 +15,10 @@ Template.docsPage.helpers({
 
 Template.docsTitleCard.helpers({
   docsEntryPreview() {
-    return this.docsEntry.body.slice(0, 500) + '...';
+    return this.docsEntry.body.split('.').slice(0, 5).join('.') + '. [...]';
+  },
+  showLine() {
+    return this.index !== Docs.find({}).fetch().length - 1;
   }
 });
 

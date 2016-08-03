@@ -11,9 +11,13 @@
           <div class="btn-group pull-sm-right">
             <button role="button" class="btn btn-secondary dropdown-toggle more-button" data-toggle="dropdown">More</button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
+              {{#if canEdit}}
+                <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/edit">Edit</a>
+              {{/if}}
               <a class="dropdown-item" href="/user/{{config.username}}/config/{{config.name}}/clone">Clone</a>
-              <button class="dropdown-item delete-dropdown" role="button">Delete</button>
+              {{#if canEdit}}
+                <button class="dropdown-item delete-dropdown" role="button">Delete</button>
+              {{/if}}
             </div>
           </div>
         </div>

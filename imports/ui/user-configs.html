@@ -4,17 +4,17 @@
       {{> navbar homeActive=false downloadActive=False}}
     </header>
     <div class="row">
-      <div class="col-md-8 text-centered offset-md-2">
+      <div class="col-md-7 text-centered offset-md-2">
         <h2>Public configs by {{username}}.</h2>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 offset-md-8">
+      <div class="col-md-2 pull-md-right">
         <a role="button" href="/create" class="btn btn-primary btn-lg pull-md-right create-new-config">Create new</a>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-7 offset-md-2">
         {{#if configs.count}}
           {{#each config in configs}}
             {{> freezedry config=config}}

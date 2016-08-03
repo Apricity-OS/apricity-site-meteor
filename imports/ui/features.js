@@ -36,16 +36,10 @@ Template.featuresPage.helpers({
   featuresBackup() {
     return getContent('featuresBackup');
   },
-  featuresIce() {
-    return getContent('featuresIce');
+  featuresCloud() {
+    return getContent('featuresCloud');
   },
   featuresMultimedia() {
     return getContent('featuresMultimedia');
-  },
-  featuresRemote() {
-    return getContent('featuresRemote');
-  },
-  featuresPhotos() {
-    return getContent('featuresPhotos');
   }
 });

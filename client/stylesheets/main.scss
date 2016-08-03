@@ -432,7 +432,8 @@ button.edit-comment {
 }
 
 .blog-post-card {
-    margin-bottom: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .docs-entry-title {
@@ -453,6 +454,11 @@ button.edit-comment {
 }
 
 .docs-head {
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.docs-page-head {
     margin-bottom: 100px;
 }
 
@@ -573,4 +579,30 @@ button.edit-comment {
 
 .more-button {
     margin-bottom: 20px;
+}
+
+.btn-outline-white {
+    @extend .btn-outline-secondary;
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: transparent;
+}
+
+.btn-outline-white:hover {
+    background-color: transparent;
+    color: #dddddd;
+}
+
+.btn-outline-white:active {
+    background-color: transparent;
+    color: #dddddd;
+}
+
+.btn-outline-white:visited {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.custom-upload-wrapper {
+    margin-bottom: 50px;
 }

@@ -9,7 +9,7 @@
           <h1 class="blog-head">Blog</h1>
         </div>
         {{#each post in posts}}
-          {{> postCard post=post}}
+          {{> postCard post=post index=@index inList=true}}
         {{/each}}
       </div>
     </div>
@@ -23,6 +23,9 @@
     </div>
     <p class="card-text render-whitespace">{{#markdown}}{{post.body}}{{/markdown}}</p>
   </div>
+  {{#if showLine}}
+    <hr>
+  {{/if}}
 </template>
 
 <template name="blogPostPage">

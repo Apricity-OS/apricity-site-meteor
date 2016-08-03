@@ -17,7 +17,7 @@ Template.dashPage.onRendered(function() {
 
 Template.dashPage.helpers({
   configs() {
-    let configs = Configs.find({public: true, hide: {$ne: true}}, {sort: {createdAt: -1}});
+    let configs = Configs.find({public: true, hide: {$ne: true}}, {sort: {editedAt: -1}});
     if (configs.fetch().length > 0) {
       return configs;
     }

@@ -3,10 +3,15 @@ import {check} from 'meteor/check';
 import {Meteor} from 'meteor/meteor';
 
 export const Configs = new Mongo.Collection('configs');
+import {Builds} from './builds.js';
 
 if (Meteor.isServer) {
   Meteor.publish('configs', function() {
-    return Configs.find({$or: [{owner: this.userId}, {public: true}]});
+    if (Roles.userIsInRole(this.userId, 'admin')) {
+      return Configs.find();
+    } else {
+      return Configs.find({hide: {$ne: true}, $or: [{owner: this.userId}, {public: true}]});
+    }
   });
 }
 
@@ -41,6 +46,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Roles.addUsersToRoles(this.userId, 'createdConfig');
+
     Configs.insert({
       config: config,
       name: cleanName,
@@ -48,11 +55,12 @@ Meteor.methods({
       description: description,
       screenshot: screenshotUrl,
       createdAt: new Date(),
+      editedAt: new Date(),
       public: false,
       owner: this.userId,
       username: Meteor.user().username,
       upvotes: {},
-      numVotes: 0,
+      numVotes: 0
     });
   },
 
@@ -67,23 +75,37 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    if (this.userId !== config.owner && !Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Configs.findOne({_id: configId})) {
+      throw new Meteor.Error('not-found');
+    }
+
     Configs.update({_id: configId}, {$set: {
       config: config,
       name: cleanName,
       fullName: fullName,
       description: description,
       screenshot: screenshotUrl,
+      editedAt: new Date()
     }});
   },
 
   'configs.delete'(configId) {
     check(configId, String);
 
-    if (!this.userId || this.userId !== Configs.findOne({_id: configId}).owner) {
+    if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    Configs.remove(configId);
+    if (this.userId !== Configs.findOne({_id: configId}).owner && !Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Configs.remove({_id: configId});
+    Builds.remove({configId: configId});
   },
 
   'configs.upvote'(configId) {
@@ -126,5 +148,5 @@ Meteor.methods({
     }
 
     Configs.update({_id: configId}, {$set: {numVotes: numVotes}});
-  },
+  }
 });

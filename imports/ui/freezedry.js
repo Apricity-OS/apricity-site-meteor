@@ -9,12 +9,18 @@ Template.freezedry.helpers({
     return configToToml(this.config.config);
   },
   toUpvote() {
-    upvoted = Configs.findOne({_id: this.config._id}).upvotes[Meteor.userId()];
-    return !upvoted;
+    if (Configs.findOne({_id: this.config._id}).upvotes) {
+      upvoted = Configs.findOne({_id: this.config._id}).upvotes[Meteor.userId()];
+      return !upvoted;
+    }
+    return undefined;
   },
   toUnVote() {
-    upvoted = Configs.findOne({_id: this.config._id}).upvotes[Meteor.userId()];
-    return upvoted;
+    if (Configs.findOne({_id: this.config._id}).upvotes) {
+      upvoted = Configs.findOne({_id: this.config._id}).upvotes[Meteor.userId()];
+      return upvoted;
+    }
+    return undefined;
   },
   toMakePublic() {
     return this.config.owner === Meteor.userId() && !this.config.public;
@@ -31,12 +37,15 @@ Template.freezedry.helpers({
   configTab() {
     return Template.instance().state.get('configTab');
   },
+  canEdit() {
+    return this.config.owner === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), 'admin');
+  }
 });
 
 Template.freezedry.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.set('descriptionTab', true);
-})
+});
 
 Template.freezedry.events({
   'click .make-public'(event, instance) {
