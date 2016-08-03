@@ -10,6 +10,8 @@
         "config": {
             "pacman": {
                 "packages": [
+                    "apricity-themes-gnome",
+                    "gnome-shell-extensions",
                     "network-manager-applet",
                     "polkit-gnome",
                     "pacaur",
@@ -20,10 +22,8 @@
                     "python2-powerline-git",
                     "gnome-themes-standard",
                     "apricity-wallpapers",
-                    "apricity-themes-gnome",
                     "apricity-icons",
                     "gtk-engine-murrine",
-                    "gnome-shell-extensions",
                     "google-chrome",
                     "google-talkplugin",
                     "icedtea-web",

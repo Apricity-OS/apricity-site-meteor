@@ -12,8 +12,8 @@
         </div>
         <div class="card-deck-wrapper download-deck">
           <div class="card-deck">
-            {{> downloadCard name="gnome-stable" edition="Gnome" description=gnomeStableDesc version="Aspen"}}
-            {{> downloadCard name="cinnamon-stable" edition="Cinnamon" description=cinnamonStableDesc version="Aspen"}}
+            {{> downloadCard name="gnome-stable" edition="Gnome" description=gnomeStableDesc channel="Aspen" version="07.2016"}}
+            {{> downloadCard name="cinnamon-stable" edition="Cinnamon" description=cinnamonStableDesc channel="Aspen" version="07.2016"}}
           </div>
         </div>
         <div class="text-centered">
@@ -22,8 +22,8 @@
         </div>
           <div class="card-deck-wrapper download-deck">
             <div class="card-deck">
-              {{> downloadCard name="gnome-dev" edition="Gnome" description=gnomeDevDesc version="Dev"}}
-              {{> downloadCard name="cinnamon-dev" edition="Cinnamon" description=cinnamonDevDesc version="Dev"}}
+              {{> downloadCard name="gnome-dev" edition="Gnome" description=gnomeDevDesc channel="Dev" version="07.2016"}}
+              {{> downloadCard name="cinnamon-dev" edition="Cinnamon" description=cinnamonDevDesc channel="Dev" version="07.2016"}}
             </div>
         </div>
       </div>
@@ -36,10 +36,10 @@
   <div class="card">
     <img class="card-img-top img-fluid" src="/assets/img/screenshots/{{name}}.jpg" alt="Screenshot">
     <div class="card-block">
-      <h4 class="card-title">Apricity OS 07.2016 {{version}} - {{edition}}</h4>
+      <h4 class="card-title">Apricity OS {{version}} {{channel}} - {{edition}}</h4>
       <p class="card-text">{{description}}</p>
-      <a class="btn btn-primary" href="https://static.apricityos.com/iso/apricity_os-07.2016-{{version}}-{{edition}}.iso">Download</a>
-      <a class="btn btn-primary" href="https://static.apricityos.com/iso/apricity_os-07.2016-{{version}}-{{edition}}.torrent">Torrent</a>
+      <button class="btn btn-primary download-button">Download</button>
+      <button class="btn btn-primary torrent-button">Torrent</button>
     </div>
   </div>
 </template>

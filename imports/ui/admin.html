@@ -4,7 +4,7 @@
       {{> navbar}}
     </header>
     <div class="row">
-      <div class="col-md-9 col-md-offset-2">
+      <div class="col-md-9 offset-md-2">
         {{> adminNav usersActive=true}}
         {{!-- <h2>All users.</h2> --}}
         <table class="table user-table">
@@ -32,7 +32,7 @@
       {{> navbar}}
     </header>
     <div class="row">
-      <div class="col-md-9 col-md-offset-2">
+      <div class="col-md-9 offset-md-2">
         {{> adminNav contentActive=true}}
         {{#each content in allContent}}
           {{> contentChanger content=content}}

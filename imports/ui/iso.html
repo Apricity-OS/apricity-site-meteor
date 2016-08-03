@@ -4,19 +4,19 @@
       {{> navbar homeActive=false downloadActive=False}}
     </header>
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 offset-md-2">
         <h2>Get <a href="/user/{{username}}">{{username}}</a>'s <a href="/user/{{username}}/config/{{configName}}">{{fullName}}</a> config as an iso.</h2>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 col-md-offset-2">
+      <div class="col-md-4 offset-md-2">
         {{#if buildAllowed}}
           <button type="button" class="btn btn-primary create-new-build">Create new build!</button>
         {{/if}}
         </div>
       </div>
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 iso-row">
+      <div class="col-md-8 offset-md-2 iso-row">
         {{#unless buildAllowed}}
           <div class="alert alert-info build-running-alert" role="alert">
             <strong>Heads up!</strong> Your build is running. Check back here in a bit to see if it's finished. You won't be able to queue any new builds for this config until then.
@@ -61,12 +61,12 @@
     <th scope="row">{{build.buildNum}}</th>
     <td scope="row">{{date}}</td>
     {{#if build.queued}}
-      <td scope="row">Queued at #{{queueNum}}</td>
+      <td scope="row">Queued at #{{queueNum}}{{#if canCancel}} - <span class="btn btn-link cancel-build">cancel</span>{{/if}}</td>
       <td scope="row">Nothing yet</td>
       <td scope="row">Nothing yet</td>
     {{/if}}
     {{#if build.running}}
-      <td scope="row">Building ...</td>
+      <td scope="row">Building ...{{#if canCancel}} - <span class="btn btn-link cancel-build">cancel</span>{{/if}}</td>
       <td scope="row">Nothing yet</td>
       <td scope="row">Nothing yet</td>
     {{/if}}

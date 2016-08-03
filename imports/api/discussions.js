@@ -50,8 +50,13 @@ Meteor.methods({
     check(discussionId, String);
 
     if (!this.userId ||
-        !Discussions.findOne({_id: discussionId}) ||
-        Discussions.findOne({_id: discussionId}).owner !== this.userId) {
+        !Discussions.findOne({_id: discussionId})) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (Discussions.findOne({_id: discussionId}).owner !== this.userId &&
+        !Roles.userIsInRole(this.userId, 'admin') &&
+        !Roles.userIsInRole(this.userId, 'moderator')) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -62,8 +67,13 @@ Meteor.methods({
     check(discussionText, String);
 
     if (!this.userId ||
-        !Discussions.findOne({_id: discussionId}) ||
-        Discussions.findOne({_id: discussionId}).owner !== this.userId) {
+        !Discussions.findOne({_id: discussionId})) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (Discussions.findOne({_id: discussionId}).owner !== this.userId &&
+        !Roles.userIsInRole(this.userId, 'admin') &&
+        !Roles.userIsInRole(this.userId, 'moderator')) {
       throw new Meteor.Error('not-authorized');
     }
 

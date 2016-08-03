@@ -16,3 +16,28 @@ Template.downloadPage.helpers({
   }
 });
 
+// Template.downloadCard.helpers({
+//   downloadUrl() {
+//     return "https://static.apricityos.com/iso/apricity_os-" + this.version + "-" + this.channel.toLowerCase() + "-" + this.edition.toLowerCase() + ".iso";
+//   },
+//   torrentUrl() {
+//     return "https://static.apricityos.com/iso/apricity_os-" + this.version + "-" + this.channel.toLowerCase() + "-" + this.edition.toLowerCase() + ".torrent";
+//   }
+// });
+
+Template.downloadCard.events({
+  'click .download-button'(event, instance) {
+    Meteor.call('downloads.insert', this.name, this.edition,
+                this.channel, this.version, 'direct');
+    window.location.href = ("https://static.apricityos.com/iso/apricity_os-" +
+                            this.version + "-" + this.channel.toLowerCase() +
+                            "-" + this.edition.toLowerCase() + ".iso");
+  },
+  'click .torrent-button'(event, instance) {
+    Meteor.call('downloads.insert', this.name, this.edition,
+                this.channel, this.version, 'torrent');
+    window.location.href = ("https://static.apricityos.com/iso/apricity_os-" +
+                            this.version + "-" + this.channel.toLowerCase() +
+                            "-" + this.edition.toLowerCase() + ".torrent");
+  }
+});

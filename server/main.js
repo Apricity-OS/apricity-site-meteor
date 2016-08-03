@@ -8,6 +8,7 @@ import '../imports/api/users.js';
 import '../imports/api/posts.js';
 import '../imports/api/docs.js';
 import '../imports/api/stripe.js';
+import '../imports/api/downloads.js';
 
 import {runOnce} from '../lib/runonce.js';
 import {ImportedUsers,
@@ -51,9 +52,10 @@ Meteor.startup(() => {
       'Apricity OS has a brand new site, and we\'ve automatically generated ' +
       'an account for you based on the one you had on the old forum. ' +
       'You\'ll be able to post things on the new forum, as well as contribute ' +
-      'to the new wiki and participate in IRC discussions.\n\n' +
-      'Click the link below to verify your account and set your password:\n\n' +
-      url;
+      'to the new wiki and participate in IRC discussions. You\'ll ' +
+      'also be able to create Freezedry configurations and build them online.' +
+      '\n\nClick the link below to verify your account and set your password:' +
+      '\n' + url;
   };
 
   Accounts.emailTemplates.verifyEmail.subject = function(user) {
@@ -62,11 +64,11 @@ Meteor.startup(() => {
   Accounts.emailTemplates.verifyEmail.text = function(user, url) {
     return 'Hi ' + user.username + '!\n\n' +
       'Thanks for making an account at the Apricity OS website! ' +
-      'You\'ll be able to post things on the new forum, as well as contribute ' +
-      'to the new wiki and participate in IRC discussions. You\'ll' +
-      'also be able to create Freezedry configurations and build them online.\n\n' +
-      'Click the link below to verify your account:\n\n' +
-      url;
+      '\n\nYou\'ll be able to post things on the new forum, as well as contribute ' +
+      'to the new wiki and participate in IRC discussions. You\'ll ' +
+      'also be able to create Freezedry configurations and build them online.' +
+      '\n\nClick the link below to verify your account:' +
+      '\n' + url;
   };
 
   if (!Meteor.users.findOne({username: 'admin'})) {

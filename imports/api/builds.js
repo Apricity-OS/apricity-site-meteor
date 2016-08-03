@@ -40,7 +40,7 @@ function startQueuedBuild() {
   HTTP.put(buildServerUrl + '/build', {
     params: {
       'oname': build.name,
-      'username': build.username,
+      'username': build.configUsername,
       'config': toml,
       'num': build.buildNum
     }
@@ -67,7 +67,8 @@ if (Meteor.isServer) {
   Meteor.setInterval(function checkBuildQueue() {
     if (!Builds.findOne({running: true})) {
       if (Builds.find({queued: true}).fetch().length) {
-        startQueuedBuild();
+        // ENABLE
+        // startQueuedBuild();
       }
     } else {  // a build is running
       HTTP.get(buildServerUrl + '/build', {}, function(error, response) {
@@ -84,10 +85,10 @@ if (Meteor.isServer) {
               completed: true,
               failed: false,
               download: staticServerUrl + '/freezedry-build/' +
-                runningBuild.username + '/apricity_os-' + runningBuild.name +
+                runningBuild.configUsername + '/apricity_os-' + runningBuild.name +
                 '-' + runningBuild.buildNum + '.iso',
               log: staticServerUrl + '/freezedry-build/' +
-                runningBuild.username + '/apricity_os-' + runningBuild.name +
+                runningBuild.configUsername + '/apricity_os-' + runningBuild.name +
                 '-' + runningBuild.buildNum + '.log'
             }});
           } else if (data.status === 'failure') {
@@ -97,7 +98,7 @@ if (Meteor.isServer) {
               completed: false,
               failed: true,
               log: staticServerUrl + '/freezedry-build/' +
-                runningBuild.username + '/apricity_os-' + runningBuild.name +
+                runningBuild.configUsername + '/apricity_os-' + runningBuild.name +
                 '-' + runningBuild.buildNum + '.log'
             }});
           } else if (data.status === 'not completed') {
@@ -110,9 +111,9 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'builds.add'(configId, username) {
+  'builds.add'(configId, configUsername) {
     check(configId, String);
-    check(username, String);
+    check(configUsername, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -120,23 +121,19 @@ Meteor.methods({
 
     let config = Configs.findOne({
       _id: configId,
-      username: username
+      username: configUsername
     });
 
-    if (Builds.find({
-      name: config.name,
-      username: config.username,
-      queued: true
-    }).fetch().length > 0) {
-      throw new Meteor.Error('not-allowed');
+    if (!config) {
+      throw new Meteor.Error('config-not-found');
     }
 
     let buildNum = Builds.find({
-      username: config.username,
+      configUsername: config.username,
       name: config.name
     }).fetch().length + 1;
     let latest = Builds.findOne({
-      username: config.username,
+      configUsername: config.username,
       name: config.name
     }, {sort: {buildNum: -1}});
     if (latest) {
@@ -150,11 +147,21 @@ Meteor.methods({
                                    prodected: false}, {sort: {queuedTime: 1}});
       // Builds.remove({_id: oldest._id});
       Builds.update({_id: oldest._id}, {$set: {download: undefined}});
-      deleteBuild(oldest.username, oldest.name);
+      deleteBuild(oldest.configUsername, oldest.name);
     }
-    if (!config) {
-      throw new Meteor.Error('config-not-found');
+
+    console.log(Builds.find({
+      configUsername: configUsername,
+      name: config.name
+    }).fetch());
+    if (Builds.find({
+      configUsername: configUsername,
+      name: config.name,
+      $or: [{queued: true}, {running: true}]
+    }).fetch().length !== 0) {
+      throw new Meteor.Error('not-allowed');
     }
+
     let protected = false;
     if (Meteor.users.find({_id: this.userId}).username === 'admin') {
       protected = true;
@@ -163,7 +170,8 @@ Meteor.methods({
     Builds.insert({
       config: config.config,
       name: config.name,
-      username: username,
+      configUsername: configUsername,
+      username: Meteor.user().username,
       initiator: this.userId,
       configOwner: config.owner,
       queuedTime: new Date(),
@@ -173,5 +181,26 @@ Meteor.methods({
       queued: true,
       protected: protected
     });
+  },
+  'builds.remove'(buildId) {
+    check(buildId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Builds.findOne({_id: buildId})) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    let build = Builds.findOne({_id: buildId});
+
+    if (build.username !== Meteor.user().username &&
+        build.configOwner !== this.userId &&
+        !Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.error('not-authorized');
+    }
+
+    Builds.remove({_id: buildId});
   }
 });

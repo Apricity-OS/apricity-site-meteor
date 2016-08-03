@@ -92,18 +92,18 @@ Template.forumDiscussionPage.helpers({
     }
     return undefined;
   },
-  ownerIsMe() {
+  canModify() {
     let discussion = Discussions.findOne({_id: FlowRouter.getParam('_id')});
-    if (discussion) {
-      return discussion.username === Meteor.user().username;
-    }
-    return undefined;
+    return discussion.username === Meteor.user().username ||
+      Roles.userIsInRole(Meteor.userId(), 'admin') ||
+      Roles.userIsInRole(Meteor.userId(), 'moderator');
   },
   editDiscussion() {
     return Template.instance().state.get('editDiscussion');
   },
   comments() {
-    return Comments.find({discussion: FlowRouter.getParam('_id')});
+    return Comments.find({discussion: FlowRouter.getParam('_id')},
+                         {$sort: {createdAt: -1}});
   },
   userUrl() {
     let discussion = Discussions.findOne({_id: FlowRouter.getParam('_id')});
@@ -159,8 +159,10 @@ Template.commentCard.helpers({
   userUrl() {
     return '/user/' + this.comment.username;
   },
-  ownerIsMe() {
-    return this.comment.username === Meteor.user().username;
+  canModify() {
+    return this.comment.username === Meteor.user().username ||
+      Roles.userIsInRole(Meteor.userId(), 'admin') ||
+      Roles.userIsInRole(Meteor.userId(), 'moderator');
   },
   editComment() {
     return Template.instance().state.get('editComment');

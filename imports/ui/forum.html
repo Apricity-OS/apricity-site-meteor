@@ -7,7 +7,17 @@
       <div class="col-md-8 offset-md-2">
         <div class="text-centered">
           <h2 class="forum-category-head">Categories</h2>
+          <div class="forum-category-spacer"></div>
         </div>
+      </div>
+      <div class="col-md-2 pull-md-right">
+        {{#if currentUser}}
+          <a href="/forum/add-discussion" role="button" class="btn btn-default btn-primary btn-lg pull-md-right">Add Discussion</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
         {{#each parentCategory in parentCategories}}
           <div class="card forum-category-card">
             <div class="card-header">
@@ -20,11 +30,6 @@
             </ul>
           </div>
         {{/each}}
-      </div>
-      <div class="col-md-2">
-        {{#if currentUser}}
-          <a href="/forum/add-discussion" role="button" class="btn btn-default btn-primary btn-lg pull-md-right">Add Discussion</a>
-        {{/if}}
       </div>
     </div>
   </div>
@@ -45,6 +50,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3 text-centered">
         <h2 class="forum-category-head">{{categoryName}}</h2>
+        <div class="forum-category-spacer"></div>
       </div>
       <div class="col-md-2 offset-md-1">
         <a href="/forum/add-discussion" class="pull-md-right btn btn-default btn-primary btn-lg">Add Discussion</a>
@@ -83,13 +89,25 @@
       {{> navbar}}
     </header>
     <div class="row">
-      <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-6 offset-md-2 text-centered">
         {{#if discussionExists}}
           <h2 class="forum-category-head">{{discussionName}}</h2>
+          <div class="forum-category-spacer"></div>
+        {{/if}}
+      </div>
+      <div class="col-md-2 pull-md-right">
+        {{#if currentUser}}
+          <a href="/forum/add-discussion" role="button" class="btn btn-default btn-primary btn-lg pull-md-right">Add Discussion</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        {{#if discussionExists}}
           <div class="card forum-comment-card">
             <div class="card-header">
               <a href="{{userUrl}}">{{discussionUsername}}</a>
-              {{#if ownerIsMe}}
+              {{#if canModify}}
                 <div class="btn-group btn-group-sm pull-md-right" role="group">
                   <button class="btn btn-secondary edit-discussion">Edit</button>
                   <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteDiscussion">Delete</button>
@@ -133,9 +151,6 @@
           <p>That's all we know.</p>
         {{/if}}
       </div>
-      <div class="col-md-3">
-        <a href="/forum/add-discussion" class="btn btn-default btn-primary btn-lg">Add Discussion</a>
-      </div>
     </div>
   </div>
 
@@ -164,7 +179,7 @@
   <div class="card forum-comment-card">
     <div class="card-header">
       <a href="{{userUrl}}">{{comment.username}}</a>
-      {{#if ownerIsMe}}
+      {{#if canModify}}
         <div class="btn-group btn-group-sm pull-md-right" role="group">
           <button class="btn btn-secondary edit-comment">Edit</button>
           <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteComment{{comment._id}}">Delete</button>
@@ -212,7 +227,7 @@
       {{> navbar}}
     </header>
     <div class="row">
-      <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-8 offset-md-2">
         <h2 class="add-discussion-header">Add Discussion</h2>
         {{> conditionalAlertErr text=alertErr}}
         <form class="add-discussion">

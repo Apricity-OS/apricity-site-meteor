@@ -12,7 +12,7 @@ Template.isoPage.helpers({
   buildAllowed() {
     // no queued builds for this config
     return Builds.find({
-      username: FlowRouter.getParam('username'),
+      configUsername: FlowRouter.getParam('username'),
       name: FlowRouter.getParam('configName'),
       $or: [{queued: true}, {running: true}]
     }).fetch().length === 0;
@@ -25,7 +25,7 @@ Template.isoPage.helpers({
   },
   builds() {
     return Builds.find({
-      username: FlowRouter.getParam('username'),
+      configUsername: FlowRouter.getParam('username'),
       name: FlowRouter.getParam('configName')
     }, {sort: {queuedTime: -1}});
   },
@@ -34,7 +34,7 @@ Template.isoPage.helpers({
   },
   fullName() {
     let config = Configs.findOne({
-      username: FlowRouter.getParam('username'),
+      configUsername: FlowRouter.getParam('username'),
       name: FlowRouter.getParam('configName')
     });
     if (config) {
@@ -72,5 +72,18 @@ Template.buildRow.helpers({
 
   date() {
     return this.build.queuedTime.toDateString();
+  },
+
+  canCancel() {
+    return this.build.username === Meteor.user().username ||
+      this.build.configOwner === Meteor.userId() ||
+      Roles.userIsInRole(Meteor.userId(), 'admin');
   }
 });
+
+Template.buildRow.events({
+  'click .cancel-build'(event, instance) {
+    event.preventDefault();
+    Meteor.call('builds.remove', this.build._id);
+  }
+})
