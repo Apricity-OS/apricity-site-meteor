@@ -8,7 +8,7 @@ Template.myConfigsPage.onCreated(function() {
 
 Template.myConfigsPage.helpers({
   configs() {
-    console.log(Configs.find().fetch());
+    // console.log(Configs.find().fetch());
     return Configs.find({owner: Meteor.userId()}, {sort: {editedAt: -1}});
   }
 });

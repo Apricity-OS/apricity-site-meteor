@@ -13,13 +13,13 @@ function startQueuedPackage() {
       'package_name': pkg.packageName,
       'repo_name': pkg.repoName,
       'repo_endpoint': pkg.repoEndpoint
-    },
+    }
   }, function(error, response) {
     if (error) {
-      console.log(error);
+      // console.log(error);
     } else {
       Packages.update({_id: pkg._id}, {$set: {running: true, queued: false}});
-      console.log(response);
+      // console.log(response);
     }
   });
 }
@@ -37,10 +37,10 @@ if (Meteor.isServer) {
     } else {
       HTTP.get('http://45.55.247.46:8000/repo', {}, function(error, response) {
         if (error) {
-          console.log(error);
+          // console.log(error);
         } else {
           let runningPackage = Packages.findOne({running: true});
-          console.log(response);
+          // console.log(response);
           let data = response.data;
           if (data.status === 'success') {
             Packages.update({running: true}, {$set: {
@@ -63,7 +63,7 @@ if (Meteor.isServer) {
                 runningPackage.packageName + '.log'
             }});
           } else if (data.status === 'not completed') {
-            console.log('Current package not completed');
+            // console.log('Current package not completed');
           }
         }
       });

@@ -39,6 +39,37 @@ import './bootstrap/collapse.js';
 import './bootstrap/modal.js';
 import './bootstrap/dropdown.js';
 
+BlazeLayout.setRoot('#templateRoot');
+
+Template.navbar.onRendered(function() {
+  let fav = document.createElement('link');
+  fav.rel = 'icon';
+  fav.sizes = '16x16 32x3';
+  fav.href = '/assets/img/favicon.ico?v=3';
+  document.getElementsByTagName('head')[0].appendChild(fav);
+
+  let viewport = document.createElement('meta');
+  viewport.name = 'viewport';
+  viewport.content = 'width=device-width, initial-scale=1, maximum-scale=1';
+  document.getElementsByTagName('head')[0].appendChild(viewport);
+
+  let roboto = document.createElement('link');
+  roboto.href = 'https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400';
+  roboto.rel = 'stylesheet';
+  roboto.type = 'text/css';
+  document.getElementsByTagName('head')[0].appendChild(roboto);
+
+  let lato = document.createElement('link');
+  lato.href = 'https://fonts.googleapis.com/css?family=Lato:300,400,700';
+  lato.rel = 'stylesheet';
+  lato.type = 'text/css';
+  document.getElementsByTagName('head')[0].appendChild(lato);
+
+  let title = document.createElement('title');
+  title.innerHTML = 'Apricity OS';
+  document.getElementsByTagName('head')[0].appendChild(title);
+});
+
 Template.registerHelper("checkedIf", function(value){
   return value ? "checked" : "";
 });
@@ -66,3 +97,18 @@ Tracker.autorun(() => {
   }
 });
 
+Template.auth.onCreated(function() {
+  let self = this;
+  self.routeName = new ReactiveVar();
+  Tracker.autorun(function() {
+    FlowRouter.watchPathChange();
+    self.routeName.set(FlowRouter.current().route.name);
+  });
+});
+
+Template.auth.helpers({
+  resetRedirect() {
+    console.log(Template.instance().routeName);
+    return Template.instance().routeName.get() === 'login';
+  }
+});

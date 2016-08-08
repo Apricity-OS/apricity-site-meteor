@@ -12,18 +12,22 @@ if (Meteor.isServer) {
 
 if (Meteor.isServer) {
   let notifyDiscussionContributors = function(discussionId, editorUsername) {
+    let discussionName = Discussions.findOne({_id: discussionId}).name;
     _.each(_.uniq(_.union(_.map(Comments.find({discussion: discussionId}).fetch(),
                                 c => c.username),
-                          [Discussions.findOne({_id: discussionId}).username])),
+                          [Discussions.findOne({_id: discussionId}).username,
+                           'admin'])),
            username => {
-             Email.send({
-               to: Meteor.users.findOne({username: username}).emails[0].address,
-               from: "noreply@apricityos.com",
-               subject: "Apricity OS Forum: New Comment On A Discussion You Participated In",
-               text: editorUsername + " commented on a discussion you participated in.\n\n" +
-                 "Follow the link below to check it out:" + "\nhttp://apricityos.com/forum/discussion/" + discussionId +
-                 "\n\nHave a great day!"
-             });
+             if (username !== Meteor.user().username) {
+               Email.send({
+                 to: Meteor.users.findOne({username: username}).emails[0].address,
+                 from: "postmaster@apricityos.com",
+                 subject: "Apricity OS Forum: New Comment On " + discussionName,
+                 text: editorUsername + " commented on a discussion you participated in.\n\n" +
+                   "Follow the link below to check it out:" + "\nhttp://apricityos.com/forum/discussion/" + discussionId +
+                   "\n\nHave a great day!"
+               });
+             }
            });
   };
 

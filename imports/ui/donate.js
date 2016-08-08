@@ -1,9 +1,9 @@
 Template.donate.onCreated(function() {
-  console.log(Meteor.settings.public.stripe);
+  // console.log(Meteor.settings.public.stripe);
   let self = this;
   this.donate = StripeCheckout.configure({
     key: Meteor.settings.public.stripe,
-    image: '/assets/img/mark.png',
+    image: '/assets/img/logo.png',
     locale: 'auto',
     token(token) {
       charge = {
@@ -15,10 +15,10 @@ Template.donate.onCreated(function() {
       };
       Meteor.call('processPayment', charge, function(error, response) {
         if (error) {
-          console.log(error);
+          // console.log(error);
           self.state.set('donateErr', error.reason);
         } else {
-          console.log(response);
+          // console.log(response);
         }
       });
     }

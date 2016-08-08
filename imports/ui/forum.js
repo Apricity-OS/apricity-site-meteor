@@ -130,7 +130,7 @@ Template.forumDiscussionPage.events({
   },
   'click .delete-discussion'(event, instance) {
     event.preventDefault();
-    console.log(event.target);
+    // console.log(event.target);
     let modal = $('#deleteDiscussion');
     modal.modal('hide');
     modal.on('hidden.bs.modal', function() {
@@ -172,7 +172,7 @@ Template.commentCard.helpers({
 Template.commentCard.events({
   'click .delete-comment'(event, instance) {
     event.preventDefault();
-    console.log(event.target);
+    // console.log(event.target);
     let modal = $('#deleteComment' + this.comment._id);
     modal.modal('hide');
     let self = this;

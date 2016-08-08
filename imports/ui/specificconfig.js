@@ -8,10 +8,10 @@ Template.specificConfigPage.onCreated(function() {
 
 Template.specificConfigPage.helpers({
   config() {
-    console.log(Configs.find().fetch());
-    console.log(FlowRouter.getParam('username'));
-    console.log(FlowRouter.getParam('configName'));
-    console.log(Configs.find().fetch());
+    // console.log(Configs.find().fetch());
+    // console.log(FlowRouter.getParam('username'));
+    // console.log(FlowRouter.getParam('configName'));
+    // console.log(Configs.find().fetch());
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return Configs.findOne({
         username: FlowRouter.getParam('username'),

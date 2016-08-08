@@ -42,7 +42,7 @@ Meteor.startup(() => {
     });
 
   Accounts.emailTemplates.siteName = 'Apricity OS';
-  Accounts.emailTemplates.from = 'Apricity OS Accounts <noreply@apricityos.com>';
+  Accounts.emailTemplates.from = 'Apricity OS Accounts <postmaster@apricityos.com>';
 
   Accounts.emailTemplates.enrollAccount.subject = function(user) {
     return 'Apricity OS: Account Verification';

@@ -6,7 +6,7 @@ import {getContent} from './home.js';
 Template.featuresPage.onCreated(function() {
   Meteor.subscribe('content', {
     onReady() {
-      console.log(Content.find({}).length);
+      // console.log(Content.find({}).length);
     }
   });
 });

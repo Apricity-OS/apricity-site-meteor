@@ -33,7 +33,7 @@ Meteor.methods({
       throw new Meteor.Error('category-not-found');
     }
 
-    if (Categories.findOne({name: discussionCategory}).restricted && !Roles.userIsInRole(this.userId)) {
+    if (Categories.findOne({name: discussionCategory}).restricted && !Roles.userIsInRole(this.userId, 'admin')) {
       throw new Meteor.Error('not-authorized');
     }
 

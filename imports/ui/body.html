@@ -1,26 +1,33 @@
-<template name="app">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-  </head>
+<head>
+  <link rel="icon" sizes="16x16 32x32" href="/assets/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" -->
+  <!-- rel="stylesheet"> -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+  <title>Apricity OS</title>
+</head>
 
+<body id="mainBody">
+  <div id="templateRoot"></div>
+</body>
+
+<template name="app">
   {{> Template.dynamic template=page}}
 </template>
 
 <template name="auth">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-  </head>
-
   <div class="container">
     {{> navbar}}
+    {{#if resetRedirect}}
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="alert alert-info" role="alert">
+            <strong>Heads up!</strong> Had an account on the old forum? Reset your password <a href="/forgot-password">here</a>.
+          </div>
+        </div>
+      </div>
+    {{/if}}
     {{> Template.dynamic template=page}}
   </div>
 </template>
@@ -43,6 +50,8 @@
         {{> navitem active=forumActive link="/forum" text="Forum"}}
         {{> navitem active=blogActive link="/blog" text="Blog"}}
         {{> navitem active=docsActive link="/docs" text="Docs"}}
+        {{> navitem link="https://gitter.im/Apricity-OS/apricity-build" text="Chat"}}
+        {{> navitem link="https://github.com/Apricity-OS" text="Dev"}}
       </ul>
       {{#if currentUser}}
         <div class="navbar-buttons pull-md-right">

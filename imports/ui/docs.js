@@ -8,7 +8,7 @@ Template.docsPage.onCreated(function() {
 
 Template.docsPage.helpers({
   docs() {
-    console.log(Docs.find().fetch());
+    // console.log(Docs.find().fetch());
     return Docs.find({}, {sort: {name: 1}});
   }
 });
@@ -43,7 +43,7 @@ Template.docsEntryPage.helpers({
 Template.docsEntryPage.events({
   'click .delete-docs-entry'(event, instance) {
     event.preventDefault();
-    console.log(event.target);
+    // console.log(event.target);
     let modal = $('#deleteDocsEntry');
     modal.modal('hide');
     let docsEntryId = Docs.findOne({cleanName: FlowRouter.getParam('cleanName')})._id;

@@ -1,7 +1,13 @@
 import {Mongo} from 'meteor/mongo';
 import {check} from 'meteor/check';
 
-const Downloads = new Mongo.Collection('downloads');
+export const Downloads = new Mongo.Collection('downloads');
+
+if (Meteor.isServer) {
+  Meteor.publish('downloads', function() {
+    return Downloads.find();
+  });
+}
 
 Meteor.methods({
   'downloads.insert'(name, edition, channel, version, type) {

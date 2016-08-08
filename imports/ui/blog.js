@@ -8,7 +8,7 @@ Template.blogPage.onCreated(function() {
 
 Template.blogPage.helpers({
   posts() {
-    console.log(Posts.find().fetch());
+    // console.log(Posts.find().fetch());
     return Posts.find({}, {sort: {createdAt: -1}});
   }
 });

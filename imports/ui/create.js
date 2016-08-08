@@ -41,8 +41,8 @@ Template.createPage.onCreated(function() {
           self.state.set('fullName', baseConfig.fullName);
           self.state.set('description', baseConfig.description);
           self.baseConfig = () => baseConfig.config;
-          console.log('Cloning');
-          console.log(self.baseConfig());
+          // console.log('Cloning');
+          // console.log(self.baseConfig());
           self.hasBaseConfig.set(true);
         } else if (FlowRouter.current().route.name === 'specificConfigEdit') {
           self.edit = true;
@@ -51,24 +51,24 @@ Template.createPage.onCreated(function() {
             username: FlowRouter.getParam('username')
           });
           self.baseConfigId = baseConfig._id;
-          console.log('Base config id');
-          console.log(self.baseConfigId);
+          // console.log('Base config id');
+          // console.log(self.baseConfigId);
           self.state.set('screenshotUrl', baseConfig.screenshot);
           self.state.set('fullName', baseConfig.fullName);
           self.state.set('description', baseConfig.description);
           self.baseConfig = () => baseConfig.config;
-          console.log('Editing');
+          // console.log('Editing');
           self.hasBaseConfig.set(true);
           self.hasBaseConfig = new ReactiveVar(true);
         } else {
-          console.log('Not sure');
+          // console.log('Not sure');
         }
       } else {
         self.creating = true;
         self.baseConfig = function() {return {};};
-        console.log(self.baseConfig());
+        // console.log(self.baseConfig());
         self.hasBaseConfig.set(true);
-        console.log('Creating blank');
+        // console.log('Creating blank');
         self.state.set('uploadScreenshotTab', true);
         self.state.set('cinUploadScreenshotTab', true);
         self.state.set('uploadGtkThemeTab', true);
@@ -79,7 +79,7 @@ Template.createPage.onCreated(function() {
         self.state.set('cinUploadIconThemeTab', true);
       }
 
-      console.log(self.baseConfig());
+      // console.log(self.baseConfig());
       if (self.baseConfig().gnome) {
         self.state.set('gnomeTab', true);
       } else if (self.baseConfig().cinnamon) {
@@ -168,11 +168,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('wallpaperUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -180,11 +180,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('cinWallpaperUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -193,11 +193,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('gtkThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -205,11 +205,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('cinGtkThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -218,11 +218,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('shellThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -230,11 +230,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('cinShellThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -243,11 +243,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('iconThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -255,11 +255,11 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('cinIconThemeUrl', fileInfo.url);
-        console.log(instance.state);
+        // console.log(instance.state);
       }
     };
   },
@@ -268,9 +268,9 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('lockUrl', fileInfo.url);
       }
     };
@@ -279,9 +279,9 @@ Template.createPage.helpers({
     let instance = Template.instance();
     return {
       finished(index, fileInfo, context) {
-        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/");
-        console.log(fileInfo.url);
+        fileInfo.path = fileInfo.path.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        fileInfo.url = fileInfo.url.replace(Meteor.user().username + "//", Meteor.user().username + "/").replace('127.0.0.1:8080', 'apricityos.com');
+        // console.log(fileInfo.url);
         instance.state.set('screenshotUrl', fileInfo.url);
       }
     };
@@ -377,18 +377,18 @@ Template.createPage.helpers({
   },
 
   userCode() {
-    console.log('Getting user code');
+    // console.log('Getting user code');
     if (Template.instance().config.get().code) {
-      console.log(Template.instance().config.get().code.user.join('\n'));
+      // console.log(Template.instance().config.get().code.user.join('\n'));
       return Template.instance().config.get().code.user.join('\n');
     } else {
-      console.log('User code is false');
+      // console.log('User code is false');
       return undefined;
     }
   },
   rootCode() {
     if (Template.instance().config.get().code) {
-      console.log(Template.instance().config.get().code);
+      // console.log(Template.instance().config.get().code);
       return Template.instance().config.get().code.root.join('\n');
     }
     return undefined;
@@ -468,7 +468,7 @@ function setGnomeIconThemeConfig(instance, alert) {
 function setGnomeConfig(instance, alert) {
   let config = instance.config.get();
 
-  console.log(document.getElementById('gtkTheme'));
+  // console.log(document.getElementById('gtkTheme'));
   // config.gnome.gtk_theme = document.getElementById('gtkTheme').value;
   // config.gnome.shell_theme = document.getElementById('shellTheme').value;
   // config.gnome.icon_theme = document.getElementById('iconTheme').value;
@@ -477,7 +477,7 @@ function setGnomeConfig(instance, alert) {
   config.gnome.desktop_icons = document.getElementById('desktopIcons').checked;
 
   instance.config.set(config);
-  console.log(instance.config.get());
+  // console.log(instance.config.get());
   setGnomeWallpaperConfig(instance, alert);
   setGnomeGtkThemeConfig(instance, alert);
   setGnomeShellThemeConfig(instance, alert);
@@ -500,10 +500,10 @@ function setCinnamonWallpaperConfig(instance, alert) {
 }
 
 function setCinnamonGtkThemeConfig(instance, alert) {
-  console.log('Setting cinnamon gtk theme config');
+  // console.log('Setting cinnamon gtk theme config');
   let config = instance.config.get();
   if (instance.state.get('cinUploadGtkThemeTab')) {
-    console.log('On upload gtk theme tab');
+    // console.log('On upload gtk theme tab');
     if (instance.state.get('cinGtkThemeUrl')) {
       config.cinnamon.gtk_theme = instance.state.get('cinGtkThemeUrl');
     } else if (alert) {
@@ -516,10 +516,10 @@ function setCinnamonGtkThemeConfig(instance, alert) {
 }
 
 function setCinnamonShellThemeConfig(instance, alert) {
-  console.log('Setting cinnamon shell theme config');
+  // console.log('Setting cinnamon shell theme config');
   let config = instance.config.get();
   if (instance.state.get('cinUploadShellThemeTab')) {
-    console.log('On upload shell theme tab');
+    // console.log('On upload shell theme tab');
     if (instance.state.get('cinShellThemeUrl')) {
       config.cinnamon.shell_theme = instance.state.get('cinShellThemeUrl');
     } else if (alert) {
@@ -532,10 +532,10 @@ function setCinnamonShellThemeConfig(instance, alert) {
 }
 
 function setCinnamonIconThemeConfig(instance, alert) {
-  console.log('Setting cinnamon icon theme config');
+  // console.log('Setting cinnamon icon theme config');
   let config = instance.config.get();
   if (instance.state.get('cinUploadIconThemeTab')) {
-    console.log('On upload icon theme tab');
+    // console.log('On upload icon theme tab');
     if (instance.state.get('cinIconThemeUrl')) {
       config.cinnamon.icon_theme = instance.state.get('cinIconThemeUrl');
     } else if (alert) {
@@ -550,14 +550,14 @@ function setCinnamonIconThemeConfig(instance, alert) {
 function setCinnamonConfig(instance, alert) {
   let config = instance.config.get();
 
-  console.log(document.getElementById('cinGtkTheme'));
+  // console.log(document.getElementById('cinGtkTheme'));
   // config.cinnamon.gtk_theme = document.getElementById('cinGtkTheme').value;
   // config.cinnamon.shell_theme = document.getElementById('cinShellTheme').value;
   // config.cinnamon.icon_theme = document.getElementById('cinIconTheme').value;
   config.cinnamon.gtk_button_layout = document.getElementById('cinGtkButtonLayout').value;
 
   instance.config.set(config);
-  console.log(instance.config.get());
+  // console.log(instance.config.get());
   setCinnamonWallpaperConfig(instance, alert);
   setCinnamonGtkThemeConfig(instance, alert);
   setCinnamonShellThemeConfig(instance, alert);
@@ -598,7 +598,7 @@ function setCodeConfig(instance, alert) {
 Template.createPage.events({
   'submit .package-form'(event, instance) {
     event.preventDefault();
-    console.log(instance.config);
+    // console.log(instance.config);
     let packageName = event.target.packageName.value;
     if (packageName) {
       let config = instance.config.get();
@@ -663,11 +663,11 @@ Template.createPage.events({
     event.preventDefault();
     instance.state.set('alertErr', undefined);
     let config = instance.config.get();
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
     config.systemd = _.deepClone(instance.baseConfig().systemd, 3);
-    console.log(instance.baseConfig().systemd);
+    // console.log(instance.baseConfig().systemd);
     instance.config.set(config);
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
   },
 
   'submit .favorite-apps-form'(event, instance) {
@@ -728,10 +728,10 @@ Template.createPage.events({
   'click .app-reset-btn'(event, instance) {
     event.preventDefault();
     let config = instance.config.get();
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
     config.gnome.favorite_apps = _.deepClone(instance.baseConfig().gnome.favorite_apps, 2);
     instance.config.set(config);
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
   },
 
   'click .cin-app-clear-btn'(event, instance) {
@@ -743,11 +743,11 @@ Template.createPage.events({
   'click .cin-app-reset-btn'(event, instance) {
     event.preventDefault();
     let config = instance.config.get();
-    console.log(instance.config.get());
-    console.log(instance.baseConfig());
+    // console.log(instance.config.get());
+    // console.log(instance.baseConfig());
     config.cinnamon.favorite_apps = _.deepClone(instance.baseConfig().cinnamon.favorite_apps, 2);
     instance.config.set(config);
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
   },
 
   'submit .extensions-form'(event, instance) {
@@ -779,10 +779,10 @@ Template.createPage.events({
   'click .extension-reset-btn'(event, instance) {
     event.preventDefault();
     let config = instance.config.get();
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
     config.gnome.extensions = _.deepClone(instance.baseConfig().gnome.extensions, 2);
     instance.config.set(config);
-    console.log(instance.config.get());
+    // console.log(instance.config.get());
   },
 
   'click .uploadWallpaper'(event, instance) {
@@ -937,7 +937,7 @@ Template.createPage.events({
       screenshotUrl = document.getElementById('pasteScreenshotInput').value;
     }
 
-    console.log(screenshotUrl);
+    // console.log(screenshotUrl);
     if (!screenshotUrl) {
       screenshotUrl = '/assets/img/no-screenshot.png';
     }
@@ -961,8 +961,8 @@ Template.createPage.events({
 
     setCodeConfig(instance, true);
 
-    console.log(instance.config.get());
-    console.log(cleanName);
+    // console.log(instance.config.get());
+    // console.log(cleanName);
     if (instance.creating) {
       Meteor.call('configs.create', instance.config.get(), cleanName, fullName, screenshotUrl, description);
     } else {
@@ -977,7 +977,7 @@ Template.createPage.events({
 Template.packageLI.events({
   'click .remove-btn'(event, instance) {
     event.preventDefault();
-    console.log(this.package);
+    // console.log(this.package);
     let config = this.config.get();
     let packages = config.pacman.packages;
     packages.splice(packages.indexOf(this.package), 1);
@@ -1041,7 +1041,7 @@ Template.customUpload.rendered = function () {
 Template.customUpload.events({
   'click .start': function (e) {
     Uploader.startUpload.call(Template.instance(), e);
-    console.log('Started upload');
+    // console.log('Started upload');
   }
 });
 

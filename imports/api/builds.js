@@ -31,11 +31,11 @@ export function configToToml(config) {
 }
 
 // UPDATE THIS
-// let buildServerUrl = 'http://10.136.15.8:8000';
-let buildServerUrl = 'http://159.203.176.252:8000';
+let buildServerUrl = 'http://10.136.15.8:8000';
+// let buildServerUrl = 'http://159.203.176.252:8000';
 let staticServerUrl = 'https://static.apricityos.com';
 
-const MAX_BUILDS = 2;
+const MAX_BUILDS = 30;
 
 function startQueuedBuild() {
   let build = Builds.findOne({queued: true}, {sort: {queuedTime: 1}});
@@ -51,10 +51,10 @@ function startQueuedBuild() {
     }
   }, function(error, response) {
     if (error) {
-      console.log(error);
+      // console.log(error);
     } else {
       Builds.update({_id: build._id}, {$set: {running: true, queued: false}});
-      console.log(response);
+      // console.log(response);
     }
   });
 }
@@ -78,10 +78,10 @@ if (Meteor.isServer) {
     } else {  // a build is running
       HTTP.get(buildServerUrl + '/build', {}, function(error, response) {
         if (error) {
-          console.log(error);
+          // console.log(error);
         } else {
           let runningBuild = Builds.findOne({running: true});
-          console.log(response);
+          // console.log(response);
           let data = response.data;
           if (data.status === 'success') {
             Builds.update({running: true}, {$set: {
@@ -107,7 +107,7 @@ if (Meteor.isServer) {
                 '-' + runningBuild.buildNum + '.log'
             }});
           } else if (data.status === 'not completed') {
-            console.log('Current build not completed');
+            // console.log('Current build not completed');
           }
         }
       });
@@ -149,16 +149,17 @@ Meteor.methods({
                     protected: false}).fetch().length > MAX_BUILDS) {
       // delete oldest build download
       let oldest = Builds.findOne({download: {$ne: undefined},
-                                   prodected: false}, {sort: {queuedTime: 1}});
+                                   protected: {$ne: true}}, {sort: {queuedTime: 1}});
       // Builds.remove({_id: oldest._id});
       Builds.update({_id: oldest._id}, {$set: {download: undefined}});
-      deleteBuild(oldest.configUsername, oldest.name);
+      deleteBuild(oldest.configUsername, oldest.name + '-' + oldest.buildNum);
     }
 
-    console.log(Builds.find({
-      configUsername: configUsername,
-      name: config.name
-    }).fetch());
+    // console.log(Builds.find({
+    //   configUsername: configUsername,
+    //   name: config.name
+    // }).fetch());
+
     if (Builds.find({
       configUsername: configUsername,
       name: config.name,

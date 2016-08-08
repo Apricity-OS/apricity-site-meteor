@@ -4,14 +4,14 @@ import {Content} from '../api/content.js';
 
 export function getContent(name){
   let field = Content.findOne({name: name});
-  console.log(field);
+  // console.log(field);
   return field && field.text;
 }
 
 Template.homePage.onCreated(function() {
   Meteor.subscribe('content', {
     onReady() {
-      console.log(Content.find({}).length);
+      // console.log(Content.find({}).length);
     }
   });
 });
